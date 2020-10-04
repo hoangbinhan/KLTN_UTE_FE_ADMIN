@@ -11,7 +11,10 @@ import {
 
 //others
 import './style.scss';
-// import {renderListSubMenu} from '@/'
+import { SubCatalog, SubSales, SubCustomers } from './DataSource/menuItems';
+import { renderListSubMenu } from '../../utils/Dashboard';
+import DashBoardPage from '../../pages/DashBoardPage';
+import CategoriesPage from '../../pages/CategoriesPage';
 
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -30,21 +33,13 @@ const SliderLayout = () => {
             Dashboard
           </Menu.Item>
           <SubMenu key='sub2' icon={<AppstoreOutlined />} title='Catalog'>
-            <Menu.Item key='2'>Categories</Menu.Item>
-            <Menu.Item key='3'>Products</Menu.Item>
-            <Menu.Item key='4'>Manufacturers</Menu.Item>
-            <Menu.Item key='5'>Reviews</Menu.Item>
-            <Menu.Item key='6'>Information</Menu.Item>
+            {renderListSubMenu(SubCatalog)}
           </SubMenu>
           <SubMenu key='sub3' icon={<ShoppingCartOutlined />} title='Sales'>
-            <Menu.Item key='7'>Orders</Menu.Item>
-            <Menu.Item key='8'>Recurring Orders</Menu.Item>
-            <Menu.Item key='9'>Product Returns</Menu.Item>
-            <Menu.Item key='10'>Gift Vouchers</Menu.Item>
+            {renderListSubMenu(SubSales)}
           </SubMenu>
           <SubMenu key='sub4' icon={<UserOutlined />} title='Customers'>
-            <Menu.Item key='11'>Customers</Menu.Item>
-            <Menu.Item key='12'>Customer Group</Menu.Item>
+            {renderListSubMenu(SubCustomers)}
           </SubMenu>
         </Menu>
       </Sider>
@@ -64,9 +59,11 @@ const SliderLayout = () => {
             margin: '24px 16px',
             padding: 24,
             minHeight: 'auto',
+            backgroundColor: 'none',
           }}
         >
-          Content
+          {/* <DashBoardPage /> */}
+          <CategoriesPage />
         </Content>
       </Layout>
     </Layout>
