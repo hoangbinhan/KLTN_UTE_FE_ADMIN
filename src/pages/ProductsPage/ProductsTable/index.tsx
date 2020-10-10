@@ -1,11 +1,24 @@
 //Libs
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Button, Modal, Input, Select } from 'antd';
-
+import { useDispatch } from 'react-redux';
+//hooks
+import { useTypedSelector } from '@/hooks';
+//actions
+import { fetchDataProducts } from '@/actions/Products/FetchDataProducts';
 const { Search } = Input;
 const { Option } = Select;
 
 const ProductsTable = () => {
+  const dispatch = useDispatch();
+  const { listProducts, isLoading, isError, error } = useTypedSelector(
+    (state) => state.Products.FetchDataProducts
+  );
+  console.log('listProducts :>> ', listProducts);
+  useEffect(() => {
+    dispatch(fetchDataProducts());
+  }, [dispatch]);
+
   const [visible, setVisible] = useState(false);
   const showModal = () => {
     setVisible(true);
@@ -50,18 +63,6 @@ const ProductsTable = () => {
       title: 'Action',
     },
   ];
-  const data = [];
-  for (let i = 0; i < 46; i++) {
-    data.push({
-      key: i,
-      image: `Edward King ${i}`,
-      productName: 32,
-      model: `London, Park Lane no. ${i}`,
-      price: `Edward King ${i}`,
-      quantiy: 32,
-      status: `London, Park Lane no. ${i}`,
-    });
-  }
 
   return (
     <>
@@ -94,7 +95,7 @@ const ProductsTable = () => {
           <Option value='disable'>Díable</Option>
         </Select>
       </>
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={listProducts} />
     </>
   );
 };

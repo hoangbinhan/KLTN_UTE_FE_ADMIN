@@ -1,6 +1,6 @@
 //libs
 import React from 'react';
-import { Table, Tag } from 'antd';
+import { Table } from 'antd';
 
 const RecentTransaction = () => {
   const columns = [

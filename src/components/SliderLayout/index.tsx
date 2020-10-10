@@ -1,26 +1,16 @@
 //libs
 import React, { useState } from 'react';
 import { Layout, Menu } from 'antd';
-import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  UserOutlined,
-  AppstoreOutlined,
-  ShoppingCartOutlined,
-} from '@ant-design/icons';
+import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 
 //others
 import './style.scss';
-import { SubCatalog, SubSales, SubCustomers } from './DataSource/menuItems';
-import { renderListSubMenu } from '../../utils/Dashboard';
-import DashBoardPage from '../../pages/DashBoardPage';
-import CategoriesPage from '../../pages/CategoriesPage';
-import ProductsPage from '../../pages/ProductsPage';
+import { MenuItem } from './DataSource/MenuItem';
+import { renderListSubMenu } from '@/utils/Dashboard';
 
 const { Header, Sider, Content } = Layout;
-const { SubMenu } = Menu;
 
-const SliderLayout = () => {
+const SliderLayout = ({ children }: { children: JSX.Element }) => {
   const [collapsed, setCollapsed] = useState(false);
   const toggle = () => {
     setCollapsed(!collapsed);
@@ -30,18 +20,7 @@ const SliderLayout = () => {
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className='logo' />
         <Menu theme='dark' mode='inline' defaultSelectedKeys={['1']}>
-          <Menu.Item key='1' icon={<UserOutlined />}>
-            Dashboard
-          </Menu.Item>
-          <SubMenu key='sub2' icon={<AppstoreOutlined />} title='Catalog'>
-            {renderListSubMenu(SubCatalog)}
-          </SubMenu>
-          <SubMenu key='sub3' icon={<ShoppingCartOutlined />} title='Sales'>
-            {renderListSubMenu(SubSales)}
-          </SubMenu>
-          <SubMenu key='sub4' icon={<UserOutlined />} title='Customers'>
-            {renderListSubMenu(SubCustomers)}
-          </SubMenu>
+          {renderListSubMenu(MenuItem)}
         </Menu>
       </Sider>
       <Layout className='site-layout'>
@@ -63,9 +42,7 @@ const SliderLayout = () => {
             backgroundColor: 'none',
           }}
         >
-          {/* <DashBoardPage /> */}
-          {/* <CategoriesPage /> */}
-          <ProductsPage />
+          {children}
         </Content>
       </Layout>
     </Layout>
