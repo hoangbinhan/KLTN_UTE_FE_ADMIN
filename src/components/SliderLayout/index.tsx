@@ -15,6 +15,7 @@ import { SubCatalog, SubSales, SubCustomers } from './DataSource/menuItems';
 import { renderListSubMenu } from '../../utils/Dashboard';
 import DashBoardPage from '../../pages/DashBoardPage';
 import CategoriesPage from '../../pages/CategoriesPage';
+import ProductsPage from '../../pages/ProductsPage';
 
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -63,7 +64,8 @@ const SliderLayout = () => {
           }}
         >
           {/* <DashBoardPage /> */}
-          <CategoriesPage />
+          {/* <CategoriesPage /> */}
+          <ProductsPage />
         </Content>
       </Layout>
     </Layout>
