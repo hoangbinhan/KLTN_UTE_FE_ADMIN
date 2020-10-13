@@ -6,12 +6,19 @@ import CONSTANTS from '@/constants';
 import DashBoardPage from '@/pages/DashBoardPage';
 import CategoriesPage from '@/pages/CategoriesPage';
 import ProductsPage from '@/pages/ProductsPage';
+import Home from '@/pages/Home';
 
 /**
  * define main pages routes
  */
 
 const routers: ROUTERS = [
+  {
+    path: CONSTANTS.ROUTERS.HOME,
+    pageName: CONSTANTS.PAGE_NAME.HOME,
+    exact: true,
+    component: Home,
+  },
   {
     path: CONSTANTS.ROUTERS.DASHBOARD,
     pageName: CONSTANTS.PAGE_NAME.DASHBOARD,

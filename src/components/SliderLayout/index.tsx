@@ -1,7 +1,11 @@
 //libs
 import React, { useState } from 'react';
-import { Layout, Menu } from 'antd';
-import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
+import { Layout, Menu, Avatar, Popover } from 'antd';
+import {
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 
 //others
 import './style.scss';
@@ -9,6 +13,12 @@ import { MenuItem } from './DataSource/MenuItem';
 import { renderListSubMenu } from '@/utils/Dashboard';
 
 const { Header, Sider, Content } = Layout;
+const content = (
+  <div>
+    <p>Content</p>
+    <p>Content</p>
+  </div>
+);
 
 const SliderLayout = ({ children }: { children: JSX.Element }) => {
   const [collapsed, setCollapsed] = useState(false);
@@ -24,7 +34,10 @@ const SliderLayout = ({ children }: { children: JSX.Element }) => {
         </Menu>
       </Sider>
       <Layout className='site-layout'>
-        <Header className='site-layout-background' style={{ padding: 0 }}>
+        <Header
+          className='site-layout-background header-dashboard'
+          style={{ padding: 0 }}
+        >
           {React.createElement(
             collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
             {
@@ -32,6 +45,10 @@ const SliderLayout = ({ children }: { children: JSX.Element }) => {
               onClick: toggle,
             }
           )}
+          <Popover className='user-control' content={content} trigger='click'>
+            <Avatar size={38} icon={<UserOutlined />} />
+            <div className='user-control-nan'>Hoang Binh An</div>
+          </Popover>
         </Header>
         <Content
           className='site-layout-background'

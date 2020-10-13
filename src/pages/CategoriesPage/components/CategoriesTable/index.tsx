@@ -1,21 +1,9 @@
 //Libs
-import React, { useState } from 'react';
-import { Table, Button, Modal } from 'antd';
+import React from 'react';
+import { Table } from 'antd';
+import CategoriesControl from '../CategoriesControl';
 
 const CategoriesTable = () => {
-  const [visible, setVisible] = useState(false);
-  const showModal = () => {
-    setVisible(true);
-  };
-  const handleOk = (e: any) => {
-    console.log(e);
-    setVisible(false);
-  };
-
-  const handleCancel = (e: any) => {
-    console.log(e);
-    setVisible(false);
-  };
   const columns = [
     {
       title: 'Category Name',
@@ -42,21 +30,7 @@ const CategoriesTable = () => {
 
   return (
     <>
-      <>
-        <Button type='primary' onClick={showModal}>
-          Add new
-        </Button>
-        <Modal
-          title='Basic Modal'
-          visible={visible}
-          onOk={handleOk}
-          onCancel={handleCancel}
-        >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-        </Modal>
-      </>
+      <CategoriesControl />
       <Table columns={columns} dataSource={data} />
     </>
   );
