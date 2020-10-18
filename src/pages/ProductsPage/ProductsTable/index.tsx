@@ -11,7 +11,7 @@ const { Option } = Select;
 
 const ProductsTable = () => {
   const dispatch = useDispatch();
-  const { listProducts, isLoading, isError, error } = useTypedSelector(
+  const { listProducts } = useTypedSelector(
     (state) => state.Products.FetchDataProducts
   );
   console.log('listProducts :>> ', listProducts);

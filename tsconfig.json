@@ -21,7 +21,8 @@
   },
   "extends": "./tsconfig.paths.json",
   "include": [
-    "src"
+    "src",
+    "desc.d.ts"
   ],
   "exclude": [
     "node_modules",
