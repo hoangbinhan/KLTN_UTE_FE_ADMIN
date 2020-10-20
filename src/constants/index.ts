@@ -7,6 +7,7 @@ const CONSTANTS = {
     DASHBOARD: 'Dashboard',
     PRODUCTS: 'Products',
     CATEGORIES: 'Categories',
+    CREATE_PRODUCT: 'Create Product',
   },
   ENDPOINTS,
   ROUTERS,

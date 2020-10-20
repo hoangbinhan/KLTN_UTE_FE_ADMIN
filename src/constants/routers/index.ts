@@ -12,6 +12,7 @@ const ROUTERS = {
   GIFT_VOUCHERS: '/gift-vouchers',
   CUSTOMERS: '/customers',
   CUSTOMER_GROUP: '/customer-group',
+  CREATE_PRODUCT: '/create-product',
 };
 
 export default ROUTERS;

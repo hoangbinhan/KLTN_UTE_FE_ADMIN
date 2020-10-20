@@ -2,6 +2,7 @@
 import React from 'react';
 import {
   AppstoreOutlined,
+  DashboardOutlined,
   ShoppingCartOutlined,
   UserOutlined,
 } from '@ant-design/icons';
@@ -18,7 +19,7 @@ export const MenuItem = [
   {
     id: 'Dashboard',
     contentMenu: 'Dashboard',
-    iconMenu: <AppstoreOutlined />,
+    iconMenu: <DashboardOutlined />,
     get component() {
       return (
         <Menu.Item key={this.id} icon={this.iconMenu}>
