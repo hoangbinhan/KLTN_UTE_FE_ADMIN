@@ -1,6 +1,6 @@
 //libs
-import React, { useState } from 'react';
-import { Modal, Select, Input } from 'antd';
+import React from 'react';
+import { Select, Input } from 'antd';
 import { Link } from 'react-router-dom';
 //other
 import CONSTANTS from '@/constants/index';
@@ -10,18 +10,6 @@ const { Search } = Input;
 const { Option } = Select;
 
 const ProductsFilter = () => {
-  const [visible, setVisible] = useState(false);
-  const showModal = () => {
-    setVisible(true);
-  };
-  const handleOk = (e: any) => {
-    console.log(e);
-    setVisible(false);
-  };
-  const handleCancel = (e: any) => {
-    console.log(e);
-    setVisible(false);
-  };
   function handleChange(value: any) {
     console.log(`selected ${value}`);
   }
@@ -30,20 +18,9 @@ const ProductsFilter = () => {
       <Link
         to={CONSTANTS.ROUTERS.CREATE_PRODUCT}
         className='button-primary'
-        onClick={showModal}
       >
         Add new
       </Link>
-      <Modal
-        title='Basic Modal'
-        visible={visible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Modal>
       <Search
         placeholder='Search...'
         onSearch={(value) => console.log(value)}

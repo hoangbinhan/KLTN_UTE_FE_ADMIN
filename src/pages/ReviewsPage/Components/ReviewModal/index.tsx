@@ -73,10 +73,10 @@ const ReviewModal: React.FC<Props> = (props) => {
                     <Form.Item name='dateAdded' label='Date Added'>
                         <DatePicker />
                     </Form.Item>
-                    <Form.Item name='status' label='Status'>
-                        <Select defaultValue="enable" style={{ width: 120 }} >
-                            <Option value="enable">Enable</Option>
-                            <Option value="disable">Disable</Option>
+                    <Form.Item name='status' label='Status' initialValue='true'>
+                        <Select style={{ width: 120 }} >
+                            <Option value="true">Enable</Option>
+                            <Option value="false">Disable</Option>
                         </Select>
                     </Form.Item>
                 </Form>
