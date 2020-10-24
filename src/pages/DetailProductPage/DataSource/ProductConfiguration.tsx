@@ -13,6 +13,10 @@ export const columns = [
   },
   {
     title: 'action',
-    render: () => <Button type='primary'>Delete</Button>,
+    render: () =>
+      <>
+        <Button>Edit</Button>
+        <Button type='primary'>Delete</Button>
+      </>
   },
 ];

@@ -8,6 +8,7 @@ import CategoriesPage from '@/pages/CategoriesPage';
 import ProductsPage from '@/pages/ProductsPage';
 import Home from '@/pages/Home';
 import DetailProductPage from '@/pages/DetailProductPage';
+import ReviewsPage from '@/pages/ReviewsPage'
 
 /**
  * define main pages routes
@@ -44,6 +45,12 @@ const routers: ROUTERS = [
     exact: true,
     component: DetailProductPage,
   },
+  {
+    path: CONSTANTS.ROUTERS.REVIEWS,
+    pageName: CONSTANTS.PAGE_NAME.REVIEWS,
+    exact: true,
+    component: ReviewsPage
+  }
 ];
 
 export default routers;

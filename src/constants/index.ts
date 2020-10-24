@@ -8,6 +8,7 @@ const CONSTANTS = {
     PRODUCTS: 'Products',
     CATEGORIES: 'Categories',
     CREATE_PRODUCT: 'Create Product',
+    REVIEWS:'Reviews'
   },
   ENDPOINTS,
   ROUTERS,
