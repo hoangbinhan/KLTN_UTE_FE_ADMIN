@@ -10,7 +10,7 @@ const { Search } = Input;
 const { Option } = Select;
 
 const ProductsFilter = () => {
-  function handleChange(value: any) {
+  const handleChange = (value: any) => {
     console.log(`selected ${value}`);
   }
   return (

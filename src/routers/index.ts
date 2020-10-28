@@ -6,9 +6,11 @@ import CONSTANTS from '@/constants';
 import DashBoardPage from '@/pages/DashBoardPage';
 import CategoriesPage from '@/pages/CategoriesPage';
 import ProductsPage from '@/pages/ProductsPage';
-import Home from '@/pages/Home';
+import Home from '@/pages/HomePage';
 import DetailProductPage from '@/pages/DetailProductPage';
 import ReviewsPage from '@/pages/ReviewsPage'
+import Orders from '@/pages/OrdersPage';
+import DetailOrderPage from '@/pages/DetailOrderPage';
 
 /**
  * define main pages routes
@@ -50,6 +52,18 @@ const routers: ROUTERS = [
     pageName: CONSTANTS.PAGE_NAME.REVIEWS,
     exact: true,
     component: ReviewsPage
+  },
+  {
+    path: CONSTANTS.ROUTERS.ORDERS,
+    pageName: CONSTANTS.PAGE_NAME.ORDERS,
+    exact: true,
+    component: Orders
+  },
+  {
+    path: CONSTANTS.ROUTERS.DETAIL_ORDER,
+    pageName: CONSTANTS.PAGE_NAME.DETAIL_ORDER,
+    exact: true,
+    component: DetailOrderPage
   }
 ];
 
