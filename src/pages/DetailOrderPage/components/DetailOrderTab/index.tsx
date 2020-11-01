@@ -1,6 +1,11 @@
 //libs
 import React from 'react'
 import { Tabs } from 'antd';
+//components
+import ProductsOrder from '../ProductsOrder'
+import CustomerDetail from '../CustomerDetail'
+import PaymentDetails from '../PaymentDetails'
+import Totals from '../Totals'
 
 const { TabPane } = Tabs;
 
@@ -8,19 +13,16 @@ const DetailOrderTab = () => {
     return (
         <Tabs defaultActiveKey="1" >
             <TabPane tab="1. Products" key="1">
-                1. Products
+                <ProductsOrder />
             </TabPane>
             <TabPane tab="2. Customer Details" key="2">
-                2. Customer Details
+                <CustomerDetail />
             </TabPane>
             <TabPane tab="3. Payment Details" key="3">
-                3. Payment Details
+                <PaymentDetails />
             </TabPane>
-            <TabPane tab="4. Shipping Details" key="4">
-                4. Shipping Details
-            </TabPane>
-            <TabPane tab="5. Totals" key="5">
-                5. Totals
+            <TabPane tab="4. Totals" key="4">
+                <Totals />
             </TabPane>
         </Tabs>
     )
