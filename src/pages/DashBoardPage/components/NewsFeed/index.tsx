@@ -1,6 +1,5 @@
 //libs
 import React from 'react';
-
 //components
 import NewOrders from '../NewOrders';
 import ProductsSaleChart from '../ProductsSaleChart';

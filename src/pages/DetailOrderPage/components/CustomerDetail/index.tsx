@@ -2,13 +2,17 @@
 import React from 'react'
 import { Form, Input } from 'antd';
 
+//others
+import './style.scss'
+import { layoutForm } from '@/constants/layout'
+
 const { TextArea } = Input;
 
 const CustomerDetail = () => {
     const [form] = Form.useForm();
 
     return (
-        <Form form={form}>
+        <Form form={form} {...layoutForm}>
             <Form.Item label='Number Phone' name='numberPhone'>
                 <Input />
             </Form.Item>

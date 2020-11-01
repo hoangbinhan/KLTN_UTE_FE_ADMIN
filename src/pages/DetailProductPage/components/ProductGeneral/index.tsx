@@ -1,19 +1,28 @@
 //libs
 import React from 'react';
-import { Form, Input, Button, Switch } from 'antd';
+import { Form, Input, Switch } from 'antd';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 //others
 import './style.scss';
 
+
 const ProductGeneral = () => {
+  const layout = {
+    labelCol: {
+      span: 2
+    },
+    wrapperCol: {
+      span: 22
+    }
+  }
   const [form] = Form.useForm();
   const createProduct = (value: any) => {
     console.log('value :>> ', value);
   };
 
   return (
-    <Form form={form} onFinish={createProduct}>
+    <Form form={form} onFinish={createProduct} {...layout}>
       <Form.Item
         name='productName'
         label='Product Name'
@@ -69,10 +78,6 @@ const ProductGeneral = () => {
       <Form.Item name='status' label='Status' initialValue={true}>
         <Switch defaultChecked />
       </Form.Item>
-
-      <Button type='primary' htmlType='submit'>
-        Save
-      </Button>
     </Form>
   );
 };

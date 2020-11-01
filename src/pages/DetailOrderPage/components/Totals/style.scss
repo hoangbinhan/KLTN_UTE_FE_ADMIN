@@ -1,10 +1,16 @@
-.information-widget-wrapper{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex: 1;
-}
-.row-unit-total{
-    display: flex;
-    justify-content: space-between;
+.total-wrapper{
+    display: grid;
+    .information-widget-wrapper{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex: 1;
+    }
+    .row-unit-total{
+        display: flex;
+        justify-content: space-between;
+    }
+    .description-item{
+        width: 50%;
+    }
 }

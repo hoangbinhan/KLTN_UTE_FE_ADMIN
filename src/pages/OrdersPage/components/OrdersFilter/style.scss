@@ -1,0 +1,13 @@
+.order-filter-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem 0;
+    .input-search{
+        width: 300px;
+        margin-right: 1rem;
+    }
+    .range-picker{
+        margin-right: 1rem;
+    }
+}

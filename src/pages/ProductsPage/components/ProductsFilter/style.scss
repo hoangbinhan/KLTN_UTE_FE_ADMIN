@@ -1,5 +1,16 @@
-.button-primary{
-    background-color: #1890ff;
-    padding: 5px 10px;
-    color: white;
+.product-filter-wrapper{
+    margin: 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    .button-primary{
+        background-color: #1890ff;
+        padding: 5px 10px;
+        color: white;
+    }
+    .product-filter-control{
+        .search-input{
+            width: 300px;
+            margin-right: 1rem;
+        }
+    }
 }

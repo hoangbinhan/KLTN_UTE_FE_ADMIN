@@ -5,7 +5,7 @@ import CategoriesControl from '../CategoriesControl';
 //components
 import ProductCategory from '../ProductCategory';
 //other
-import { columns } from '../DataSource/CategoriesColumn';
+import { columns } from '../../DataSource/CategoriesColumn';
 
 const CategoriesTable = () => {
   const data = [];

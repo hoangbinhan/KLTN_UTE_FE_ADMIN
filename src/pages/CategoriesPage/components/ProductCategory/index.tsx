@@ -2,7 +2,7 @@
 import React from 'react';
 import { Table } from 'antd';
 //other
-import { ProductCategoryColumn } from '../DataSource/ProductCategoryColumn';
+import { ProductCategoryColumn } from '../../DataSource/ProductCategoryColumn';
 
 const ProductCategory = () => {
   const data = [];

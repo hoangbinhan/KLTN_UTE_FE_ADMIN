@@ -1,6 +1,9 @@
 //libs
 import React, { useState } from 'react'
 import { Form, Input, Select } from 'antd';
+//others
+import './style.scss'
+import { layoutForm } from '@/constants/layout'
 
 const { Option } = Select;
 const { TextArea } = Input
@@ -16,7 +19,7 @@ const PaymentDetails = () => {
     };
 
     return (
-        <Form form={form} onFinish={onFinish}>
+        <Form form={form} onFinish={onFinish} {...layoutForm}>
             <Form.Item label='Payment Method' name='paymentMethod' initialValue={paymentMethod}>
                 <Select onChange={selectMethod} >
                     <Option value='1'>

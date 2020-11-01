@@ -8,12 +8,10 @@ import './style.scss'
 const { TextArea } = Input
 
 const Totals = () => {
-
-
     return (
-        <>
+        <div className='total-wrapper'>
             <Descriptions layout='vertical' bordered>
-                <Descriptions.Item label="Order Details">
+                <Descriptions.Item label="Order Details" className='description-item'>
                     Your Store
                     <br />
                     01/11/2020
@@ -22,7 +20,7 @@ const Totals = () => {
                     <br />
                     Flat Shipping Rate
                 </Descriptions.Item>
-                <Descriptions.Item label="Customer Details">
+                <Descriptions.Item label="Customer Details" className='description-item'>
                     Hoang Binh An
                     <br />
                     default
@@ -32,12 +30,12 @@ const Totals = () => {
                     0963734721
                 </Descriptions.Item>
             </Descriptions>
-            <Table columns={columnsOrderItems} dataSource={[]} />
+            <Table columns={columnsOrderItems} dataSource={[]} style={{ margin: '2rem 0' }} />
             <Descriptions layout='vertical' bordered>
-                <Descriptions.Item label="Note">
-                    <TextArea rows={4} />
+                <Descriptions.Item label="Note" className='description-item'>
+                    <TextArea rows={8} />
                 </Descriptions.Item>
-                <Descriptions.Item label="Total">
+                <Descriptions.Item label="Total" className='description-item'>
                     <div className="row-unit-total">
                         <div className="title">Units Ordered</div>
                         <div className="value">8</div>
@@ -55,7 +53,7 @@ const Totals = () => {
                     <Divider />
                 </Descriptions.Item>
             </Descriptions>
-        </>
+        </div>
     )
 }
 

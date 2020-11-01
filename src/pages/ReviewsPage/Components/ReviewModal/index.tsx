@@ -31,6 +31,7 @@ const ReviewModal: React.FC<Props> = (props) => {
         <>
             <Button type='primary' onClick={onShow}>{title}</Button>
             <Modal
+                width={'40%'}
                 visible={visible}
                 title="Create a new collection"
                 okText="Create"

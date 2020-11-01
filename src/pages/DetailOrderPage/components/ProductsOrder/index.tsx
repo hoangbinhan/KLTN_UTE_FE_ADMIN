@@ -3,6 +3,7 @@ import React from 'react'
 import { Table, Input } from 'antd';
 //other
 import { columnsProductInvoice, columnsProducts } from '../../DataSrouce/ProductsOrder'
+import './style.scss'
 
 const { Search } = Input;
 
@@ -32,16 +33,16 @@ const data = [
 
 const ProductsOrder = () => {
     return (
-        <>
+        <div className='product-orders-wrapper'>
             <Table columns={columnsProductInvoice} dataSource={data} />
             <h1>Add Products</h1>
             <Search
                 placeholder='Search...'
                 onSearch={(value) => console.log(value)}
-                style={{ width: 200 }}
+                className='input-search'
             />
             <Table columns={columnsProducts} dataSource={data} />
-        </>
+        </div>
     )
 }
 
