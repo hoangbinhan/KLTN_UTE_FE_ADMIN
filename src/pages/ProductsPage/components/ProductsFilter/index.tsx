@@ -1,6 +1,6 @@
 //libs
 import React from 'react';
-import { Select, Input } from 'antd';
+import { Select, Input, Button } from 'antd';
 import { Link } from 'react-router-dom';
 //other
 import CONSTANTS from '@/constants/index';
@@ -29,9 +29,8 @@ const ProductsFilter = () => {
       </div>
       <Link
         to={CONSTANTS.ROUTERS.CREATE_PRODUCT}
-        className='button-primary'
       >
-        Add new
+        <Button type='primary'>Add new</Button>
       </Link>
     </div>
   );

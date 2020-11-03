@@ -1,8 +1,7 @@
 //libs
 import React from 'react';
-import { Button } from 'antd';
 //components
-import ModalCategories from '../components/ModalCategories';
+import ActionCategories from '../components/ActionCategories';
 
 export const columns = [
   {
@@ -29,10 +28,7 @@ export const columns = [
     title: 'Action',
     dataIndex: 'action',
     render: (_: any, record: any) => (
-      <div>
-        <ModalCategories name='Edit' record={record} />
-        <Button>Add Product Category</Button>
-      </div>
+      <ActionCategories record={record} />
     ),
   },
 ];

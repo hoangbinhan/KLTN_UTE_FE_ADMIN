@@ -1,32 +1,37 @@
 //Libs
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Table } from 'antd';
 import CategoriesControl from '../CategoriesControl';
+import { useDispatch } from 'react-redux';
 //components
 import ProductCategory from '../ProductCategory';
+//hooks
+import { useTypedSelector } from '@/hooks';
+//actions
+import { fetchDataCategories } from '@/actions/Categories/FetchDataCategories';
 //other
 import { columns } from '../../DataSource/CategoriesColumn';
 
 const CategoriesTable = () => {
-  const data = [];
-  for (let i = 0; i < 46; i++) {
-    data.push({
-      key: i,
-      categoryName: `Edward King ${i}`,
-      age: 32,
-      address: `London, Park Lane no. ${i}`,
-    });
-  }
+  const dispatch = useDispatch()
+  const { listCategories } = useTypedSelector(
+    (state) => state.Categories.FetchDataCategories
+  )
+  useEffect(() => {
+    dispatch(fetchDataCategories())
+  }, [])
+
+  console.log('listCategories', listCategories)
 
   return (
     <>
       <CategoriesControl />
       <Table
         columns={columns}
-        dataSource={data}
-        expandable={{
-          expandedRowRender: ProductCategory,
-        }}
+        dataSource={[]}
+      // expandable={{
+      //   expandedRowRender: ProductCategory,
+      // }}
       />
     </>
   );

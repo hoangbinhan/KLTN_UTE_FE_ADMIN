@@ -47,7 +47,7 @@ const SliderLayout = ({ children }: { children: JSX.Element }) => {
           )}
           <Popover className='user-control' content={content} trigger='click'>
             <Avatar size={38} icon={<UserOutlined />} />
-            <div className='user-control-nan'>Hoang Binh An</div>
+            <div className='user-control-name'>Hoang Binh An</div>
           </Popover>
         </Header>
         <Content

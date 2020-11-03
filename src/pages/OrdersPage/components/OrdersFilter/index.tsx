@@ -1,6 +1,7 @@
 //libs
 import React from 'react'
 import { Select, Input, DatePicker, Button } from 'antd'
+import { Link } from 'react-router-dom'
 //others
 import './style.scss'
 
@@ -28,7 +29,9 @@ const OrdersFilter: React.FC = (props) => {
                     <Option value='disable'>Disable</Option>
                 </Select>
             </div>
-            <Button type='primary'>Add new</Button>
+            <Link to='/detail-order'>
+                <Button type='primary'>Add new</Button>
+            </Link>
         </div>
     )
 }
