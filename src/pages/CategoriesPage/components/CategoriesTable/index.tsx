@@ -19,16 +19,16 @@ const CategoriesTable = () => {
   )
   useEffect(() => {
     dispatch(fetchDataCategories())
-  }, [])
-
-  console.log('listCategories', listCategories)
-
+  }, [dispatch])
+  const data = listCategories.map((item:any, index:number)=>{
+    return {...item, key: index}
+  })
   return (
     <>
       <CategoriesControl />
       <Table
         columns={columns}
-        dataSource={[]}
+        dataSource={data}
       // expandable={{
       //   expandedRowRender: ProductCategory,
       // }}

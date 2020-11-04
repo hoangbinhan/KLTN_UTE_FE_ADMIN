@@ -1,5 +1,6 @@
 //libs
 import React from 'react';
+import {Tag, Image} from 'antd'
 //components
 import ActionCategories from '../components/ActionCategories';
 
@@ -10,7 +11,8 @@ export const columns = [
   },
   {
     title: 'Icon',
-    dataIndex: 'icon',
+    dataIndex: 'url',
+    render: (url: string)=><Image width={50} src={url}/>
   },
   {
     title: 'Category Name',
@@ -18,11 +20,18 @@ export const columns = [
   },
   {
     title: 'Sort Order',
-    dataIndex: 'age',
+    dataIndex: 'sortOrder',
   },
   {
     title: 'Status',
-    dataIndex: 'Status',
+    dataIndex: 'status',
+    render: (text:string)=>{
+      if(text==='ACTIVE'){
+        return <Tag color='green'>{text}</Tag>
+      }else{
+        return <Tag color='red'>{text}</Tag>
+      }
+    }
   },
   {
     title: 'Action',

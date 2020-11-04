@@ -1,8 +1,8 @@
 //libs
 import React, { useState } from 'react';
-import { Modal, Button, Form, Input, Upload, message } from 'antd';
+import { Modal, Button, Form, Input, Upload, message, Switch } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-
+//utils
 //others
 import './style.scss';
 
@@ -18,6 +18,7 @@ const ModalCategories: React.FC<Props> = (props) => {
     imageUrl: '',
     loading: false,
   });
+  console.log('record :>> ', record);
   const [form] = Form.useForm();
   const getBase64 = (img: any, callback: any) => {
     const reader = new FileReader();
@@ -42,6 +43,14 @@ const ModalCategories: React.FC<Props> = (props) => {
   };
 
   const handleOk = (values: any) => {
+    let payload = {...values}
+    if(payload.status === true){
+      payload = {...payload, status: 'ACTIVE'}
+    }else{
+      payload = {...payload, status: 'DISABLE'}
+    }
+    console.log(payload);
+    
     setVisible(false);
   };
 
@@ -116,6 +125,20 @@ const ModalCategories: React.FC<Props> = (props) => {
           </Form.Item>
 
           <Form.Item
+            name='sortOrder'
+            label='Sort Order'
+            rules={[
+              {
+                required: true,
+                message: 'Please input the Sort Order',
+              },
+            ]}
+            initialValue={record ? record.sortOrder : ''}
+          >
+            <Input type='number' />
+          </Form.Item>
+
+          <Form.Item
             name='icon'
             label='Icon'
             rules={[
@@ -147,6 +170,14 @@ const ModalCategories: React.FC<Props> = (props) => {
                 </div>
               )}
             </Upload>
+          </Form.Item>
+
+          <Form.Item
+            label='Status'
+            name='status'
+            valuePropName="checked"
+          >
+            <Switch defaultChecked={record?.status === 'ACTIVE' ? true : false}/>
           </Form.Item>
         </Form>
       </Modal>
