@@ -1,10 +1,13 @@
 //libs
 import React, { useState } from 'react';
 import { Modal, Button, Form, Input, Upload, message, Switch } from 'antd';
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { LoadingOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
 //utils
+//actions
+import { addNewCategory } from '@/actions/Categories/AddNewCategory'
 //others
 import './style.scss';
+import { useDispatch } from 'react-redux';
 
 type Props = {
   name: String;
@@ -18,24 +21,15 @@ const ModalCategories: React.FC<Props> = (props) => {
     imageUrl: '',
     loading: false,
   });
-  console.log('record :>> ', record);
   const [form] = Form.useForm();
-  const getBase64 = (img: any, callback: any) => {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result));
-    reader.readAsDataURL(img);
-  };
+  const dispatch = useDispatch();
 
-  const beforeUpload = (file: any) => {
-    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-    if (!isJpgOrPng) {
-      message.error('You can only upload JPG/PNG file!');
+  const normFile = (e: any) => {
+    console.log('Upload event:', e);
+    if (Array.isArray(e)) {
+      return e;
     }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-      message.error('Image must smaller than 2MB!');
-    }
-    return isJpgOrPng && isLt2M;
+    return e && e.fileList;
   };
 
   const showModal = () => {
@@ -43,39 +37,25 @@ const ModalCategories: React.FC<Props> = (props) => {
   };
 
   const handleOk = (values: any) => {
-    let payload = {...values}
-    if(payload.status === true){
-      payload = {...payload, status: 'ACTIVE'}
-    }else{
-      payload = {...payload, status: 'DISABLE'}
+    let payload = { ...values }
+    if (payload.status === true) {
+      payload = { ...payload, status: 'ACTIVE' }
+    } else {
+      payload = { ...payload, status: 'DISABLE' }
     }
-    console.log(payload);
-    
-    setVisible(false);
+    dispatch(
+      addNewCategory({
+        data: payload,
+        cbSuccess: () => {
+          console.log('djt con me');
+          setVisible(false);
+        }
+      })
+    )
   };
 
   const handleCancel = (e: any) => {
     setVisible(false);
-  };
-
-  const handleChange = (info: any) => {
-    if (info.file.status === 'uploading') {
-      setUploadImage({
-        ...uploadImage,
-        loading: true,
-      });
-      return;
-    }
-    if (info.file.status === 'done') {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj, (imageUrl: any) =>
-        setUploadImage({
-          ...uploadImage,
-          imageUrl,
-          loading: true,
-        })
-      );
-    }
   };
 
   return (
@@ -111,7 +91,7 @@ const ModalCategories: React.FC<Props> = (props) => {
           }}
         >
           <Form.Item
-            name='CategoryName'
+            name='categoryName'
             label='Category Name'
             rules={[
               {
@@ -139,36 +119,13 @@ const ModalCategories: React.FC<Props> = (props) => {
           </Form.Item>
 
           <Form.Item
-            name='icon'
-            label='Icon'
-            rules={[
-              {
-                required: true,
-                message: 'Please add icon',
-              },
-            ]}
+            name="upload"
+            label="Upload"
+            valuePropName="fileList"
+            getValueFromEvent={normFile}
           >
-            <Upload
-              name='avatar'
-              listType='picture-card'
-              className='avatar-uploader'
-              showUploadList={false}
-              action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
-              beforeUpload={beforeUpload}
-              onChange={handleChange}
-            >
-              {uploadImage.imageUrl ? (
-                <img
-                  src={uploadImage.imageUrl}
-                  alt='avatar'
-                  style={{ width: '100%' }}
-                />
-              ) : (
-                <div>
-                  {uploadImage.loading ? <LoadingOutlined /> : <PlusOutlined />}
-                  <div style={{ marginTop: 8 }}>Upload</div>
-                </div>
-              )}
+            <Upload name="logo" listType="picture">
+              <Button icon={<UploadOutlined />}>Click to upload</Button>
             </Upload>
           </Form.Item>
 
@@ -177,7 +134,7 @@ const ModalCategories: React.FC<Props> = (props) => {
             name='status'
             valuePropName="checked"
           >
-            <Switch defaultChecked={record?.status === 'ACTIVE' ? true : false}/>
+            <Switch defaultChecked={record?.status === 'ACTIVE' ? true : false} />
           </Form.Item>
         </Form>
       </Modal>
