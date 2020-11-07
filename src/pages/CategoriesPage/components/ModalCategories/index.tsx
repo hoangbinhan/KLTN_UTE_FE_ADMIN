@@ -1,5 +1,5 @@
 //libs
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Button, Form, Input, Upload, message, Switch } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 //utils
@@ -22,12 +22,14 @@ const ModalCategories: React.FC<Props> = (props) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const [confirmLoading, setConfirmLoading] = useState(false);
-  form.setFieldsValue({
-    categoryName: record?.categoryName,
-    sortOrder: record?.sortOrder,
-    link: record?.link,
-    status: record?.status === 'ACTIVE' ? true : false
-  })
+  useEffect(() => {
+    form.setFieldsValue({
+      categoryName: record?.categoryName,
+      sortOrder: record?.sortOrder,
+      link: record?.link,
+      status: record?.status === 'ACTIVE' ? true : false
+    })
+  }, [form, record])
   const normFile = (e: any) => {
     if (Array.isArray(e)) {
       return e;

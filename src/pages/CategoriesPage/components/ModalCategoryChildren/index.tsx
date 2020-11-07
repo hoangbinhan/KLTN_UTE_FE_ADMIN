@@ -7,10 +7,12 @@ import './style.scss';
 
 type Props = {
     name: String;
+    record: any
 };
 
 const ModalCategoryChildren: React.FC<Props> = (props) => {
-    const { name } = props;
+    const { name, record } = props;
+    console.log('record', record)
     const [visible, setVisible] = useState(false);
     const [form] = Form.useForm();
     const showModal = () => {

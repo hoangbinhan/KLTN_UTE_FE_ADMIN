@@ -9,7 +9,7 @@ const ActionCategories = ({ record }: any) => {
     return (
         <div className='action-categories-wrapper'>
             <ModalCategories name='Edit' record={record} />
-            <ModalCategoryChildren name='Add Children' />
+            <ModalCategoryChildren name='Add Children' record={record} />
         </div>
     )
 }
