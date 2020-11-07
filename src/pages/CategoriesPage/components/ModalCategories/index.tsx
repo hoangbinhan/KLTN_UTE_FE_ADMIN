@@ -1,13 +1,15 @@
 //libs
 import React, { useState } from 'react';
 import { Modal, Button, Form, Input, Upload, message, Switch } from 'antd';
-import { LoadingOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
+import { UploadOutlined } from '@ant-design/icons';
 //utils
 //actions
 import { addNewCategory } from '@/actions/Categories/AddNewCategory'
+import { updateCategory } from '@/actions/Categories/UpdateCategory'
 //others
 import './style.scss';
 import { useDispatch } from 'react-redux';
+//hooks
 
 type Props = {
   name: String;
@@ -15,23 +17,23 @@ type Props = {
 };
 
 const ModalCategories: React.FC<Props> = (props) => {
-  const { name, record } = props;
+  const { name, record } = props
   const [visible, setVisible] = useState(false);
-  const [uploadImage, setUploadImage] = useState({
-    imageUrl: '',
-    loading: false,
-  });
   const [form] = Form.useForm();
   const dispatch = useDispatch();
-
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  form.setFieldsValue({
+    categoryName: record?.categoryName,
+    sortOrder: record?.sortOrder,
+    link: record?.link,
+    status: record?.status === 'ACTIVE' ? true : false
+  })
   const normFile = (e: any) => {
-    console.log('Upload event:', e);
     if (Array.isArray(e)) {
       return e;
     }
     return e && e.fileList;
-  };
-
+  }
   const showModal = () => {
     setVisible(true);
   };
@@ -43,15 +45,34 @@ const ModalCategories: React.FC<Props> = (props) => {
     } else {
       payload = { ...payload, status: 'DISABLE' }
     }
-    dispatch(
-      addNewCategory({
-        data: payload,
-        cbSuccess: () => {
-          console.log('djt con me');
-          setVisible(false);
-        }
-      })
-    )
+    setConfirmLoading(true)
+    if (!record) {
+      dispatch(
+        addNewCategory({
+          data: payload,
+          cbSuccess: () => {
+            form.resetFields();
+            setVisible(false);
+            setConfirmLoading(false)
+            message.success('Add new category success')
+          }
+        })
+      )
+    }
+    else {
+      payload = { ...record, ...payload }
+      dispatch(
+        updateCategory({
+          data: payload,
+          cbSuccess: () => {
+            form.resetFields();
+            setVisible(false);
+            setConfirmLoading(false)
+            message.success('update category success')
+          }
+        })
+      )
+    }
   };
 
   const handleCancel = (e: any) => {
@@ -70,11 +91,12 @@ const ModalCategories: React.FC<Props> = (props) => {
         okText='Submit'
         cancelText='Cancel'
         onCancel={handleCancel}
+        confirmLoading={confirmLoading}
+        // getContainer={false}
         onOk={() => {
           form
             .validateFields()
             .then((values) => {
-              form.resetFields();
               handleOk(values);
             })
             .catch((info) => {
@@ -99,11 +121,10 @@ const ModalCategories: React.FC<Props> = (props) => {
                 message: 'Please input the Category Name',
               },
             ]}
-            initialValue={record ? record.categoryName : ''}
+
           >
             <Input />
           </Form.Item>
-
           <Form.Item
             name='sortOrder'
             label='Sort Order'
@@ -113,18 +134,36 @@ const ModalCategories: React.FC<Props> = (props) => {
                 message: 'Please input the Sort Order',
               },
             ]}
-            initialValue={record ? record.sortOrder : ''}
           >
             <Input type='number' />
           </Form.Item>
+          <Form.Item
+            name='link'
+            label='Url'
+            rules={[
+              {
+                required: true,
+                message: 'Please input the link',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
 
           <Form.Item
             name="upload"
             label="Upload"
             valuePropName="fileList"
             getValueFromEvent={normFile}
+          // rules={[
+          //   {
+          //     required: true,
+          //     message: 'Please add image',
+          //   },
+          // ]}
           >
-            <Upload name="logo" listType="picture">
+            <Upload name="logo" listType="picture" action='https://www.mocky.io/v2/5cc8019d300000980a055e76' >
               <Button icon={<UploadOutlined />}>Click to upload</Button>
             </Upload>
           </Form.Item>
@@ -134,7 +173,7 @@ const ModalCategories: React.FC<Props> = (props) => {
             name='status'
             valuePropName="checked"
           >
-            <Switch defaultChecked={record?.status === 'ACTIVE' ? true : false} />
+            <Switch />
           </Form.Item>
         </Form>
       </Modal>

@@ -2,9 +2,9 @@ import {TYPES} from '@/constants/actions/Categories'
 import {REDUX_ACTION} from '@/types/common'
 
 const initialState = {
-    isSuccess: false,
-    isLoading: true,
-    isError: false,
+    updateSuccess: false,
+    updateLoading: true,
+    updateError: false,
     error: {}
 }
 
@@ -13,28 +13,28 @@ export default function(
     {type, payload}:REDUX_ACTION
 ){
     switch(type){
-        case TYPES.ADD_NEW_CATEGORY_LOADING:
+        case TYPES.UPDATE_CATEGORY_LOADING:
             return {
                 ...state,
-                isSuccess: false,
-                isLoading: true,
-                isError: false,
+                updateSuccess: false,
+                updateLoading: true,
+                updateError: false,
                 error:{}
             };
-        case TYPES.ADD_NEW_CATEGORY_SUCCESS:
+        case TYPES.UPDATE_CATEGORY_SUCCESS:
             return{
                 ...state,
-                isSuccess: true,
-                isLoading: false,
-                isError: false,
+                updateSuccess: true,
+                updateLoading: false,
+                updateError: false,
                 error: {}
             };
-        case TYPES.ADD_NEW_CATEGORY_ERROR:
+        case TYPES.UPDATE_CATEGORY_ERROR:
             return{
                 ...state,
-                isSuccess: false,
-                isLoading: false,
-                isError: true,
+                updateSuccess: false,
+                updateLoading: false,
+                updateError: true,
                 error: payload.error
             };
         default:
