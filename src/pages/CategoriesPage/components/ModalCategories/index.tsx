@@ -1,5 +1,6 @@
 //libs
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Modal, Button, Form, Input, Upload, message, Switch } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 //utils
@@ -8,7 +9,6 @@ import { addNewCategory } from '@/actions/Categories/AddNewCategory'
 import { updateCategory } from '@/actions/Categories/UpdateCategory'
 //others
 import './style.scss';
-import { useDispatch } from 'react-redux';
 //hooks
 
 type Props = {
@@ -56,7 +56,7 @@ const ModalCategories: React.FC<Props> = (props) => {
             form.resetFields();
             setVisible(false);
             setConfirmLoading(false)
-            message.success('Add new category success')
+            message.success('Add new children category success')
           }
         })
       )

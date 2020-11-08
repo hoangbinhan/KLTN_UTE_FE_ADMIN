@@ -6,14 +6,15 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 //others
 import './style.scss';
 
-
 const ProductGeneral = () => {
   const layout = {
     labelCol: {
+      offset: 2,
       span: 2
     },
     wrapperCol: {
-      span: 22
+      offset: 0,
+      span: 18
     }
   }
   const [form] = Form.useForm();
@@ -52,7 +53,7 @@ const ProductGeneral = () => {
           onFocus={(event: any, editor: any) => {
             console.log('Focus.', editor);
           }}
-          height={300}
+          className='ck-editor__editable'
         />
       </Form.Item>
       <Form.Item name='quantity' label='Quantity' rules={[{ required: true }]}>
