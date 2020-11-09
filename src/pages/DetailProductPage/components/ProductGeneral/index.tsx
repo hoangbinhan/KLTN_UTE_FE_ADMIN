@@ -1,25 +1,30 @@
 //libs
-import React from 'react';
-import { Form, Input, Switch } from 'antd';
+import React, { useState } from 'react';
+import { Button, Form, Input, Switch } from 'antd';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+//component
+import ProductImages from '../ProductImages';
 //others
 import './style.scss';
 
 const ProductGeneral = () => {
   const layout = {
-    labelCol: {
-      offset: 2,
-      span: 2
-    },
-    wrapperCol: {
-      offset: 0,
-      span: 18
-    }
-  }
+    labelCol: { span: 4 },
+    wrapperCol: { span: 16 },
+  };
+  const tailLayout = {
+    wrapperCol: { offset: 18, span: 16 },
+  };
   const [form] = Form.useForm();
+  const [images, setImages] = useState([])
+  const [description, setDescription] = useState('')
+  const handleChangeImages = (values: []) => {
+    setImages(values)
+  }
   const createProduct = (value: any) => {
-    console.log('value :>> ', value);
+    const result = { ...value, picture: images, description: description }
+    console.log('result :>> ', result);
   };
 
   return (
@@ -39,19 +44,8 @@ const ProductGeneral = () => {
         <CKEditor
           editor={ClassicEditor}
           data=''
-          onInit={(editor: any) => {
-            // You can store the "editor" and use when it is needed.
-            console.log('Editor is ready to use!', editor);
-          }}
           onChange={(event: any, editor: any) => {
-            const data = editor.getData();
-            console.log({ event, editor, data });
-          }}
-          onBlur={(event: any, editor: any) => {
-            console.log('Blur.', editor);
-          }}
-          onFocus={(event: any, editor: any) => {
-            console.log('Focus.', editor);
+            setDescription(editor.getData());
           }}
           className='ck-editor__editable'
         />
@@ -78,6 +72,12 @@ const ProductGeneral = () => {
       </Form.Item>
       <Form.Item name='status' label='Status' initialValue={true}>
         <Switch defaultChecked />
+      </Form.Item>
+      <Form.Item name='picture' label='Picture'>
+        <ProductImages handleChangeImages={handleChangeImages} />
+      </Form.Item>
+      <Form.Item {...tailLayout}>
+        <Button type='primary' htmlType='submit'>Submit</Button>
       </Form.Item>
     </Form>
   );

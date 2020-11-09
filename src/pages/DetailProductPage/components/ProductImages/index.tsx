@@ -5,7 +5,11 @@ import { PlusOutlined } from '@ant-design/icons';
 //others
 import { getBase64 } from '@/utils/index';
 
-const ProductImages = () => {
+interface Props {
+  handleChangeImages: Function
+}
+
+const ProductImages: React.FC<Props> = ({ handleChangeImages }) => {
   const [state, setState] = useState({
     previewVisible: false,
     previewImage: '',
@@ -30,7 +34,10 @@ const ProductImages = () => {
     });
   };
 
-  const handleChange = ({ fileList }: any) => setState({ ...state, fileList });
+  const handleChange = ({ fileList }: any) => {
+    handleChangeImages(fileList)
+    setState({ ...state, fileList })
+  }
 
   const uploadButton = (
     <div>
@@ -47,6 +54,7 @@ const ProductImages = () => {
         fileList={state.fileList}
         onPreview={handlePreview}
         onChange={handleChange}
+        multiple={true}
       >
         {state.fileList.length >= 8 ? null : uploadButton}
       </Upload>
