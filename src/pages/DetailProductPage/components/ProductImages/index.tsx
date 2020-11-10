@@ -56,7 +56,7 @@ const ProductImages: React.FC<Props> = ({ handleChangeImages }) => {
         onChange={handleChange}
         multiple={true}
       >
-        {state.fileList.length >= 8 ? null : uploadButton}
+        {state.fileList.length >= 1 ? null : uploadButton}
       </Upload>
       <Modal
         visible={state.previewVisible}

@@ -8,16 +8,18 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ProductImages from '../ProductImages';
 //actions
 import { fetchDataCategories } from '@/actions/Categories/FetchDataCategories';
+import { addNewProduct } from '@/actions/Products/AddNewProduct'
 //others
 import './style.scss';
 //hooks
-import { useTypedSelector } from '@/hooks';
+import { useRouter, useTypedSelector } from '@/hooks';
 
 const { Option } = Select;
 
 
 const ProductGeneral = () => {
   const dispatch = useDispatch()
+  const router = useRouter()
   const { listCategories } = useTypedSelector(
     (state) => state.Categories.FetchDataCategories
   )
@@ -35,8 +37,16 @@ const ProductGeneral = () => {
     setImages(values)
   }
   const createProduct = (value: any) => {
-    const result = { ...value, picture: images, description: description }
-    console.log('result :>> ', result);
+    const payload = { ...value, picture: images, description: description }
+    dispatch(
+      addNewProduct({
+        data: payload,
+        cbSuccess: () => {
+          form.resetFields();
+          router.push('/products')
+        }
+      })
+    )
   };
 
   useEffect(() => {

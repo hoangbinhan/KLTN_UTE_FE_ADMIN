@@ -5,7 +5,7 @@ import { ASYNC_ACTION_TYPE } from '@/types/common';
 import CONSTANTS from '@/constants';
 import request from '@/utils/request';
 
-export const addNewCategory = ({
+export const addNewProduct = ({
   params = {},
   data = {},
   cbSuccess,
