@@ -8,20 +8,22 @@ import { layoutForm } from '@/constants/layout'
 const { Option } = Select;
 const { TextArea } = Input
 
-const PaymentDetails = () => {
+interface Props {
+    record?: any,
+    handleChangeValue: Function
+}
+
+const PaymentDetails:React.FC<Props>  = (props) => {
+    const {handleChangeValue} = props
     const [form] = Form.useForm();
     const [paymentMethod, setPaymentMethod] = useState('1')
-    const selectMethod = (value: string) => {
-        setPaymentMethod(value)
+    const handleOnChange = ()=>{
+        handleChangeValue({paymentDetail: form.getFieldsValue()})
     }
-    const onFinish = (values: any) => {
-        console.log(values);
-    };
-
     return (
-        <Form form={form} onFinish={onFinish} {...layoutForm}>
+        <Form form={form} {...layoutForm} onChange={handleOnChange}>
             <Form.Item label='Payment Method' name='paymentMethod' initialValue={paymentMethod}>
-                <Select onChange={selectMethod} >
+                <Select onSelect={handleOnChange} >
                     <Option value='1'>
                         buy at the store
                     </Option>
@@ -30,23 +32,22 @@ const PaymentDetails = () => {
                     </Option>
                 </Select>
             </Form.Item>
-
             <Form.Item label='Province/City' name='provinceCity'>
-                <Select  >
+                <Select onSelect={handleOnChange}>
                     <Option value='1'>
                         HCM
                     </Option>
                 </Select>
             </Form.Item>
             <Form.Item label='District' name='district'>
-                <Select >
+                <Select onSelect={handleOnChange}>
                     <Option value='1'>
                         Q9
                     </Option>
                 </Select>
             </Form.Item>
             <Form.Item label='Village' name='village'>
-                <Select >
+                <Select onSelect={handleOnChange}>
                     <Option value='1'>
                         TNP B
                     </Option>
@@ -56,7 +57,7 @@ const PaymentDetails = () => {
                 <TextArea rows={4} />
             </Form.Item>
             <Form.Item label='Delivery Option' name='deliveryOption'>
-                <Select >
+                <Select onSelect={handleOnChange}>
                     <Option value='1'>
                         Standard Delivery
                     </Option>

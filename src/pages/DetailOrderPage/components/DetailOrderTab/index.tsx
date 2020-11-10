@@ -1,5 +1,5 @@
 //libs
-import React from 'react'
+import React, { useState } from 'react'
 import { Tabs } from 'antd';
 //components
 import ProductsOrder from '../ProductsOrder'
@@ -12,6 +12,12 @@ import './style.scss'
 const { TabPane } = Tabs;
 
 const DetailOrderTab = () => {
+    const [result, setResult] = useState({})
+    const handleChangeValue = (value: any)=>{
+        let key = Object.keys(value)[0]
+        setResult({...result, [key]:value[key]})
+    }
+    console.log('result :>> ', result);
     return (
         <div className="detail-order-tab-wrapper">
             <Tabs defaultActiveKey="1" >
@@ -19,10 +25,10 @@ const DetailOrderTab = () => {
                     <ProductsOrder />
                 </TabPane>
                 <TabPane tab="2. Customer Details" key="2">
-                    <CustomerDetail />
+                    <CustomerDetail handleChangeValue={handleChangeValue}/>
                 </TabPane>
                 <TabPane tab="3. Payment Details" key="3">
-                    <PaymentDetails />
+                    <PaymentDetails handleChangeValue={handleChangeValue}/>
                 </TabPane>
                 <TabPane tab="4. Totals" key="4">
                     <Totals />

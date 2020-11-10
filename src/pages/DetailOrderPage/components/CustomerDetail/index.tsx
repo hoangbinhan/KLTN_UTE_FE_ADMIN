@@ -1,5 +1,5 @@
 //libs
-import React from 'react'
+import React, {useState} from 'react'
 import { Form, Input } from 'antd';
 
 //others
@@ -8,13 +8,21 @@ import { layoutForm } from '@/constants/layout'
 
 const { TextArea } = Input;
 
-const CustomerDetail = () => {
-    const [form] = Form.useForm();
+interface Props {
+    record?: any,
+    handleChangeValue: Function
+}
 
+const CustomerDetail:React.FC<Props> = (props) => {
+    const {handleChangeValue} = props
+    const [form] = Form.useForm();
+    const handleOnChange = ()=>{
+        handleChangeValue({customerDetail: form.getFieldsValue()})
+    }
     return (
-        <Form form={form} {...layoutForm}>
+        <Form form={form} {...layoutForm} onChange={handleOnChange}>
             <Form.Item label='Number Phone' name='numberPhone'>
-                <Input />
+                <Input type='number'/>
             </Form.Item>
             <Form.Item label='First Name' name='firstName'>
                 <Input />
