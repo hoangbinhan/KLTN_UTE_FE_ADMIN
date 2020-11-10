@@ -13,6 +13,7 @@ const ROUTERS = {
   CUSTOMERS: '/customers',
   CUSTOMER_GROUP: '/customer-group',
   CREATE_PRODUCT: '/create-product',
+  DETAIL_PRODUCT:'/detail-product',
   DETAIL_ORDER: '/detail-order'
 };
 

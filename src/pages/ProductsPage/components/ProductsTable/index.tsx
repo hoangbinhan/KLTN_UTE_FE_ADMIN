@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '@/hooks';
 //actions
 import { fetchDataProducts } from '@/actions/Products/FetchDataProducts';
+//others
+import { columns } from '../../DataSource/ProductTableColumn'
 
 const ProductsTable = () => {
   const dispatch = useDispatch();
@@ -15,44 +17,12 @@ const ProductsTable = () => {
   useEffect(() => {
     dispatch(fetchDataProducts());
   }, [dispatch]);
-
-  const columns = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-    },
-    {
-      title: 'Image',
-      dataIndex: 'image',
-    },
-    {
-      title: 'Product Name',
-      dataIndex: 'productName',
-    },
-    {
-      title: 'Model',
-      dataIndex: 'model',
-    },
-    {
-      title: 'Price',
-      dataIndex: 'price',
-    },
-    {
-      title: 'Quantity',
-      dataIndex: 'quantiy',
-    },
-    {
-      title: 'Status',
-      dataIndex: 'status',
-    },
-    {
-      title: 'Action',
-    },
-  ];
-
+  const data = listProducts?.map((item: any) => {
+    return { ...item, key: item._id }
+  })
   return (
     <>
-      <Table columns={columns} dataSource={listProducts} />
+      <Table columns={columns} dataSource={data} />
     </>
   );
 };

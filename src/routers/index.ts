@@ -48,6 +48,12 @@ const routers: ROUTERS = [
     component: DetailProductPage,
   },
   {
+    path: `${CONSTANTS.ROUTERS.DETAIL_PRODUCT}/:id`,
+    pageName: CONSTANTS.PAGE_NAME.DETAIL_PRODUCT,
+    exact: true,
+    component: DetailProductPage,
+  },
+  {
     path: CONSTANTS.ROUTERS.REVIEWS,
     pageName: CONSTANTS.PAGE_NAME.REVIEWS,
     exact: true,

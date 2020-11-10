@@ -7,7 +7,7 @@ import ActionCategories from '../components/ActionCategories';
 export const columns = [
   {
     title: 'ID',
-    dataIndex: 'id',
+    dataIndex: '_id',
   },
   {
     title: 'Icon',

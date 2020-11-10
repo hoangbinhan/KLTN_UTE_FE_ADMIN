@@ -2,7 +2,7 @@ import { TYPES } from '@/constants/actions/Products';
 import { REDUX_ACTION } from '@/types/common';
 
 const initialState = {
-  listProducts: [],
+  detailProduct:{},
   isLoading: true,
   isError: false,
   error: {},
@@ -13,22 +13,22 @@ export default function (
   { type, payload }: REDUX_ACTION
 ) {
   switch (type) {
-    case TYPES.FETCH_DATA_PRODUCTS_LOADING:
+    case TYPES.FETCH_DETAIL_PRODUCT_LOADING:
       return {
         ...state,
         isLoading: true,
         isError: false,
         error: {},
       };
-    case TYPES.FETCH_DATA_PRODUCTS_SUCCESS:
+    case TYPES.FETCH_DETAIL_PRODUCT_SUCCESS:
       return {
         ...state,
-        listProducts: payload.data.data,
+        detailProduct: payload.data.data.payload,
         isLoading: false,
         isError: false,
         error: {},
       };
-    case TYPES.FETCH_DATA_PRODUCTS_ERROR:
+    case TYPES.FETCH_DETAIL_PRODUCT_ERROR:
       return {
         ...state,
         isLoading: false,

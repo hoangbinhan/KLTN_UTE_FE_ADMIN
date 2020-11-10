@@ -1,5 +1,5 @@
 //libs
-import React, {useState} from 'react'
+import React from 'react'
 import { Form, Input } from 'antd';
 
 //others
@@ -13,16 +13,16 @@ interface Props {
     handleChangeValue: Function
 }
 
-const CustomerDetail:React.FC<Props> = (props) => {
-    const {handleChangeValue} = props
+const CustomerDetail: React.FC<Props> = (props) => {
+    const { handleChangeValue } = props
     const [form] = Form.useForm();
-    const handleOnChange = ()=>{
-        handleChangeValue({customerDetail: form.getFieldsValue()})
+    const handleOnChange = () => {
+        handleChangeValue({ customerDetail: form.getFieldsValue() })
     }
     return (
         <Form form={form} {...layoutForm} onChange={handleOnChange}>
             <Form.Item label='Number Phone' name='numberPhone'>
-                <Input type='number'/>
+                <Input type='number' />
             </Form.Item>
             <Form.Item label='First Name' name='firstName'>
                 <Input />

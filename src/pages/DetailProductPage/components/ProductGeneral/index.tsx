@@ -9,6 +9,7 @@ import ProductImages from '../ProductImages';
 //actions
 import { fetchDataCategories } from '@/actions/Categories/FetchDataCategories';
 import { addNewProduct } from '@/actions/Products/AddNewProduct'
+import { fetchDetailProduct } from '@/actions/Products/FetchDetailProduct'
 //others
 import './style.scss';
 //hooks
@@ -23,6 +24,9 @@ const ProductGeneral = () => {
   const { listCategories } = useTypedSelector(
     (state) => state.Categories.FetchDataCategories
   )
+  const { detailProduct } = useTypedSelector(
+    (state) => state.Products.FetchDetailProduct
+  )
   const layout = {
     labelCol: { span: 4 },
     wrapperCol: { span: 16 },
@@ -33,6 +37,7 @@ const ProductGeneral = () => {
   const [form] = Form.useForm();
   const [images, setImages] = useState([])
   const [description, setDescription] = useState('')
+  const paramProduct = router.query.id
   const handleChangeImages = (values: []) => {
     setImages(values)
   }
@@ -48,18 +53,20 @@ const ProductGeneral = () => {
       })
     )
   };
-
   useEffect(() => {
     dispatch(fetchDataCategories())
-  }, [dispatch])
-
+    if (paramProduct) {
+      dispatch(fetchDetailProduct({ params: { id: paramProduct } }))
+    }
+  }, [dispatch, paramProduct])
   const listOptionCategory = listCategories?.map((item: any) => <Option value={item._id} key={item._id}>{item.categoryName}</Option>)
   return (
-    <Form form={form} onFinish={createProduct} {...layout}>
+    <Form form={form} onFinish={createProduct} {...layout} >
       <Form.Item
         name='productName'
         label='Product Name'
         rules={[{ required: true }]}
+        initialValue={detailProduct.productName}
       >
         <Input />
       </Form.Item>
