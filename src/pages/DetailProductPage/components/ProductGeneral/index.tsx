@@ -10,6 +10,7 @@ import ProductImages from '../ProductImages';
 import { fetchDataCategories } from '@/actions/Categories/FetchDataCategories';
 import { addNewProduct } from '@/actions/Products/AddNewProduct'
 import { fetchDetailProduct } from '@/actions/Products/FetchDetailProduct'
+import { updateProduct } from '@/actions/Products/UpdateProduct'
 //others
 import './style.scss';
 //hooks
@@ -36,6 +37,7 @@ const ProductGeneral = () => {
   };
   const [form] = Form.useForm();
   const [images, setImages] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
   const [description, setDescription] = useState('')
   const paramProduct = router.query.id
   const handleChangeImages = (values: []) => {
@@ -43,41 +45,64 @@ const ProductGeneral = () => {
   }
   const createProduct = (value: any) => {
     const payload = { ...value, picture: images, description: description }
-    dispatch(
-      addNewProduct({
-        data: payload,
-        cbSuccess: () => {
-          form.resetFields();
-          router.push('/products')
-        }
-      })
-    )
+    if(paramProduct){
+      setIsLoading(true)
+      dispatch(
+        updateProduct({
+          data: payload,
+          cbSuccess: () => {
+            form.resetFields();
+            setIsLoading(false)
+            router.push('/products')
+          }
+        })
+      )
+    }
+    else{
+      setIsLoading(true)
+      dispatch(
+        addNewProduct({
+          data: payload,
+          cbSuccess: () => {
+            form.resetFields();
+            setIsLoading(false)
+            router.push('/products')
+          }
+        })
+      )
+    }
   };
+  //get api
   useEffect(() => {
     dispatch(fetchDataCategories())
     if (paramProduct) {
       dispatch(fetchDetailProduct({ params: { id: paramProduct } }))
     }
   }, [dispatch, paramProduct])
+  //get data
+  useEffect(() => {
+    if(detailProduct && paramProduct){
+      form.setFieldsValue(detailProduct)
+    }    
+  }, [detailProduct, form])
   const listOptionCategory = listCategories?.map((item: any) => <Option value={item._id} key={item._id}>{item.categoryName}</Option>)
+  
   return (
     <Form form={form} onFinish={createProduct} {...layout} >
       <Form.Item
         name='productName'
         label='Product Name'
         rules={[{ required: true }]}
-        initialValue={detailProduct.productName}
       >
         <Input />
       </Form.Item>
       <Form.Item
         name='description'
         label='Description'
-        rules={[{ required: true }]}
       >
         <CKEditor
           editor={ClassicEditor}
-          data=''
+          data={''}
           onChange={(event: any, editor: any) => {
             setDescription(editor.getData());
           }}
@@ -93,7 +118,7 @@ const ProductGeneral = () => {
       <Form.Item
         name='discountPrice'
         label='Discount Price'
-        rules={[{ required: true }, { min: 1 }]}
+        rules={[{ required: true }]}
       >
         <Input type='number' />
       </Form.Item>
@@ -107,14 +132,14 @@ const ProductGeneral = () => {
       <Form.Item name='category' label='Category'>
         <Select>{listOptionCategory}</Select>
       </Form.Item>
-      <Form.Item name='status' label='Status' initialValue={true}>
-        <Switch defaultChecked />
+      <Form.Item name='status' label='Status' valuePropName="checked">
+        <Switch />
       </Form.Item>
       <Form.Item name='picture' label='Picture'>
         <ProductImages handleChangeImages={handleChangeImages} />
       </Form.Item>
       <Form.Item {...tailLayout}>
-        <Button type='primary' htmlType='submit'>Submit</Button>
+        <Button type='primary' htmlType='submit' loading={isLoading}>Submit</Button>
       </Form.Item>
     </Form>
   );

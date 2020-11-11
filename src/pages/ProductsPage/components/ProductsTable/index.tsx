@@ -8,21 +8,29 @@ import { useTypedSelector } from '@/hooks';
 import { fetchDataProducts } from '@/actions/Products/FetchDataProducts';
 //others
 import { columns } from '../../DataSource/ProductTableColumn'
+//hocs
+
 
 const ProductsTable = () => {
   const dispatch = useDispatch();
-  const { listProducts } = useTypedSelector(
+  const { listProducts, isLoading } = useTypedSelector(
     (state) => state.Products.FetchDataProducts
   );
+  const {updateSuccess} = useTypedSelector(
+    (state)=>state.Products.UpdateProduct
+  )
+  const {deleteSuccess} = useTypedSelector(
+    (state)=>state.Products.DeleteProduct
+  )
   useEffect(() => {
     dispatch(fetchDataProducts());
-  }, [dispatch]);
+  }, [dispatch, updateSuccess, deleteSuccess]);
   const data = listProducts?.map((item: any) => {
     return { ...item, key: item._id }
   })
   return (
     <>
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={data} loading={isLoading}/>
     </>
   );
 };

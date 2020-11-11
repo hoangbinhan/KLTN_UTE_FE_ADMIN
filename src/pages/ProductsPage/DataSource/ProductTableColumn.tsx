@@ -1,8 +1,9 @@
+//libs
 import React from 'react';
 import { Tag, Image, Button } from 'antd'
 import { Link } from 'react-router-dom'
-// 
-
+//button
+import ButtonDelete from '../components/ButtonDelete'
 
 export const columns = [
   {
@@ -50,7 +51,7 @@ export const columns = [
         <Link to={`/detail-product/${record._id}`} style={{ marginRight: 15 }}>
           <Button type='primary'>Edit</Button>
         </Link>
-        <Button danger>Delete</Button>
+        <ButtonDelete productId={record._id}/>
       </>
     )
 
