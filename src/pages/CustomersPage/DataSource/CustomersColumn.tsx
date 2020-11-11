@@ -1,6 +1,8 @@
 //libs
+import React from 'react';
 
 //components
+import ActionCustomer from '../components/ActionCustomer'
 
 export const columns = [
   {
@@ -26,5 +28,8 @@ export const columns = [
   {
     title: 'Action',
     dataIndex: 'action',
-  },
+    render: (_: any, record: any) => (
+      <ActionCustomer record={{ ...record }} />
+    )
+  }
 ];

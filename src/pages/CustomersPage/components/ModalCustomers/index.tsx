@@ -1,12 +1,11 @@
 //libs
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Modal, Button, Form, Input, Upload, message, Switch } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { Modal, Button, Form, Input, message } from 'antd';
 //utils
 //actions
-import { addNewCategory } from '@/actions/Categories/AddNewCategory'
-import { updateCategory } from '@/actions/Categories/UpdateCategory'
+import { addNewCustomer } from '@/actions/Customers/AddNewCustomer'
+import { updateCustomer } from '@/actions/Customers/UpdateCustomer'
 //others
 import './style.scss';
 //hooks
@@ -16,6 +15,8 @@ type Props = {
   record?: any;
 };
 
+const { TextArea } = Input
+
 const ModalCustomers: React.FC<Props> = (props) => {
   const { name, record } = props
   const [visible, setVisible] = useState(false);
@@ -23,54 +24,46 @@ const ModalCustomers: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
   const [confirmLoading, setConfirmLoading] = useState(false);
   useEffect(() => {
-    form.setFieldsValue({
-      categoryName: record?.categoryName,
-      sortOrder: record?.sortOrder,
-      link: record?.link,
-      status: record?.status === 'ACTIVE' ? true : false
-    })
-  }, [form, record])
-  const normFile = (e: any) => {
-    if (Array.isArray(e)) {
-      return e;
+    if (record) {
+      form.setFieldsValue({
+        phoneNumber: record?.phoneNumber,
+        firstName: record?.firstName,
+        lastName: record?.lastName,
+        email: record?.email,
+        address: record?.address
+      })
     }
-    return e && e.fileList;
-  }
+  }, [form, record])
   const showModal = () => {
     setVisible(true);
   };
 
   const handleOk = (values: any) => {
     let payload = { ...values }
-    if (payload.status === true) {
-      payload = { ...payload, status: 'ACTIVE' }
-    } else {
-      payload = { ...payload, status: 'DISABLE' }
-    }
     setConfirmLoading(true)
     if (!record) {
       dispatch(
-        addNewCategory({
+        addNewCustomer({
           data: payload,
           cbSuccess: () => {
             form.resetFields();
             setVisible(false);
             setConfirmLoading(false)
-            message.success('Add new children category success')
+            message.success('Add customer success')
           }
         })
       )
     }
     else {
-      payload = { ...record, ...payload }
+      payload = { ...record, ...values }
       dispatch(
-        updateCategory({
+        updateCustomer({
           data: payload,
           cbSuccess: () => {
             form.resetFields();
             setVisible(false);
             setConfirmLoading(false)
-            message.success('update category success')
+            message.success('update customer success')
           }
         })
       )
@@ -163,6 +156,18 @@ const ModalCustomers: React.FC<Props> = (props) => {
             ]}
           >
             <Input />
+          </Form.Item>
+          <Form.Item
+            name='address'
+            label='Address'
+            rules={[
+              {
+                required: true,
+                message: 'Please input the Address',
+              }
+            ]}
+          >
+            <TextArea rows={4} />
           </Form.Item>
         </Form>
       </Modal>

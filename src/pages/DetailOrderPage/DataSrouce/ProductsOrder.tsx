@@ -1,12 +1,12 @@
 //libs
 import React from 'react'
-import { Space, InputNumber } from 'antd';
+import { Space, InputNumber, Button } from 'antd';
 
 export const columnsProductInvoice = [
     {
-        title: 'Product',
-        dataIndex: 'product',
-        key: 'product',
+        title: 'Product Name',
+        dataIndex: 'productName',
+        key: 'productName',
     },
     {
         title: 'Category',
@@ -17,7 +17,8 @@ export const columnsProductInvoice = [
         title: 'Quantity',
         dataIndex: 'quantity',
         key: 'quantity',
-        render: (() => <InputNumber min={1} max={100} defaultValue={1} />)
+        //TODO: FIX HERE
+        render: ((quantity: number, record: any) => <InputNumber min={1} max={100} value={quantity} onChange={(value) => console.log(record)} />)
     },
     {
         title: 'Unit Price',
@@ -40,7 +41,7 @@ export const columnsProductInvoice = [
     },
 ];
 
-export const columnsProducts = [
+export const columnsProducts = (handleAddProduct: Function) => [
     {
         title: 'ID',
         dataIndex: 'id',
@@ -71,5 +72,9 @@ export const columnsProducts = [
     },
     {
         title: 'Action',
+        dataIndex: 'action',
+        render: (_: any, record: any) => (
+            <Button onClick={(e) => handleAddProduct(e, record)}>Add</Button>
+        )
     },
 ];
