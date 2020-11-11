@@ -1,5 +1,5 @@
 //libs
-import React, { useState } from 'react'
+import React from 'react'
 import { Form, Input, Select } from 'antd';
 //others
 import './style.scss'
@@ -16,13 +16,12 @@ interface Props {
 const PaymentDetails:React.FC<Props>  = (props) => {
     const {handleChangeValue} = props
     const [form] = Form.useForm();
-    const [paymentMethod, setPaymentMethod] = useState('1')
     const handleOnChange = ()=>{
         handleChangeValue({paymentDetail: form.getFieldsValue()})
     }
     return (
         <Form form={form} {...layoutForm} onChange={handleOnChange}>
-            <Form.Item label='Payment Method' name='paymentMethod' initialValue={paymentMethod}>
+            <Form.Item label='Payment Method' name='paymentMethod' initialValue='1'>
                 <Select onSelect={handleOnChange} >
                     <Option value='1'>
                         buy at the store

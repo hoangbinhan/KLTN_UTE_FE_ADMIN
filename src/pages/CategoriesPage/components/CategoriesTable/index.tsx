@@ -22,12 +22,15 @@ const CategoriesTable = () => {
   const { updateSuccess } = useTypedSelector(
     (state) => state.Categories.UpdateCategory
   )
+  const {deleteSuccess} = useTypedSelector(
+    (state)=> state.Categories.DeleteCategory
+  )
   const { isAddChildrenSuccess } = useTypedSelector(
     (state) => state.Categories.AddChildrenCategory
   )
   useEffect(() => {
     dispatch(fetchDataCategories())
-  }, [dispatch, isSuccess, updateSuccess, isAddChildrenSuccess])
+  }, [dispatch, isSuccess, updateSuccess, isAddChildrenSuccess, deleteSuccess])
 
   const data = listCategories.map((item: any) => {
     return { ...item, key: item._id }

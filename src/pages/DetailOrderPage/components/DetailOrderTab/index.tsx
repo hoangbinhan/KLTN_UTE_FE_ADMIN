@@ -17,7 +17,6 @@ const DetailOrderTab = () => {
         let key = Object.keys(value)[0]
         setResult({...result, [key]:value[key]})
     }
-    console.log('result :>> ', result);
     return (
         <div className="detail-order-tab-wrapper">
             <Tabs defaultActiveKey="1" >

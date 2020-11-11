@@ -1,4 +1,4 @@
-import {TYPES} from '@/constants/actions/Products'
+import {TYPES} from '@/constants/actions/Categories'
 import {REDUX_ACTION} from '@/types/common'
 
 const initialState = {
@@ -13,7 +13,8 @@ export default function(
     {type, payload}: REDUX_ACTION
 ){
     switch(type){
-        case TYPES.DELETE_PRODUCT_LOADING:
+        case TYPES.DELETE_CATEGORY_LOADING:
+            console.log('is loading');
             return {
                 ...state,
                 deleteSuccess: false,
@@ -21,7 +22,8 @@ export default function(
                 deleteError: false,
                 error:{}
             };
-        case TYPES.DELETE_PRODUCT_SUCCESS:
+        case TYPES.DELETE_CATEGORY_SUCCESS:
+            console.log('is success');
             return{
                 ...state,
                 deleteSuccess: true,
@@ -29,7 +31,7 @@ export default function(
                 deleteError: false,
                 error: {}
             };
-        case TYPES.DELETE_PRODUCT_ERROR:
+        case TYPES.DELETE_CATEGORY_ERROR:
             return{
                 ...state,
                 deleteSuccess: false,

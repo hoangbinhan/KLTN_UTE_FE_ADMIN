@@ -83,7 +83,7 @@ const ModalCategories: React.FC<Props> = (props) => {
 
   return (
     <>
-      <Button type='primary' onClick={showModal}>
+      <Button type='primary' onClick={showModal} style={{ marginRight: 15 }}>
         {name}
       </Button>
       <Modal

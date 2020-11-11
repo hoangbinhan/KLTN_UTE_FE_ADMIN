@@ -84,7 +84,7 @@ const ProductGeneral = () => {
     if(detailProduct && paramProduct){
       form.setFieldsValue(detailProduct)
     }    
-  }, [detailProduct, form])
+  }, [detailProduct, form, paramProduct])
   const listOptionCategory = listCategories?.map((item: any) => <Option value={item._id} key={item._id}>{item.categoryName}</Option>)
   
   return (
