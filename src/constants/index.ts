@@ -11,7 +11,8 @@ const CONSTANTS = {
     DETAIL_PRODUCT: 'Detail Product',
     REVIEWS:'Reviews',
     ORDERS:'Orders',
-    DETAIL_ORDER: 'Detail Order'
+    DETAIL_ORDER: 'Detail Order',
+    CUSTOMERS: 'Customers'
   },
   ENDPOINTS,
   ROUTERS,

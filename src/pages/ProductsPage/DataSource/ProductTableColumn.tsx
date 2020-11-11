@@ -22,7 +22,7 @@ export const columns = [
   {
     title: 'Model',
     dataIndex: 'model',
-    render: (model: any) => model[0].categoryName
+    render: (model: any) => model[0]?.categoryName
   },
   {
     title: 'Price',
