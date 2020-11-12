@@ -1,5 +1,5 @@
 //libs
-import React, {useContext} from 'react'
+import React, {useContext, useState} from 'react'
 import { Form, Input, Select } from 'antd';
 //others
 import './style.scss'
@@ -7,9 +7,7 @@ import { layoutForm } from '@/constants/layout'
 //context
 import {DetailOrderContext} from '@/context/DetailOrderContext'
 //json address
-const city = require('@/addressVN/tinh_tp')
-const province = require('@/addressVN/quan_huyen')
-const ward = require('@/addressVN/xa_phuong') 
+const tree = require('@/addressVN/tree')
 
 const { Option } = Select;
 const { TextArea } = Input
@@ -21,16 +19,33 @@ interface Props {
 const PaymentDetails:React.FC<Props>  = (props) => {
     const { orderChange} = useContext(DetailOrderContext)
     const [form] = Form.useForm();
+    const [district, setDistrict] = useState([])
+    const [ward, setWard] = useState([])
+
     const handleOnChange = async ()=>{
         let value = await form.getFieldsValue()
-        console.log('value :>> ', value);
-        if(orderChange){
-            orderChange({paymentDetail:value})
+        let temp = {...value}
+        if(value.provinceCity){
+            temp.provinceCity = tree[parseInt(value.provinceCity)].name
         }
+        if(value.district){
+            temp.district = tree[parseInt(value.provinceCity)][`quan-huyen`][value.district].name
+        }
+        if(value.village){
+            temp.village = tree[parseInt(value.provinceCity)][`quan-huyen`][value.district][`xa-phuong`][value.village].name
+        }        
+        if(orderChange){
+            orderChange({paymentDetail:temp})
+        }
+    }    
+    
+    const handleProvinceChange = (value:string) => {
+        setDistrict(tree[parseInt(value)][`quan-huyen`])
     }
-    
-    const CityProvinceOptions = Object.values(city).map((item:any)=><Option key={item.code} value={item.code}>{item.name}</Option>)
-    
+    const handleDistrictChange = (value:string)=>{
+        setWard(district[parseInt(value)][`xa-phuong`])
+    }
+        
     return (
         <Form name='payment' form={form} {...layoutForm} onChange={handleOnChange}>
             <Form.Item label='Payment Method' name='paymentMethod'>
@@ -44,22 +59,18 @@ const PaymentDetails:React.FC<Props>  = (props) => {
                 </Select>
             </Form.Item>
             <Form.Item label='Province/City' name='provinceCity'>
-                <Select onSelect={handleOnChange}>
-                    {CityProvinceOptions}
+                <Select onSelect={handleOnChange} onChange={handleProvinceChange}>
+                    {Object.values(tree).map((item:any)=><Option key={item.code} value={item.code}>{item.name}</Option>)}
                 </Select>
             </Form.Item>
             <Form.Item label='District' name='district'>
-                <Select onSelect={handleOnChange}>
-                    <Option value='1'>
-                        Q9
-                    </Option>
+                <Select onSelect={handleOnChange} onChange={handleDistrictChange}>
+                {Object.values(district).map((item:any)=><Option key={item.code} value={item.code}>{item.name}</Option>)}
                 </Select>
             </Form.Item>
             <Form.Item label='Village' name='village'>
                 <Select onSelect={handleOnChange}>
-                    <Option value='1'>
-                        TNP B
-                    </Option>
+                {Object.values(ward).map((item:any)=><Option key={item.code} value={item.code}>{item.name}</Option>)}
                 </Select>
             </Form.Item>
             <Form.Item label='Address' name='address'>
