@@ -1,19 +1,19 @@
 //libs
-import React, {useContext} from 'react'
+import React, { useContext } from 'react'
 import { Descriptions, Table, Input, Divider } from 'antd'
 import moment from 'moment'
 //others
 import { columnsOrderItems } from '../../DataSrouce/Total'
 import './style.scss'
 //context
-import {DetailOrderContext} from '@/context/DetailOrderContext'
+import { DetailOrderContext } from '@/context/DetailOrderContext'
 
 const { TextArea } = Input
 
 const Totals = () => {
-    const { order} = useContext(DetailOrderContext)
-    const unitOrder = order.productsInvoice?.reduce((a:any, b:any)=>a+parseInt(b.quantity) ,0)
-    const subTotal = order.productsInvoice?.reduce((a:any, b:any)=>a + (parseInt(b.quantity)*parseFloat(b.price)) ,0)
+    const { order } = useContext(DetailOrderContext)
+    const unitOrder = order.productsInvoice?.reduce((a: any, b: any) => a + parseInt(b.quantity), 0)
+    const subTotal = order.productsInvoice?.reduce((a: any, b: any) => a + (parseInt(b.quantity) * parseFloat(b.price)), 0)
     const shippingFee = 10
     const total = subTotal + shippingFee
     console.log('order :>> ', order);
@@ -21,22 +21,23 @@ const Totals = () => {
         <div className='total-wrapper'>
             <Descriptions layout='vertical' bordered>
                 <Descriptions.Item label="Order Details" className='description-item'>
-                    DHA Store
+                    <h2>DHA Store</h2>
+                    <strong>Time create: </strong>{moment().format('MMMM Do YYYY, h:mm a')}
                     <br />
-                    {moment().format('MMMM Do YYYY, h:mm a')}
+                    <strong>Payment method: </strong>{order.paymentDetail?.paymentMethod}
                     <br />
-                    {order.paymentDetail?.paymentMethod}
+                    <strong>Delivery Option: </strong>{order.paymentDetail?.deliveryOption}
                     <br />
-                    {order.paymentDetail?.deliveryOption}
+                    <strong>Shipping Address: </strong>{order.paymentDetail?.address}','{order.paymentDetail?.ward}','{order.paymentDetail?.district}','{order.paymentDetail?.provinceCity}
                 </Descriptions.Item>
                 <Descriptions.Item label="Customer Details" className='description-item'>
-                    {`${order.customerDetail?.firstName} ${order.customerDetail?.lastName}`}
+                    <strong>Name: </strong> {order.customerDetail?.firstName} {order.customerDetail?.lastName}
                     <br />
-                    {order.customerDetail?.phoneNumber}
+                    <strong>Phone Number: </strong> {order.customerDetail?.phoneNumber}
                     <br />
-                    {order.customerDetail?.email}
+                    <strong>Email: </strong> {order.customerDetail?.email}
                     <br />
-                    {order.customerDetail?.address}
+                    <strong>Address: </strong> {order.customerDetail?.address}
                 </Descriptions.Item>
             </Descriptions>
             <Table columns={columnsOrderItems} dataSource={order?.productsInvoice} style={{ margin: '2rem 0' }} />

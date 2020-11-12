@@ -16,11 +16,11 @@ const ProductsTable = () => {
   const { listProducts, isLoading } = useTypedSelector(
     (state) => state.Products.FetchDataProducts
   );
-  const {updateSuccess} = useTypedSelector(
-    (state)=>state.Products.UpdateProduct
+  const { updateSuccess } = useTypedSelector(
+    (state) => state.Products.UpdateProduct
   )
-  const {deleteSuccess} = useTypedSelector(
-    (state)=>state.Products.DeleteProduct
+  const { deleteSuccess } = useTypedSelector(
+    (state) => state.Products.DeleteProduct
   )
   useEffect(() => {
     dispatch(fetchDataProducts());
@@ -30,7 +30,7 @@ const ProductsTable = () => {
   })
   return (
     <>
-      <Table columns={columns} dataSource={data} loading={isLoading}/>
+      <Table columns={columns} dataSource={data} loading={isLoading} />
     </>
   );
 };

@@ -1,81 +1,65 @@
 //libs
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
+import { useDispatch } from 'react-redux';
 import { Table, Input } from 'antd';
 //other
 import { columnsProductInvoice, columnsProducts } from '../../DataSrouce/ProductsOrder'
 import './style.scss'
 //context
-import {DetailOrderContext} from '@/context/DetailOrderContext'
+import { DetailOrderContext } from '@/context/DetailOrderContext'
+//hooks
+import { useTypedSelector } from '@/hooks';
+//actions
+import { fetchDataProducts } from '@/actions/Products/FetchDataProducts';
 
 const { Search } = Input;
 
-const data = [
-    {
-        key: '1',
-        id: '1',
-        image: '',
-        productName: 'SP1',
-        model: 'CPU',
-        price: '123',
-        quantity: '10',
-        status: 'ACTIVE',
-    },
-    {
-        key: '2',
-        id: '2',
-        image: '',
-        productName: 'SP1',
-        model: 'CPU',
-        price: '123',
-        quantity: '10',
-        status: 'ACTIVE',
-    },
-    {
-        key: '3',
-        id: '3',
-        image: '',
-        productName: 'SP1',
-        model: 'CPU',
-        price: '123',
-        quantity: '10',
-        status: 'ACTIVE',
-    },
-];
-
 const ProductsOrder = () => {
+    const dispatch = useDispatch();
     const [productsInvoice, setProductsInvoice] = useState<Array<any>>([])
-    const {orderChange} = useContext(DetailOrderContext)
+    const { orderChange } = useContext(DetailOrderContext)
+    const { listProducts, isLoading } = useTypedSelector(
+        (state) => state.Products.FetchDataProducts
+    );
 
     const handleAddProduct = (e: any, record: any) => {
         let temp: any[] = [...productsInvoice]
         const item = { ...record, quantity: 1 }
-        const isAdded = temp.filter((item: any) => item.id === record.id).length
+        const isAdded = temp.filter((item: any) => item._id === record._id).length
         if (isAdded) {
-            temp[temp.findIndex(item => item.id === record.id)].quantity++
+            temp[temp.findIndex(item => item._id === record._id)].quantity++
         } else {
             temp.push(item)
         }
         setProductsInvoice([...temp])
-        if(orderChange){
-            orderChange({productsInvoice:[...temp]})
+        if (orderChange) {
+            orderChange({ productsInvoice: [...temp] })
         }
     }
-    const handleChangeQuantity = (value:any, record:any)=>{
+    const handleChangeQuantity = (value: any, record: any) => {
         let temp: any[] = [...productsInvoice]
-        temp[temp.findIndex(item => item.id === record.id)].quantity=value
+        temp[temp.findIndex(item => item._id === record._id)].quantity = value
         setProductsInvoice([...temp])
-        if(orderChange){
-            orderChange({productsInvoice:[...temp]})
+        if (orderChange) {
+            orderChange({ productsInvoice: [...temp] })
         }
     }
-    const handleChangeDelete = (e:any, record:any)=>{
+    const handleChangeDelete = (e: any, record: any) => {
         const temp: any[] = [...productsInvoice]
-        const result =  temp.filter((item:any)=>item.id!==record.id)
+        const result = temp.filter((item: any) => item._id !== record._id)
         setProductsInvoice([...result])
-        if(orderChange){
-            orderChange({productsInvoice:[...result]})
+        if (orderChange) {
+            orderChange({ productsInvoice: [...result] })
         }
     }
+
+    useEffect(() => {
+        dispatch(fetchDataProducts());
+    }, [dispatch]);
+    const data = listProducts?.map((item: any) => {
+        return { ...item, key: item._id }
+    })
+
     return (
         <div className='product-orders-wrapper'>
             <Table columns={columnsProductInvoice(handleChangeQuantity, handleChangeDelete)} dataSource={productsInvoice} pagination={false} />
@@ -85,7 +69,7 @@ const ProductsOrder = () => {
                 onSearch={(value) => console.log(value)}
                 className='input-search'
             />
-            <Table columns={columnsProducts(handleAddProduct)} dataSource={data} />
+            <Table columns={columnsProducts(handleAddProduct)} dataSource={data} loading={isLoading} />
         </div>
     )
 }
