@@ -1,3 +1,4 @@
+import React from 'react'
 
 export const columnsOrderDetails = [
     {
@@ -18,8 +19,8 @@ export const columnsCustomerDetails = [
 export const columnsOrderItems = [
     {
         title: 'Product',
-        dataIndex: 'product',
-        key: 'product',
+        key: 'productName',
+        dataIndex: 'productName',
     },
     {
         title: 'Quantity',
@@ -28,12 +29,13 @@ export const columnsOrderItems = [
     },
     {
         title: 'Unit Price',
-        dataIndex: 'unitPrice',
-        key: 'unitPrice',
+        dataIndex: 'price',
+        key: 'price',
     },
     {
         title: 'Total Price',
-        dataIndex: 'totalPrice',
-        key: 'totalPrice',
+        render: (_:any, record: any)=>(
+            <p>{parseFloat(record.price)*parseInt(record.quantity)}</p>
+        )
     },
 ]

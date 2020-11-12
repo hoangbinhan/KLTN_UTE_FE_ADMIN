@@ -118,7 +118,7 @@ const ModalCustomers: React.FC<Props> = (props) => {
             ]}
 
           >
-            <Input type='number' />
+            <Input />
           </Form.Item>
           <Form.Item
             name='firstName'

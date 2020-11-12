@@ -2,7 +2,7 @@
 import React from 'react'
 import { Space, InputNumber, Button } from 'antd';
 
-export const columnsProductInvoice = [
+export const columnsProductInvoice = (handleChangeQuantity:Function, handleChangeDelete: Function) => [
     {
         title: 'Product Name',
         dataIndex: 'productName',
@@ -18,7 +18,7 @@ export const columnsProductInvoice = [
         dataIndex: 'quantity',
         key: 'quantity',
         //TODO: FIX HERE
-        render: ((quantity: number, record: any) => <InputNumber min={1} max={100} value={quantity} onChange={(value) => console.log(record)} />)
+        render: ((quantity: number, record: any) => <InputNumber min={1} max={100} value={quantity} onChange={(value) => handleChangeQuantity(value, record)} />)
     },
     {
         title: 'Unit Price',
@@ -35,7 +35,7 @@ export const columnsProductInvoice = [
         key: 'action',
         render: (text: string, record: any) => (
             <Space size="middle">
-                <p>Delete</p>
+                <Button type='primary' ghost danger onClick={(e:any)=>handleChangeDelete(e, record)}>Delete</Button>
             </Space>
         ),
     },

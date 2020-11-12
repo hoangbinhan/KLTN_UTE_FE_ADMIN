@@ -1,9 +1,11 @@
 //libs
-import React, { useState } from 'react'
-import { Table, Input, message } from 'antd';
+import React, { useState, useContext } from 'react'
+import { Table, Input } from 'antd';
 //other
 import { columnsProductInvoice, columnsProducts } from '../../DataSrouce/ProductsOrder'
 import './style.scss'
+//context
+import {DetailOrderContext} from '@/context/DetailOrderContext'
 
 const { Search } = Input;
 
@@ -42,20 +44,41 @@ const data = [
 
 const ProductsOrder = () => {
     const [productsInvoice, setProductsInvoice] = useState<Array<any>>([])
-    const handleAddProduct = (e: any, value: any) => {
+    const {orderChange} = useContext(DetailOrderContext)
+
+    const handleAddProduct = (e: any, record: any) => {
         let temp: any[] = [...productsInvoice]
-        const item = { ...value, quantity: 1 }
-        const isAdded = temp.filter((item: any) => item.id === value.id).length
+        const item = { ...record, quantity: 1 }
+        const isAdded = temp.filter((item: any) => item.id === record.id).length
         if (isAdded) {
-            temp[temp.findIndex(item => item.id === value.id)].quantity++
+            temp[temp.findIndex(item => item.id === record.id)].quantity++
         } else {
             temp.push(item)
         }
         setProductsInvoice([...temp])
+        if(orderChange){
+            orderChange({productsInvoice:[...temp]})
+        }
+    }
+    const handleChangeQuantity = (value:any, record:any)=>{
+        let temp: any[] = [...productsInvoice]
+        temp[temp.findIndex(item => item.id === record.id)].quantity=value
+        setProductsInvoice([...temp])
+        if(orderChange){
+            orderChange({productsInvoice:[...temp]})
+        }
+    }
+    const handleChangeDelete = (e:any, record:any)=>{
+        const temp: any[] = [...productsInvoice]
+        const result =  temp.filter((item:any)=>item.id!==record.id)
+        setProductsInvoice([...result])
+        if(orderChange){
+            orderChange({productsInvoice:[...result]})
+        }
     }
     return (
         <div className='product-orders-wrapper'>
-            <Table columns={columnsProductInvoice} dataSource={productsInvoice} pagination={false} />
+            <Table columns={columnsProductInvoice(handleChangeQuantity, handleChangeDelete)} dataSource={productsInvoice} pagination={false} />
             <h1>Add Products</h1>
             <Search
                 placeholder='Search...'

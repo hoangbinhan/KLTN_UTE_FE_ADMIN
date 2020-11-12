@@ -1,27 +1,39 @@
 //libs
-import React from 'react'
+import React, {useContext} from 'react'
 import { Form, Input, Select } from 'antd';
 //others
 import './style.scss'
 import { layoutForm } from '@/constants/layout'
+//context
+import {DetailOrderContext} from '@/context/DetailOrderContext'
+//json address
+const city = require('@/addressVN/tinh_tp')
+const province = require('@/addressVN/quan_huyen')
+const ward = require('@/addressVN/xa_phuong') 
 
 const { Option } = Select;
 const { TextArea } = Input
 
 interface Props {
     record?: any,
-    handleChangeValue: Function
 }
 
 const PaymentDetails:React.FC<Props>  = (props) => {
-    const {handleChangeValue} = props
+    const { orderChange} = useContext(DetailOrderContext)
     const [form] = Form.useForm();
-    const handleOnChange = ()=>{
-        handleChangeValue({paymentDetail: form.getFieldsValue()})
+    const handleOnChange = async ()=>{
+        let value = await form.getFieldsValue()
+        console.log('value :>> ', value);
+        if(orderChange){
+            orderChange({paymentDetail:value})
+        }
     }
+    
+    const CityProvinceOptions = Object.values(city).map((item:any)=><Option key={item.code} value={item.code}>{item.name}</Option>)
+    
     return (
-        <Form form={form} {...layoutForm} onChange={handleOnChange}>
-            <Form.Item label='Payment Method' name='paymentMethod' initialValue='1'>
+        <Form name='payment' form={form} {...layoutForm} onChange={handleOnChange}>
+            <Form.Item label='Payment Method' name='paymentMethod'>
                 <Select onSelect={handleOnChange} >
                     <Option value='1'>
                         buy at the store
@@ -33,9 +45,7 @@ const PaymentDetails:React.FC<Props>  = (props) => {
             </Form.Item>
             <Form.Item label='Province/City' name='provinceCity'>
                 <Select onSelect={handleOnChange}>
-                    <Option value='1'>
-                        HCM
-                    </Option>
+                    {CityProvinceOptions}
                 </Select>
             </Form.Item>
             <Form.Item label='District' name='district'>

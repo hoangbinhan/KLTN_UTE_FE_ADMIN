@@ -1,28 +1,32 @@
 //libs
-import React from 'react'
+import React, {useContext} from 'react'
 import { Form, Input } from 'antd';
-
 //others
 import './style.scss'
 import { layoutForm } from '@/constants/layout'
+//context
+import {DetailOrderContext} from '@/context/DetailOrderContext'
 
 const { TextArea } = Input;
 
 interface Props {
     record?: any,
-    handleChangeValue: Function
 }
 
 const CustomerDetail: React.FC<Props> = (props) => {
-    const { handleChangeValue } = props
+    const { orderChange} = useContext(DetailOrderContext)
     const [form] = Form.useForm();
-    const handleOnChange = () => {
-        handleChangeValue({ customerDetail: form.getFieldsValue() })
+    const handleOnChange = async () => {
+        let value = await form.getFieldsValue()
+        if(orderChange){
+            orderChange({customerDetail:value})
+        }
     }
     return (
-        <Form form={form} {...layoutForm} onChange={handleOnChange}>
-            <Form.Item label='Number Phone' name='numberPhone'>
-                <Input type='number' />
+        //TODO: set context here
+        <Form form={form} {...layoutForm} onChange={handleOnChange} >
+            <Form.Item label='Phone Number' name='phoneNumber'>
+                <Input />
             </Form.Item>
             <Form.Item label='First Name' name='firstName'>
                 <Input />
