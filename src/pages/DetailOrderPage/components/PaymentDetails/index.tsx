@@ -29,24 +29,36 @@ const PaymentDetails: React.FC<Props> = () => {
             temp.provinceCity = tree[parseInt(value.provinceCity)].name
         }
         if (value.district && value.provinceCity) {
-            temp.district = tree[parseInt(value.provinceCity)][`quan-huyen`][value.district].name
+            let result = tree[parseInt(value.provinceCity)][`quan-huyen`][value.district]
+            result ? temp.district = result.name : temp.district = ''
+            // temp.district = tree[parseInt(value.provinceCity)][`quan-huyen`][value.district].name
         }
         if (value.ward && value.district) {
-            temp.ward = tree[parseInt(value.provinceCity)][`quan-huyen`][value.district][`xa-phuong`][value.ward].name
+            let district = tree[parseInt(value.provinceCity)][`quan-huyen`][value.district]
+            if(district){
+                let result = district[`xa-phuong`][value.ward]
+                result ? temp.ward = result.name : temp.ward = ''
+            }
+            // temp.ward = tree[parseInt(value.provinceCity)][`quan-huyen`][value.district][`xa-phuong`][value.ward].name
         }
         if (orderChange) {
             orderChange({ paymentDetail: temp })
         }
     }
 
-    const handleProvinceChange = (value: string) => {
-        if (tree[parseInt(value)][`quan-huyen`]) {
-            setDistrict(tree[parseInt(value)][`quan-huyen`])
+    const handleProvinceChange = async (value: any) => {
+        await setDistrict([])
+        await setWard([])
+        form.setFieldsValue({...form.getFieldsValue(), district: undefined, ward: undefined})
+        if (tree[(value)][`quan-huyen`]) {    
+            setDistrict(tree[(value)][`quan-huyen`])
         }
     }
-    const handleDistrictChange = (value: string) => {
-        if (district[parseInt(value)]) {
-            setWard(district[parseInt(value)][`xa-phuong`])
+    const handleDistrictChange = async (value: any) => {
+        await setWard([])
+        form.setFieldsValue({...form.getFieldsValue(), ward: undefined})
+        if (district[value]) {
+            setWard(district[(value)][`xa-phuong`])
         }
     }
 
@@ -59,6 +71,16 @@ const PaymentDetails: React.FC<Props> = () => {
                     </Option>
                     <Option value='2'>
                         remote purchase
+                    </Option>
+                </Select>
+            </Form.Item>
+            <Form.Item label='Delivery Option' name='deliveryOption'>
+                <Select onSelect={handleOnChange} placeholder='select delivery option...'>
+                    <Option value='1'>
+                        Standard Delivery
+                    </Option>
+                    <Option value='2'>
+                        Instant Delivery
                     </Option>
                 </Select>
             </Form.Item>
@@ -79,16 +101,6 @@ const PaymentDetails: React.FC<Props> = () => {
             </Form.Item>
             <Form.Item label='Address' name='address'>
                 <TextArea rows={4} placeholder='input the address...' />
-            </Form.Item>
-            <Form.Item label='Delivery Option' name='deliveryOption'>
-                <Select onSelect={handleOnChange} placeholder='select delivery option...'>
-                    <Option value='1'>
-                        Standard Delivery
-                    </Option>
-                    <Option value='2'>
-                        Instant Delivery
-                    </Option>
-                </Select>
             </Form.Item>
         </Form>
     )

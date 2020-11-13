@@ -1,6 +1,6 @@
 //libs
 import React, { useContext } from 'react'
-import { Descriptions, Table, Input, Divider } from 'antd'
+import { Descriptions, Table, Input, Divider, Button } from 'antd'
 import moment from 'moment'
 //others
 import { columnsOrderItems } from '../../DataSrouce/Total'
@@ -11,7 +11,7 @@ import { DetailOrderContext } from '@/context/DetailOrderContext'
 const { TextArea } = Input
 
 const Totals = () => {
-    const { order } = useContext(DetailOrderContext)
+    const { order, submitOrder } = useContext(DetailOrderContext)
     const unitOrder = order.productsInvoice?.reduce((a: any, b: any) => a + parseInt(b.quantity), 0)
     const subTotal = order.productsInvoice?.reduce((a: any, b: any) => a + (parseInt(b.quantity) * parseFloat(b.price)), 0)
     const shippingFee = 10
@@ -28,7 +28,7 @@ const Totals = () => {
                     <br />
                     <strong>Delivery Option: </strong>{order.paymentDetail?.deliveryOption}
                     <br />
-                    <strong>Shipping Address: </strong>{order.paymentDetail?.address}','{order.paymentDetail?.ward}','{order.paymentDetail?.district}','{order.paymentDetail?.provinceCity}
+                    <strong>Shipping Address: </strong>{order.paymentDetail?.address}, {order.paymentDetail?.ward}, {order.paymentDetail?.district}, {order.paymentDetail?.provinceCity}
                 </Descriptions.Item>
                 <Descriptions.Item label="Customer Details" className='description-item'>
                     <strong>Name: </strong> {order.customerDetail?.firstName} {order.customerDetail?.lastName}
@@ -67,6 +67,10 @@ const Totals = () => {
                     </div>
                 </Descriptions.Item>
             </Descriptions>
+            <div className="button-submit">
+                <Button style={{marginRight: '1rem'}}>Reset</Button>
+                <Button type='primary' onClick={submitOrder}>Submit</Button>
+            </div>
         </div>
     )
 }

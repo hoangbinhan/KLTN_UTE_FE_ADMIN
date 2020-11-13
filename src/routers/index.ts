@@ -12,6 +12,7 @@ import ReviewsPage from '@/pages/ReviewsPage'
 import Orders from '@/pages/OrdersPage';
 import DetailOrderPage from '@/pages/DetailOrderPage';
 import CustomersPage from '@/pages/CustomersPage'
+import ShippingMethods from '@/pages/ShippingMethods'
 /**
  * define main pages routes
  */
@@ -76,7 +77,13 @@ const routers: ROUTERS = [
     pageName: CONSTANTS.PAGE_NAME.CUSTOMERS,
     exact: true,
     component: CustomersPage
-  }
+  },
+  {
+    path: CONSTANTS.ROUTERS.SHIPPING_METHODS,
+    pageName: CONSTANTS.PAGE_NAME.SHIPPING_METHODS,
+    exact: true,
+    component: ShippingMethods
+  },
 ];
 
 export default routers;

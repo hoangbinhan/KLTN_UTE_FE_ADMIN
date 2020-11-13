@@ -117,6 +117,18 @@ export const SubSales = [
       );
     },
   },
+  {
+    id: 'Shipping Methods',
+    contentMenu: 'Shipping Methods',
+    linkMenu: CONSTANTS.ROUTERS.SHIPPING_METHODS,
+    get component() {
+      return (
+        <Menu.Item key={this.id}>
+          <Link to={this.linkMenu}>{this.contentMenu}</Link>
+        </Menu.Item>
+      );
+    },
+  },
 ];
 
 export const SubCustomers = [
