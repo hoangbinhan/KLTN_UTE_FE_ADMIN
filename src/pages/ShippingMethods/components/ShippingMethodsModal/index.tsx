@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux';
 import { Modal, Button, Form, Input, message, Switch } from 'antd';
 //utils
 //actions
-import { addNewCategory } from '@/actions/Categories/AddNewCategory'
-import { updateCategory } from '@/actions/Categories/UpdateCategory'
+import { addNewShippingMethod } from '@/actions/ShippingMethod/AddNewShippingMethod'
+import { updateShippingMethod } from '@/actions/ShippingMethod/UpdateShippingMethod'
 //others
 import './style.scss';
 //hooks
@@ -23,9 +23,8 @@ const ShippingMethodsModal: React.FC<Props> = (props) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   useEffect(() => {
     form.setFieldsValue({
-      categoryName: record?.categoryName,
-      sortOrder: record?.sortOrder,
-      link: record?.link,
+      shippingMethod: record?.shippingMethod,
+      shippingFee: record?.shippingFee,
       status: record?.status === 'ACTIVE' ? true : false
     })
   }, [form, record])
@@ -43,13 +42,13 @@ const ShippingMethodsModal: React.FC<Props> = (props) => {
     setConfirmLoading(true)
     if (!record) {
       dispatch(
-        addNewCategory({
+        addNewShippingMethod({
           data: payload,
           cbSuccess: () => {
             form.resetFields();
             setVisible(false);
             setConfirmLoading(false)
-            message.success('Add new children category success')
+            message.success('Add new shipping method success')
           }
         })
       )
@@ -57,13 +56,13 @@ const ShippingMethodsModal: React.FC<Props> = (props) => {
     else {
       payload = { ...record, ...payload }
       dispatch(
-        updateCategory({
+        updateShippingMethod({
           data: payload,
           cbSuccess: () => {
             form.resetFields();
             setVisible(false);
             setConfirmLoading(false)
-            message.success('update category success')
+            message.success('update shipping method success')
           }
         })
       )

@@ -1,5 +1,7 @@
 import React from 'react'
-import { Button, Tag } from 'antd'
+import { Tag } from 'antd'
+//components
+import ActionShippingMethod from '../components/ActionShippingMethod'
 
 export const columns = [
     {
@@ -16,7 +18,7 @@ export const columns = [
     },
     {
         title: 'Status',
-        dataIndex: 'Status',
+        dataIndex: 'status',
         render: (text:string)=>{
             if(text==='ACTIVE'){
                 return <Tag color='green'>{text}</Tag>
@@ -29,9 +31,7 @@ export const columns = [
         title: 'Action',
         dataIndex: 'action',
         render: (_: any, record: any) => (
-            <>
-                <Button>Edit</Button>
-            </>
+            <ActionShippingMethod record={record}/>
         )
     }
 ]

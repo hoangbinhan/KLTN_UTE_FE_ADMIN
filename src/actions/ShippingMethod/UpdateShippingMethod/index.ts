@@ -5,7 +5,7 @@ import { ASYNC_ACTION_TYPE } from '@/types/common';
 import CONSTANTS from '@/constants';
 import request from '@/utils/request';
 
-export const updateCategory = ({
+export const updateShippingMethod = ({
   params = {},
   data = {},
   cbSuccess,
