@@ -22,8 +22,8 @@ const CategoriesTable = () => {
   const { updateSuccess } = useTypedSelector(
     (state) => state.Categories.UpdateCategory
   )
-  const {deleteSuccess} = useTypedSelector(
-    (state)=> state.Categories.DeleteCategory
+  const { deleteSuccess } = useTypedSelector(
+    (state) => state.Categories.DeleteCategory
   )
   const { isAddChildrenSuccess } = useTypedSelector(
     (state) => state.Categories.AddChildrenCategory

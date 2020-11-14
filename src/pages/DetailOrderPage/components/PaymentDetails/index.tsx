@@ -26,7 +26,7 @@ const PaymentDetails: React.FC<Props> = () => {
         let value = await form.getFieldsValue()
         let temp = { ...value }
         if (value.provinceCity) {
-            temp.provinceCity = tree[parseInt(value.provinceCity)].name
+            temp.provinceCity = tree[value.provinceCity]?.name
         }
         if (value.district && value.provinceCity) {
             let result = tree[parseInt(value.provinceCity)][`quan-huyen`][value.district]
@@ -35,7 +35,7 @@ const PaymentDetails: React.FC<Props> = () => {
         }
         if (value.ward && value.district) {
             let district = tree[parseInt(value.provinceCity)][`quan-huyen`][value.district]
-            if(district){
+            if (district) {
                 let result = district[`xa-phuong`][value.ward]
                 result ? temp.ward = result.name : temp.ward = ''
             }
@@ -49,14 +49,14 @@ const PaymentDetails: React.FC<Props> = () => {
     const handleProvinceChange = async (value: any) => {
         await setDistrict([])
         await setWard([])
-        form.setFieldsValue({...form.getFieldsValue(), district: undefined, ward: undefined})
-        if (tree[(value)][`quan-huyen`]) {    
+        form.setFieldsValue({ ...form.getFieldsValue(), district: undefined, ward: undefined })
+        if (tree[(value)][`quan-huyen`]) {
             setDistrict(tree[(value)][`quan-huyen`])
         }
     }
     const handleDistrictChange = async (value: any) => {
         await setWard([])
-        form.setFieldsValue({...form.getFieldsValue(), ward: undefined})
+        form.setFieldsValue({ ...form.getFieldsValue(), ward: undefined })
         if (district[value]) {
             setWard(district[(value)][`xa-phuong`])
         }

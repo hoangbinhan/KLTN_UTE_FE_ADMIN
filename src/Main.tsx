@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 // routers
 import routers from '@/routers';
 // components
+import NotFound from "@/pages/NotFound";
 // interceptors
 import { doAxiosRequestIntercept } from '@/configs/Interceptors';
 // others
@@ -20,7 +21,7 @@ const Main = () => {
           component={route.component}
         />
       ))}
-      <Route key='/not-found' />
+      <Route key='/not-found' render={NotFound} />
     </Switch>
   );
 };

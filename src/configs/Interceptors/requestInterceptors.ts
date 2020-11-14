@@ -1,5 +1,6 @@
 // others
 import { AXIOS_INSTANCE } from '../enviroments';
+import jsCookie from "js-cookie";
 
 // intercept request
 const doAxiosRequestIntercept = () => {
@@ -8,11 +9,16 @@ const doAxiosRequestIntercept = () => {
   // };
   AXIOS_INSTANCE.interceptors.request.use(
     async (config) => {
+      const token = await jsCookie.get("token");
+
       const mConfig = {
         ...config,
         data: {
           // ...commonApiFields,
           ...config.data,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
       };
       return mConfig;

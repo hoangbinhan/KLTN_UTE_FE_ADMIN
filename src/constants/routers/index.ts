@@ -15,7 +15,8 @@ const ROUTERS = {
   CREATE_PRODUCT: '/create-product',
   DETAIL_PRODUCT:'/detail-product',
   DETAIL_ORDER: '/detail-order',
-  SHIPPING_METHODS: '/shipping_methods'
+  SHIPPING_METHODS: '/shipping_methods',
+  LOGIN: '/login'
 };
 
 export default ROUTERS;

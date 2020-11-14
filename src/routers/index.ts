@@ -83,7 +83,7 @@ const routers: ROUTERS = [
     pageName: CONSTANTS.PAGE_NAME.SHIPPING_METHODS,
     exact: true,
     component: ShippingMethods
-  },
+  }
 ];
 
 export default routers;
