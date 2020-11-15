@@ -21,6 +21,7 @@ export const columns = [
   {
     title: 'Sort Order',
     dataIndex: 'sortOrder',
+    sorter: (a: any, b: any) => parseInt(a.sortOrder) - parseInt(b.sortOrder),
   },
   {
     title: 'Status',

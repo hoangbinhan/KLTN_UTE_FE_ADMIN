@@ -10,7 +10,8 @@ export const DetailOrderContext = createContext<Partial<ContextProps>>({
     order: {
         productsInvoice: [],
         customerDetail: {},
-        paymentDetail: {}
+        paymentDetail: {},
+        total: {}
     },
     orderChange: () => { },
     submitOrder: () => { }
@@ -28,8 +29,12 @@ export const DetailOrderProvider: React.FC<Props> = ({ children }) => {
             let temp = await { [Object.keys(value)[0]]: Object.values(value)[0] }
             await setOrder({ ...order, ...temp })
         },
-        submitOrder: () => {
-            console.log(order)
+        submitOrder: (value: any) => {
+            const { productsInvoice, customerDetail, paymentDetail, totalDetail } = value
+            if (!productsInvoice || !customerDetail || !paymentDetail || !totalDetail) {
+                console.log('khong du du lieu');
+
+            }
         }
     }
     return (

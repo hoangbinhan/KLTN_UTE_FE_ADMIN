@@ -1,5 +1,5 @@
 //libs
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Descriptions, Table, Input, Divider, Button } from 'antd'
 import moment from 'moment'
 //others
@@ -11,12 +11,28 @@ import { DetailOrderContext } from '@/context/DetailOrderContext'
 const { TextArea } = Input
 
 const Totals = () => {
-    const { order, submitOrder } = useContext(DetailOrderContext)
+    const [note, setNote] = useState('')
+    const { order, orderChange, submitOrder } = useContext(DetailOrderContext)
     const unitOrder = order.productsInvoice?.reduce((a: any, b: any) => a + parseInt(b.quantity), 0)
     const subTotal = order.productsInvoice?.reduce((a: any, b: any) => a + (parseInt(b.quantity) * parseFloat(b.price)), 0)
     const shippingFee = 10
     const total = subTotal + shippingFee
-    console.log('order :>> ', order);
+    const onsubmit = async () => {
+        if (orderChange && submitOrder) {
+            let totalDetail = {
+                note: note,
+                unitOrder: unitOrder,
+                subTotal: subTotal,
+                shippingFee: shippingFee,
+                total: total
+            }
+            await orderChange({
+                totalDetail
+            })
+            let temp = { ...order, totalDetail }
+            submitOrder(temp)
+        }
+    }
     return (
         <div className='total-wrapper'>
             <Descriptions layout='vertical' bordered>
@@ -43,7 +59,7 @@ const Totals = () => {
             <Table columns={columnsOrderItems} dataSource={order?.productsInvoice} style={{ margin: '2rem 0' }} />
             <Descriptions layout='vertical' bordered>
                 <Descriptions.Item label="Note" className='description-item'>
-                    <TextArea rows={8} />
+                    <TextArea rows={8} onChange={(e) => setNote(e.target.value)} />
                 </Descriptions.Item>
                 <Descriptions.Item label="Total" className='description-item'>
                     <div className="row-unit-total">
@@ -68,8 +84,8 @@ const Totals = () => {
                 </Descriptions.Item>
             </Descriptions>
             <div className="button-submit">
-                <Button style={{marginRight: '1rem'}}>Reset</Button>
-                <Button type='primary' onClick={submitOrder}>Submit</Button>
+                <Button style={{ marginRight: '1rem' }}>Reset</Button>
+                <Button type='primary' onClick={onsubmit}>Submit</Button>
             </div>
         </div>
     )

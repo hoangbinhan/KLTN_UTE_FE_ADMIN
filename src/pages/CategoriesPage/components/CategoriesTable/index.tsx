@@ -43,6 +43,7 @@ const CategoriesTable = () => {
         columns={columns}
         dataSource={[...data]}
         loading={isLoading}
+        pagination={false}
       />
     </>
   );
