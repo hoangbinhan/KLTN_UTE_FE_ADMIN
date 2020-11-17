@@ -1,4 +1,10 @@
+//libs
 import React, { createContext, useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { message } from 'antd';
+//actions
+import { addNewOrder } from '@/actions/Order/AddNewOrder'
+import { useRouter } from '@/hooks';
 
 type ContextProps = {
     order: any,
@@ -23,6 +29,8 @@ interface Props {
 
 export const DetailOrderProvider: React.FC<Props> = ({ children }) => {
     const [order, setOrder] = useState({})
+    const dispatch = useDispatch()
+    const router = useRouter()
     const provider = {
         order,
         orderChange: async (value: any) => {
@@ -32,8 +40,15 @@ export const DetailOrderProvider: React.FC<Props> = ({ children }) => {
         submitOrder: (value: any) => {
             const { productsInvoice, customerDetail, paymentDetail, totalDetail } = value
             if (!productsInvoice || !customerDetail || !paymentDetail || !totalDetail) {
-                console.log('khong du du lieu');
-
+                message.warning('Please fill full data!')
+            } else {
+                dispatch(addNewOrder({
+                    data: value,
+                    cbSuccess: () => {
+                        router.push('/orders')
+                        message.success('Successful')
+                    }
+                }))
             }
         }
     }

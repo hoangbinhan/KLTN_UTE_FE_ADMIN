@@ -65,7 +65,7 @@ const PaymentDetails: React.FC<Props> = () => {
     return (
         <Form name='payment' form={form} {...layoutForm} onChange={handleOnChange}>
             <Form.Item label='Payment Method' name='paymentMethod'>
-                <Select onSelect={handleOnChange} placeholder='select payment method...'>
+                <Select onSelect={handleOnChange} placeholder='select payment method...' >
                     <Option value='1'>
                         buy at the store
                     </Option>

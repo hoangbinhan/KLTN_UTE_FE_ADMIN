@@ -85,7 +85,7 @@ const Totals = () => {
             </Descriptions>
             <div className="button-submit">
                 <Button style={{ marginRight: '1rem' }}>Reset</Button>
-                <Button type='primary' onClick={onsubmit}>Submit</Button>
+                <Button type='primary' onClick={onsubmit} >Submit</Button>
             </div>
         </div>
     )
