@@ -40,6 +40,7 @@ const Login = () => {
         <div className="login-wrapper">
             <div className="login-background-img">
                 <div className="login-form">
+                    <h1 style={{color:'#3a9cd7'}}>ACCOUNT LOGIN</h1>
                     <Form
                         name="basic"
                         initialValues={{ remember: true }}

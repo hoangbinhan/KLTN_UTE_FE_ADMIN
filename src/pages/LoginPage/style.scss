@@ -24,9 +24,8 @@
       }
     }
     .login-background-img {
-      background: url("http://citynow.vn/citynow/images/page/slides/city04.jpg")
-        no-repeat center center fixed;
-      background-size: cover;
+      background: rgb(50,99,166);
+      background: linear-gradient(90deg, rgba(50,99,166,1) 0%, rgba(0,228,255,1) 100%);
       overflow: hidden;
       padding: 50vh;
       @media screen and(max-width: 750px) {
