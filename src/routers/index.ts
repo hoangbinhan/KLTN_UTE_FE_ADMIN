@@ -73,6 +73,12 @@ const routers: ROUTERS = [
     component: DetailOrderPage
   },
   {
+    path: `${CONSTANTS.ROUTERS.DETAIL_ORDER}/:id`,
+    pageName: CONSTANTS.PAGE_NAME.DETAIL_ORDER,
+    exact: true,
+    component: DetailOrderPage
+  },
+  {
     path: CONSTANTS.ROUTERS.CUSTOMERS,
     pageName: CONSTANTS.PAGE_NAME.CUSTOMERS,
     exact: true,

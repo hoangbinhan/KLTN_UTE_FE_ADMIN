@@ -38,3 +38,7 @@ export const getBase64Icon = (img: any, callback: any) => {
   reader.addEventListener('load', () => callback(reader.result));
   reader.readAsDataURL(img);
 }
+
+export const formatVND = (value:string, currency:string) => {
+    return `${parseFloat(value).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')} ${currency}`
+}

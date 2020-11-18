@@ -1,18 +1,40 @@
+//libs
 import React from 'react'
-import { Button } from "antd";
+import {Link} from 'react-router-dom'
+import { Button, Tag } from "antd";
+import moment from 'moment'
+import {
+  SyncOutlined,
+  CheckCircleOutlined
+} from '@ant-design/icons';
+//others
+import CONSTANTS from '@/constants'
 
 export const columns = [
     {
         title: 'Order ID',
-        dataIndex: 'orderID'
+        dataIndex: '_id'
     },
     {
         title: 'Customer',
-        datIndex: 'customer'
+        dataIndex: 'customerDetail',
+        render: (customerDetail:any, record: any)=>customerDetail[0]?.phoneNumber
     },
     {
         title: 'Status',
-        datIndex: 'status'
+        dataIndex: 'status',
+        render: (status: string)=>{
+            switch (status) {
+                case 'PENDING':
+                    return  <Tag icon={<SyncOutlined spin />} color="processing">
+                                {status}
+                            </Tag>            
+                default:
+                    return <Tag icon={<CheckCircleOutlined />} color="success">
+                                {status}
+                            </Tag>
+            }
+        }
     },
     {
         title: 'Total',
@@ -20,17 +42,24 @@ export const columns = [
     },
     {
         title: 'Date Added',
-        dataIndex: 'dateAdded'
+        dataIndex: 'dateAdded',
+        render: (time:any)=>moment(time).format('MMMM Do YYYY, h:mm:ss a')
     },
     {
         title: 'Date Modified',
-        dataIndex: 'dateModified'
+        dataIndex: 'dateModified',
+        render: (time:any)=>moment(time).format('MMMM Do YYYY, h:mm:ss a')
     },
     {
         title: 'Action',
         dataIndex: 'action',
         render: (_: any, record: any) => (
-            <Button type='primary'>View</Button>
+            <>
+                <Link to={`${CONSTANTS.ROUTERS.DETAIL_ORDER}/${record._id}`}>
+                    <Button type='primary'>View</Button>
+                </Link>
+                <Button style={{marginLeft: '1rem'}}>Edit Status</Button>
+            </>
         )
     }
 ]
