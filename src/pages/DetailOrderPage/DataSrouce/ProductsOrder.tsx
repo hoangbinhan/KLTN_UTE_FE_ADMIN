@@ -1,6 +1,8 @@
 //libs
 import React from 'react'
 import { Space, InputNumber, Button, Image, Tag } from 'antd';
+import {formatVND} from '@/utils'
+
 
 export const columnsProductInvoice = (handleChangeQuantity: Function, handleChangeDelete: Function) => [
     {
@@ -27,13 +29,16 @@ export const columnsProductInvoice = (handleChangeQuantity: Function, handleChan
         title: 'Unit Price',
         dataIndex: 'price',
         key: 'price',
-        width: '15%'
+        width: '15%',
+        render: (price: string)=> formatVND(price, 'VND')
     },
     {
         title: 'Total Price',
         dataIndex: 'totalPrice',
         key: 'totalPrice',
-        render: (_: any, record: any) => <p>{parseInt(record.quantity) * parseFloat(record.price)}</p>,
+        render: (_: any, record: any) => { 
+            const result = parseInt(record.quantity) * parseFloat(record.price)
+            return formatVND(result.toString(),'VND')},
         width: '15%'
     },
     {
@@ -70,6 +75,7 @@ export const columnsProducts = (handleAddProduct: Function) => [
     {
         title: 'Price',
         dataIndex: 'price',
+        render: (price: string)=> formatVND(price, 'VND')
     },
     {
         title: 'Quantity',

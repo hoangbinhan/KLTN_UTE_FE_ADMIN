@@ -1,4 +1,5 @@
 import React from 'react'
+import {formatVND} from '@/utils'
 
 export const columnsOrderDetails = [
     {
@@ -31,6 +32,7 @@ export const columnsOrderItems = [
         title: 'Unit Price',
         dataIndex: 'price',
         key: 'price',
+        render: (price: string)=>formatVND(price, 'VND')
     },
     {
         title: 'Total Price',

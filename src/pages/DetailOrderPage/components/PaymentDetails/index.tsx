@@ -1,5 +1,5 @@
 //libs
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Form, Input, Select } from 'antd';
 //others
 import './style.scss'
@@ -17,7 +17,8 @@ interface Props {
 }
 
 const PaymentDetails: React.FC<Props> = () => {
-    const { orderChange } = useContext(DetailOrderContext)
+    const [isDisable, setIsDisable] = useState(false)
+    const { order, orderChange } = useContext(DetailOrderContext)
     const [form] = Form.useForm();
     const [district, setDistrict] = useState([])
     const [ward, setWard] = useState([])
@@ -62,10 +63,19 @@ const PaymentDetails: React.FC<Props> = () => {
         }
     }
 
+    useEffect(() => {
+        if(!order.paymentDetail){
+
+        }else{
+            form.setFieldsValue(order.paymentDetail)
+            setIsDisable(true)
+        }
+    }, [form, order.paymentDetail])
+
     return (
         <Form name='payment' form={form} {...layoutForm} onChange={handleOnChange}>
             <Form.Item label='Payment Method' name='paymentMethod'>
-                <Select onSelect={handleOnChange} placeholder='select payment method...' >
+                <Select onSelect={handleOnChange} placeholder='select payment method...' disabled={isDisable} >
                     <Option value='1'>
                         buy at the store
                     </Option>
@@ -75,7 +85,7 @@ const PaymentDetails: React.FC<Props> = () => {
                 </Select>
             </Form.Item>
             <Form.Item label='Delivery Option' name='deliveryOption'>
-                <Select onSelect={handleOnChange} placeholder='select delivery option...'>
+                <Select onSelect={handleOnChange} placeholder='select delivery option...' disabled={isDisable}>
                     <Option value='1'>
                         Standard Delivery
                     </Option>
@@ -85,22 +95,22 @@ const PaymentDetails: React.FC<Props> = () => {
                 </Select>
             </Form.Item>
             <Form.Item label='Province/City' name='provinceCity'>
-                <Select onSelect={handleOnChange} onChange={handleProvinceChange} placeholder='select province/city...'>
+                <Select onSelect={handleOnChange} onChange={handleProvinceChange} placeholder='select province/city...' disabled={isDisable}>
                     {Object.values(tree).map((item: any) => <Option key={item.code} value={item.code}>{item.name}</Option>)}
                 </Select>
             </Form.Item>
             <Form.Item label='District' name='district'>
-                <Select onSelect={handleOnChange} onChange={handleDistrictChange} placeholder='select district...'>
+                <Select onSelect={handleOnChange} onChange={handleDistrictChange} placeholder='select district...' disabled={isDisable}>
                     {Object.values(district).map((item: any) => <Option key={item.code} value={item.code}>{item.name}</Option>)}
                 </Select>
             </Form.Item>
             <Form.Item label='Ward' name='ward'>
-                <Select onSelect={handleOnChange} placeholder='select ward...'>
+                <Select onSelect={handleOnChange} placeholder='select ward...' disabled={isDisable}>
                     {Object.values(ward).map((item: any) => <Option key={item.code} value={item.code}>{item.name}</Option>)}
                 </Select>
             </Form.Item>
             <Form.Item label='Address' name='address'>
-                <TextArea rows={4} placeholder='input the address...' />
+                <TextArea rows={4} placeholder='input the address...' disabled={isDisable}/>
             </Form.Item>
         </Form>
     )

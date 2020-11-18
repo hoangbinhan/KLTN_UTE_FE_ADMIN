@@ -17,42 +17,53 @@ const { Search } = Input;
 const ProductsOrder = () => {
     const dispatch = useDispatch();
     const [productsInvoice, setProductsInvoice] = useState<Array<any>>([])
-    const { orderChange } = useContext(DetailOrderContext)
+    const { order, orderChange } = useContext(DetailOrderContext)
     const { listProducts, isLoading } = useTypedSelector(
         (state) => state.Products.FetchDataProducts
     );
-
     const handleAddProduct = (e: any, record: any) => {
-        let temp: any[] = [...productsInvoice]
-        const item = { ...record, quantity: 1 }
-        const isAdded = temp.filter((item: any) => item._id === record._id).length
-        if (isAdded) {
-            temp[temp.findIndex(item => item._id === record._id)].quantity++
-        } else {
-            temp.push(item)
-        }
-        setProductsInvoice([...temp])
-        if (orderChange) {
-            orderChange({ productsInvoice: [...temp] })
+        if(order.productsInvoice){
+            return
+        }else{
+            let temp: any[] = [...productsInvoice]
+            const item = { ...record, quantity: 1 }
+            const isAdded = temp.filter((item: any) => item._id === record._id).length
+            if (isAdded) {
+                temp[temp.findIndex(item => item._id === record._id)].quantity++
+            } else {
+                temp.push(item)
+            }
+            setProductsInvoice([...temp])
+            if (orderChange) {
+                orderChange({ productsInvoice: [...temp] })
+            }
         }
     }
     const handleChangeQuantity = (value: any, record: any) => {
-        let temp: any[] = [...productsInvoice]
-        temp[temp.findIndex(item => item._id === record._id)].quantity = value
-        setProductsInvoice([...temp])
-        if (orderChange) {
-            orderChange({ productsInvoice: [...temp] })
+        if(order.productsInvoice){
+            return
+        }else{
+            let temp: any[] = [...productsInvoice]
+            temp[temp.findIndex(item => item._id === record._id)].quantity = value
+            setProductsInvoice([...temp])
+            if (orderChange) {
+                orderChange({ productsInvoice: [...temp] })
+            }
         }
     }
     const handleChangeDelete = (e: any, record: any) => {
-        const temp: any[] = [...productsInvoice]
-        const result = temp.filter((item: any) => item._id !== record._id)
-        setProductsInvoice([...result])
-        if (orderChange) {
-            orderChange({ productsInvoice: [...result] })
+        if(order.productsInvoice){
+            return
+        }else{
+            const temp: any[] = [...productsInvoice]
+            const result = temp.filter((item: any) => item._id !== record._id)
+            setProductsInvoice([...result])
+            if (orderChange) {
+                orderChange({ productsInvoice: [...result] })
+            }
         }
     }
-
+    
     useEffect(() => {
         dispatch(fetchDataProducts());
     }, [dispatch]);
@@ -62,7 +73,7 @@ const ProductsOrder = () => {
 
     return (
         <div className='product-orders-wrapper'>
-            <Table columns={columnsProductInvoice(handleChangeQuantity, handleChangeDelete)} dataSource={productsInvoice} pagination={false} />
+            <Table columns={columnsProductInvoice(handleChangeQuantity, handleChangeDelete)} dataSource={order.productsInvoice ? order.productsInvoice : productsInvoice} pagination={false} />
             <h1>Add Products</h1>
             <Search
                 placeholder='Search...'

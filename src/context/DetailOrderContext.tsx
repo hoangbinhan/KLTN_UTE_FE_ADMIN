@@ -20,7 +20,7 @@ export const DetailOrderContext = createContext<Partial<ContextProps>>({
         total: {}
     },
     orderChange: () => { },
-    submitOrder: () => { }
+    submitOrder: () => { },
 })
 
 interface Props {
@@ -34,8 +34,13 @@ export const DetailOrderProvider: React.FC<Props> = ({ children }) => {
     const provider = {
         order,
         orderChange: async (value: any) => {
-            let temp = await { [Object.keys(value)[0]]: Object.values(value)[0] }
-            await setOrder({ ...order, ...temp })
+            if(value.orderID){
+                await setOrder({...order, ...value})
+            }
+            else{
+                let temp = await { [Object.keys(value)[0]]: Object.values(value)[0] }
+                await setOrder({ ...order, ...temp })
+            }
         },
         submitOrder: (value: any) => {
             const { productsInvoice, customerDetail, paymentDetail, totalDetail } = value

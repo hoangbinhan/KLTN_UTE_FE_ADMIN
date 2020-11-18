@@ -1,16 +1,18 @@
 //libs
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Descriptions, Table, Input, Divider, Button } from 'antd'
 import moment from 'moment'
-//others
-import { columnsOrderItems } from '../../DataSrouce/Total'
 import './style.scss'
 //context
 import { DetailOrderContext } from '@/context/DetailOrderContext'
+//others
+import { columnsOrderItems } from '../../DataSrouce/Total'
+import {formatVND} from '@/utils'
 
 const { TextArea } = Input
 
 const Totals = () => {
+    const [isDisable, setIsDisable] = useState(false)
     const [note, setNote] = useState('')
     const { order, orderChange, submitOrder } = useContext(DetailOrderContext)
     const unitOrder = order.productsInvoice?.reduce((a: any, b: any) => a + parseInt(b.quantity), 0)
@@ -33,6 +35,11 @@ const Totals = () => {
             submitOrder(temp)
         }
     }
+    useEffect(()=>{
+        if(order.totalDetail){
+            setIsDisable(true)
+        }
+    },[order.totalDetail])
     return (
         <div className='total-wrapper'>
             <Descriptions layout='vertical' bordered>
@@ -59,7 +66,7 @@ const Totals = () => {
             <Table columns={columnsOrderItems} dataSource={order?.productsInvoice} style={{ margin: '2rem 0' }} />
             <Descriptions layout='vertical' bordered>
                 <Descriptions.Item label="Note" className='description-item'>
-                    <TextArea rows={8} onChange={(e) => setNote(e.target.value)} />
+                    <TextArea rows={8} onChange={(e) => setNote(e.target.value)} disabled={isDisable}/>
                 </Descriptions.Item>
                 <Descriptions.Item label="Total" className='description-item'>
                     <div className="row-unit-total">
@@ -69,24 +76,24 @@ const Totals = () => {
                     <Divider />
                     <div className="row-unit-total">
                         <div className="title">Subtotal</div>
-                        <div className="value">{subTotal}</div>
+                        <div className="value">{formatVND(subTotal,'VND')}</div>
                     </div>
                     <Divider />
                     <div className="row-unit-total">
                         <div className="title">Shipping & Handling</div>
-                        <div className="value">{shippingFee}</div>
+                        <div className="value">{formatVND(shippingFee.toString(),'VND')}</div>
                     </div>
                     <Divider />
                     <div className="row-unit-total">
                         <div className="title">Total</div>
-                        <div className="value">{total || 0}</div>
+                        <div className="value">{formatVND(total, 'VND') || 0}</div>
                     </div>
                 </Descriptions.Item>
             </Descriptions>
-            <div className="button-submit">
+            {isDisable ? null : <div className="button-submit">
                 <Button style={{ marginRight: '1rem' }}>Reset</Button>
                 <Button type='primary' onClick={onsubmit} >Submit</Button>
-            </div>
+            </div>}
         </div>
     )
 }

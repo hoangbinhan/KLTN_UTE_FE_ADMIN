@@ -9,6 +9,7 @@ import {
 } from '@ant-design/icons';
 //others
 import CONSTANTS from '@/constants'
+import {formatVND} from '@/utils'
 
 export const columns = [
     {
@@ -38,17 +39,18 @@ export const columns = [
     },
     {
         title: 'Total',
-        dataIndex: 'total'
+        dataIndex: 'total',
+        render: (total: string)=>formatVND(total, 'VND')
     },
     {
         title: 'Date Added',
         dataIndex: 'dateAdded',
-        render: (time:any)=>moment(time).format('MMMM Do YYYY, h:mm:ss a')
+        render: (time:any)=>moment(time).format('MMMM Do YYYY, h:mm a')
     },
     {
         title: 'Date Modified',
         dataIndex: 'dateModified',
-        render: (time:any)=>moment(time).format('MMMM Do YYYY, h:mm:ss a')
+        render: (time:any)=>moment(time).format('MMMM Do YYYY, h:mm a')
     },
     {
         title: 'Action',

@@ -10,7 +10,6 @@ import { useTypedSelector } from '@/hooks'
 import {fetchDataOrders} from '@/actions/Order/FetchDataOrders'
 //others
 import { columns } from '../../DataSource/OrdersTable'
-import {formatVND} from '@/utils'
 
 const OrdersTable = () => {
     const dispatch = useDispatch()
@@ -21,7 +20,7 @@ const OrdersTable = () => {
         dispatch(fetchDataOrders())
     }, [dispatch])
     const data = listOrders?.map((item:any)=>{
-        return {...item, key: item._id, total: formatVND(item.total, 'VND')}
+        return {...item, key: item._id}
     })
     return (
         <>

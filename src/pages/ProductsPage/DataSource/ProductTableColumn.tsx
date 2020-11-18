@@ -4,6 +4,7 @@ import { Tag, Image, Button } from 'antd'
 import { Link } from 'react-router-dom'
 //button
 import ButtonDelete from '../components/ButtonDelete'
+import {formatVND} from '@/utils'
 
 export const columns = [
   {
@@ -27,6 +28,7 @@ export const columns = [
   {
     title: 'Price',
     dataIndex: 'price',
+    render: (price: string)=>formatVND(price, 'VND')
   },
   {
     title: 'Quantity',
