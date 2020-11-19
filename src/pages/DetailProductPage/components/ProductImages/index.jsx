@@ -5,12 +5,7 @@ import { PlusOutlined } from '@ant-design/icons';
 //others
 import { getBase64 } from '@/utils/index';
 
-interface Props {
-  handleChangeImages: Function;
-  defaultImage: any[]
-}
-
-const ProductImages: React.FC<Props> = ({ handleChangeImages, defaultImage }) => {
+const ProductImages = ({ handleChangeImages, defaultImage }) => {
   const [state, setState] = useState({
     previewVisible: false,
     previewImage: '',
@@ -21,7 +16,7 @@ const ProductImages: React.FC<Props> = ({ handleChangeImages, defaultImage }) =>
     setState({ ...state, previewVisible: false });
   };
 
-  const handlePreview = async (file: any) => {
+  const handlePreview = async (file) => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
     }
@@ -33,7 +28,7 @@ const ProductImages: React.FC<Props> = ({ handleChangeImages, defaultImage }) =>
         file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
     });
   };
-  const handleChange = ({ fileList }: any) => {
+  const handleChange = ({ fileList }) => {
     handleChangeImages(fileList)
     setState({ ...state, fileList })
   }
@@ -46,28 +41,33 @@ const ProductImages: React.FC<Props> = ({ handleChangeImages, defaultImage }) =>
   );
   useEffect(()=>{
     if(defaultImage?.length>0){
-      setState({...state, previewImage: defaultImage[0].imageUrl})
+      const fileList = [
+        {
+          uid: '-1',
+          name: 'image.png',
+          status: 'done',
+          url: defaultImage[0].imageUrl,
+        },
+      ]
+      setState({...state, fileList, previewImage: defaultImage[0].imageUrl})
     }
-    console.log('ant-layout-sider-zero-width');
-    
+    else{
+      setState({
+        previewVisible: false,
+        previewImage: '',
+        previewTitle: '',
+        fileList: [],
+      })
+    }
+    // eslint-disable-next-line
   },[defaultImage])
-
-  const [fileList, setFileList] = useState([
-    {
-      uid: '-1',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-  ]);
 
   return (
     <>
       <Upload
         action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
         listType='picture-card'
-        // fileList={state.fileList}
-        fileList={fileList}
+        fileList={state.fileList}
         onPreview={handlePreview}
         onChange={handleChange}
         multiple={true}

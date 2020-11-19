@@ -158,6 +158,12 @@ const ModalCategories: React.FC<Props> = (props) => {
             label="Upload"
             valuePropName="fileList"
             getValueFromEvent={normFile}
+            rules={[
+              {
+                required: true,
+                message: 'Please input the link',
+              },
+            ]}
           >
             <Upload name="logo" listType="picture" action='https://www.mocky.io/v2/5cc8019d300000980a055e76' >
               <Button icon={<UploadOutlined />}>Click to upload</Button>

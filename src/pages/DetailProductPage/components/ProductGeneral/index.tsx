@@ -1,7 +1,7 @@
 //libs
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Button, Form, Input, Switch, Select } from 'antd';
+import { Button, Form, Input, Switch, Select, message } from 'antd';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 //component
@@ -37,15 +37,13 @@ const ProductGeneral = () => {
     wrapperCol: { offset: 18, span: 16 },
   };
   const [form] = Form.useForm();
-  const [images, setImages] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-  const [description, setDescription] = useState('')
   const paramProduct = router.query.id
   const handleChangeImages = (values: []) => {
-    setImages(values)
+    form.setFieldsValue({picture:values})
   }
   const createProduct = (value: any) => {
-    const payload = { ...value, picture: images, description: description }
+    const payload = { ...value}
     if(paramProduct){
       setIsLoading(true)
       dispatch(
@@ -54,6 +52,7 @@ const ProductGeneral = () => {
           cbSuccess: () => {
             form.resetFields();
             setIsLoading(false)
+            message.success('Add new product success')
             router.push('/products')
           },
           cbError: ()=>{
@@ -70,9 +69,10 @@ const ProductGeneral = () => {
           cbSuccess: () => {
             form.resetFields();
             setIsLoading(false)
+            message.success('update product success')
             router.push('/products')
           },
-          cbError: ()=>{
+          cbError: ()=>{            
             setIsLoading(false)
           }
         })
@@ -91,7 +91,10 @@ const ProductGeneral = () => {
   //get data
   useEffect(() => {
     if(detailProduct && paramProduct){
-      form.setFieldsValue(detailProduct)
+      form.setFieldsValue({...detailProduct})
+      if(detailProduct.image){
+        form.setFieldsValue({picture: detailProduct.image})
+      }
     }    
   }, [detailProduct, form, paramProduct])
   const listOptionCategory = listCategories?.map((item: any) => <Option value={item._id} key={item._id}>{item.categoryName}</Option>)
@@ -113,7 +116,7 @@ const ProductGeneral = () => {
           editor={ClassicEditor}
           data={detailProduct?.description ? detailProduct?.description : '<p></p>'}
           onChange={(event: any, editor: any) => {
-            setDescription(editor.getData());
+            form.setFieldsValue({description:editor.getData()})
           }}
           className='ck-editor__editable'
         />
@@ -144,7 +147,7 @@ const ProductGeneral = () => {
       <Form.Item name='status' label='Status' valuePropName="checked">
         <Switch />
       </Form.Item>
-      <Form.Item name='picture' label='Picture'>
+      <Form.Item name='picture' label='Picture' rules={[{ required: true }]}>
         <ProductImages handleChangeImages={handleChangeImages} defaultImage={detailProduct? detailProduct?.image : {}}/>
       </Form.Item>
       <Form.Item {...tailLayout}>
