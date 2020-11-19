@@ -35,6 +35,14 @@ export default function (
         isError: true,
         error: payload.error,
       };
+    case 'CLEAR_DATA_STATE':      
+      return {
+        ...state,
+        detailProduct: {},
+        isLoading: false,
+        isError: false,
+        error: {},
+      }
     default:
       return { ...state };
   }

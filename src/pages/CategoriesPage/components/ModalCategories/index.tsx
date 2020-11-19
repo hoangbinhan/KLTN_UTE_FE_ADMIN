@@ -23,12 +23,14 @@ const ModalCategories: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
   const [confirmLoading, setConfirmLoading] = useState(false);
   useEffect(() => {
-    form.setFieldsValue({
-      categoryName: record?.categoryName,
-      sortOrder: record?.sortOrder,
-      link: record?.link,
-      status: record?.status === 'ACTIVE' ? true : false
-    })
+    if(record){
+      form.setFieldsValue({
+        categoryName: record?.categoryName,
+        sortOrder: record?.sortOrder,
+        link: record?.link,
+        status: record?.status === 'ACTIVE' ? true : false
+      })
+    }
   }, [form, record])
   const normFile = (e: any) => {
     if (Array.isArray(e)) {
@@ -56,7 +58,7 @@ const ModalCategories: React.FC<Props> = (props) => {
             form.resetFields();
             setVisible(false);
             setConfirmLoading(false)
-            message.success('Add new children category success')
+            message.success('Add new category success')
           }
         })
       )
@@ -151,25 +153,16 @@ const ModalCategories: React.FC<Props> = (props) => {
           >
             <Input />
           </Form.Item>
-
-
           <Form.Item
             name="upload"
             label="Upload"
             valuePropName="fileList"
             getValueFromEvent={normFile}
-          // rules={[
-          //   {
-          //     required: true,
-          //     message: 'Please add image',
-          //   },
-          // ]}
           >
             <Upload name="logo" listType="picture" action='https://www.mocky.io/v2/5cc8019d300000980a055e76' >
               <Button icon={<UploadOutlined />}>Click to upload</Button>
             </Upload>
           </Form.Item>
-
           <Form.Item
             label='Status'
             name='status'

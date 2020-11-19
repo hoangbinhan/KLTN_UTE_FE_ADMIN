@@ -37,7 +37,6 @@ const DetailOrderTab = () => {
         }
         // eslint-disable-next-line
     }, [paramOrder, dispatch])
-    console.log('render');
     
     useEffect(()=>{
         if(detailOrder && orderChange){

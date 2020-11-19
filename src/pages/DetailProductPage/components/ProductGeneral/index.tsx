@@ -11,6 +11,7 @@ import { fetchDataCategories } from '@/actions/Categories/FetchDataCategories';
 import { addNewProduct } from '@/actions/Products/AddNewProduct'
 import { fetchDetailProduct } from '@/actions/Products/FetchDetailProduct'
 import { updateProduct } from '@/actions/Products/UpdateProduct'
+import {clearDataState} from '@/actions/Products/ClearState'
 //others
 import './style.scss';
 //hooks
@@ -83,6 +84,8 @@ const ProductGeneral = () => {
     dispatch(fetchDataCategories())
     if (paramProduct) {
       dispatch(fetchDetailProduct({ params: { id: paramProduct } }))
+    }else{
+      dispatch(clearDataState())
     }
   }, [dispatch, paramProduct])
   //get data
@@ -108,7 +111,7 @@ const ProductGeneral = () => {
       >
         <CKEditor
           editor={ClassicEditor}
-          data={''}
+          data={detailProduct?.description ? detailProduct?.description : '<p></p>'}
           onChange={(event: any, editor: any) => {
             setDescription(editor.getData());
           }}
@@ -142,7 +145,7 @@ const ProductGeneral = () => {
         <Switch />
       </Form.Item>
       <Form.Item name='picture' label='Picture'>
-        <ProductImages handleChangeImages={handleChangeImages} />
+        <ProductImages handleChangeImages={handleChangeImages} defaultImage={detailProduct? detailProduct?.image : {}}/>
       </Form.Item>
       <Form.Item {...tailLayout}>
         <Button type='primary' htmlType='submit' loading={isLoading}>Submit</Button>

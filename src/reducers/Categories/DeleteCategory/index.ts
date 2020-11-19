@@ -14,7 +14,6 @@ export default function(
 ){
     switch(type){
         case TYPES.DELETE_CATEGORY_LOADING:
-            console.log('is loading');
             return {
                 ...state,
                 deleteSuccess: false,
@@ -23,7 +22,6 @@ export default function(
                 error:{}
             };
         case TYPES.DELETE_CATEGORY_SUCCESS:
-            console.log('is success');
             return{
                 ...state,
                 deleteSuccess: true,
