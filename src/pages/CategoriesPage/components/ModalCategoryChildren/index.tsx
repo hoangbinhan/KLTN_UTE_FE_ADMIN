@@ -36,6 +36,9 @@ const ModalCategoryChildren: React.FC<Props> = (props) => {
                     setVisible(false);
                     setConfirmLoading(false)
                     message.success('Add new category success')
+                },
+                cbError: ()=>{
+                    setConfirmLoading(false)
                 }
             })
         )

@@ -1,11 +1,15 @@
 //libs
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Tag } from "antd";
+import { Button, Tag, Tooltip } from "antd";
 import moment from 'moment'
 import {
     SyncOutlined,
-    CheckCircleOutlined
+    CheckCircleOutlined,
+    CloseCircleOutlined,
+    ClockCircleOutlined,
+    ExclamationCircleOutlined, 
+    DeliveredProcedureOutlined
 } from '@ant-design/icons';
 //components
 import EditStatus from '../components/EditStatus'
@@ -16,12 +20,15 @@ import { formatVND } from '@/utils'
 export const columns = [
     {
         title: 'Order ID',
-        dataIndex: '_id'
+        dataIndex: '_id',
+        render: (_id: string)=> <Link to={`${CONSTANTS.ROUTERS.DETAIL_ORDER}/${_id}`}>
+                        {_id}
+                    </Link>
     },
     {
         title: 'Customer',
         dataIndex: 'customerDetail',
-        render: (customerDetail: any, record: any) => customerDetail[0]?.phoneNumber
+        render: (customerDetail: any, record: any) => <Tooltip placement="top" title={`${customerDetail[0]?.firstName} ${customerDetail[0]?.lastName}`}>{customerDetail[0]?.phoneNumber}</Tooltip> 
     },
     {
         title: 'Status',
@@ -30,6 +37,26 @@ export const columns = [
             switch (status) {
                 case 'PENDING':
                     return <Tag icon={<SyncOutlined spin />} color="processing">
+                        {status}
+                    </Tag>
+                case 'CANCELED':
+                    return <Tag icon={<CloseCircleOutlined />} color="error">
+                        {status}
+                    </Tag>
+                case 'CONFIRM':
+                    return <Tag icon={<CheckCircleOutlined />} color="success">
+                        {status}
+                    </Tag>
+                case 'SHIPPING':
+                    return <Tag icon={<ClockCircleOutlined />} color="default">
+                        {status}
+                    </Tag>
+                case 'REFUNDED':
+                    return <Tag icon={<ExclamationCircleOutlined />} color="warning">
+                        {status}
+                    </Tag>
+                case 'DELIVERED':
+                    return <Tag icon={<DeliveredProcedureOutlined />} color="#36cfc9">
                         {status}
                     </Tag>
                 default:
@@ -47,12 +74,12 @@ export const columns = [
     {
         title: 'Date Added',
         dataIndex: 'dateAdded',
-        render: (time: any) => moment(time).format('MMMM Do YYYY, h:mm a')
+        render: (time: any) => moment(time).format('DD/MM/YYYY, h:mm a')
     },
     {
         title: 'Date Modified',
         dataIndex: 'dateModified',
-        render: (time: any) => moment(time).format('MMMM Do YYYY, h:mm a')
+        render: (time: any) => moment(time).format('DD/MM/YYYY, h:mm a')
     },
     {
         title: 'Action',

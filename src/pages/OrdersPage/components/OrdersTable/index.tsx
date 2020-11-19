@@ -15,10 +15,13 @@ const OrdersTable = () => {
     const dispatch = useDispatch()
     const {listOrders, isLoading} = useTypedSelector(
         (state)=>state.Order.FetchDataOrders
-    )    
+    )
+    const {updateSuccess} = useTypedSelector(
+        (state)=>state.Order.UpdateStatusOrder
+    )
     useEffect(() => {
         dispatch(fetchDataOrders())
-    }, [dispatch])
+    }, [dispatch, updateSuccess])
     const data = listOrders?.map((item:any)=>{
         return {...item, key: item._id}
     })

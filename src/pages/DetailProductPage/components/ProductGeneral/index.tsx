@@ -49,11 +49,14 @@ const ProductGeneral = () => {
       setIsLoading(true)
       dispatch(
         updateProduct({
-          data: payload,
+          data: {...payload, _id: paramProduct},
           cbSuccess: () => {
             form.resetFields();
             setIsLoading(false)
             router.push('/products')
+          },
+          cbError: ()=>{
+            setIsLoading(false)
           }
         })
       )
@@ -67,6 +70,9 @@ const ProductGeneral = () => {
             form.resetFields();
             setIsLoading(false)
             router.push('/products')
+          },
+          cbError: ()=>{
+            setIsLoading(false)
           }
         })
       )

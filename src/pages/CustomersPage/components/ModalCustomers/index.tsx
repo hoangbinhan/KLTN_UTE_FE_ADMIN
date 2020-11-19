@@ -50,6 +50,9 @@ const ModalCustomers: React.FC<Props> = (props) => {
             setVisible(false);
             setConfirmLoading(false)
             message.success('Add customer success')
+          },
+          cbError: ()=>{
+            setConfirmLoading(false)
           }
         })
       )
@@ -64,6 +67,9 @@ const ModalCustomers: React.FC<Props> = (props) => {
             setVisible(false);
             setConfirmLoading(false)
             message.success('update customer success')
+          },
+          cbError: ()=>{
+            setConfirmLoading(false)
           }
         })
       )

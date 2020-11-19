@@ -63,6 +63,9 @@ const ShippingMethodsModal: React.FC<Props> = (props) => {
             setVisible(false);
             setConfirmLoading(false)
             message.success('update shipping method success')
+          },
+          cbError: ()=>{
+            setConfirmLoading(false)
           }
         })
       )

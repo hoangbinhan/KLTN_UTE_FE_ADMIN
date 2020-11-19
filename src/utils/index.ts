@@ -21,18 +21,6 @@ export const getBase64 = (file: any) => {
   });
 };
 
-export const beforeUpload = (file: any) => {
-  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-  if (!isJpgOrPng) {
-    message.error('You can only upload JPG/PNG file!');
-  }
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isLt2M) {
-    message.error('Image must smaller than 2MB!');
-  }
-  return isJpgOrPng && isLt2M;
-}
-
 export const getBase64Icon = (img: any, callback: any) => {
   const reader = new FileReader();
   reader.addEventListener('load', () => callback(reader.result));
@@ -41,4 +29,16 @@ export const getBase64Icon = (img: any, callback: any) => {
 
 export const formatVND = (value:string, currency:string) => {
     return `${parseFloat(value).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')} ${currency}`
+}
+
+export const beforeUpload = (file: any) => {
+  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg';
+  if (!isJpgOrPng) {
+    message.error('You can only upload JPG/PNG file!');
+  }
+  const isLt2M = file.size / 1024 / 1024 < 2;
+  if (!isLt2M) {
+    message.error('Image must smaller than 2MB!');
+  }
+  return isJpgOrPng && isLt2M;
 }

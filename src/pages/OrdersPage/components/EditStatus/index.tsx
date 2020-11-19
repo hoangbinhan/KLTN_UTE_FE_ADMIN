@@ -1,18 +1,23 @@
 //libs
 import React, { useState } from 'react'
-import { Button, Select, Form, Modal } from 'antd'
+import { Button, Select, Form, Modal, message } from 'antd'
+import {useDispatch} from 'react-redux'
 //other
+import './style.scss'
+//actions
+import {updateStatusOrder} from '@/actions/Order/UpdateStatusOrder'
 
 const { Option } = Select
-
 interface Props {
     id: String,
     status: String
 }
 
 const EditStatus: React.FC<Props> = (props) => {
+    const dispatch = useDispatch()
     const { id, status } = props
     const [visible, setVisible] = useState(false)
+    const [confirmLoading, setConfirmLoading] = useState(false);
     const [form] = Form.useForm();
 
     const showModal = () => {
@@ -20,8 +25,21 @@ const EditStatus: React.FC<Props> = (props) => {
     };
 
     const onSubmit = (values: any) => {
-        console.log('Received values of form: ', values);
-        setVisible(false);
+        const result = {...values, _id: id}
+        setConfirmLoading(true)
+        dispatch(
+            updateStatusOrder({
+                data: result,
+                cbSuccess: ()=>{
+                    setVisible(false);
+                    setConfirmLoading(false)
+                    message.success('Update status success')
+                },
+                cbError: ()=>{
+                    setVisible(false);
+                }
+            })
+        )
     };
 
     const handleCancel = () => {
@@ -43,13 +61,13 @@ const EditStatus: React.FC<Props> = (props) => {
                     form
                         .validateFields()
                         .then(values => {
-                            form.resetFields();
                             onSubmit(values);
                         })
                         .catch(info => {
                             console.log('Validate Failed:', info);
                         });
                 }}
+                confirmLoading={confirmLoading}
             >
                 <Form
                     form={form}

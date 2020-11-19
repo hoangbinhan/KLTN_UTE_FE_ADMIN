@@ -45,7 +45,7 @@ const Totals = () => {
             <Descriptions layout='vertical' bordered>
                 <Descriptions.Item label="Order Details" className='description-item'>
                     <h2>DHA Store</h2>
-                    <strong>Time create: </strong>{moment().format('MMMM Do YYYY, h:mm a')}
+                    <strong>Time create: </strong>{moment().format('DD/MM/YYYY, h:mm a')}
                     <br />
                     <strong>Payment method: </strong>{order.paymentDetail?.paymentMethod}
                     <br />
