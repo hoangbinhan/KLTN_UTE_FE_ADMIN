@@ -1,6 +1,6 @@
 //libs
 import React, { useEffect, useState } from 'react';
-import { Input } from 'antd';
+import { Input, Select } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import queryString from "query-string";
 //components
@@ -10,6 +10,8 @@ import './style.scss';
 //hooks
 import { useRouter } from "@/hooks";
 import { useDebounce } from "@/hooks/useDebounce";
+
+const {Option} = Select
 
 const CategoriesControl = () => {
   const [value, setValue] = useState("");
@@ -27,20 +29,36 @@ const CategoriesControl = () => {
     const parsed = queryString.parse(router.location.search);
     push(`${router.pathname}?${queryString.stringify({ ...parsed, ...link })}`); // eslint-disable-next-line
   }, [debouncedValue]);
+  const handleChangeSelect = (value:string)=>{
+    let currentParam = { ...router.query};
+    if(value===''){
+      delete currentParam.status
+    }else{
+      currentParam = { ...router.query, status: value };
+    }
+    router.push(`${router.pathname}?${queryString.stringify(currentParam)}`);
+  }
   return (
     <div className='categories-control-wrapper'>
-      <Input
-        placeholder='input search text'
-        prefix={
-          <SearchOutlined
-            style={{ fontSize: 20, marginRight: 10, color: '#72777a' }}
-          />
-        }
-        style={{ width: 300 }}
-        onChange={(e) => {
-          setValue(e.target.value);
-        }}
-      />
+      <div className='categories-control-filter'>
+        <Input
+          placeholder='input search text'
+          prefix={
+            <SearchOutlined
+              style={{ fontSize: 20, marginRight: 10, color: '#72777a' }}
+            />
+          }
+          style={{ width: 300 }}
+          onChange={(e) => {
+            setValue(e.target.value);
+          }}
+        />
+        <Select defaultValue='' onChange={handleChangeSelect} style={{width: 100, marginLeft: '1rem'}}>
+          <Option value=''>ALL</Option>
+          <Option value='ACTIVE'>ACTIVE</Option>
+          <Option value='DISABLE'>DISABLE</Option>
+        </Select>
+      </div>
       <ModalCategories name='Add new' />
     </div>
   );

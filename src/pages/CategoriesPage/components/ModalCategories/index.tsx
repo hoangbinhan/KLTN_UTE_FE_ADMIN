@@ -96,7 +96,6 @@ const ModalCategories: React.FC<Props> = (props) => {
         cancelText='Cancel'
         onCancel={handleCancel}
         confirmLoading={confirmLoading}
-        // getContainer={false}
         onOk={() => {
           form
             .validateFields()

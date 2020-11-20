@@ -35,7 +35,7 @@ const CategoriesTable = () => {
   const data = listCategories.map((item: any) => {
     return { ...item, key: item._id }
   })
-
+  
   return (
     <>
       <CategoriesControl />

@@ -145,9 +145,9 @@ export const SubCustomers = [
     },
   },
   {
-    id: 'Customer Group',
-    contentMenu: 'Customer Group',
-    linkMenu: CONSTANTS.ROUTERS.CUSTOMER_GROUP,
+    id: 'Staff',
+    contentMenu: 'Staff',
+    linkMenu: CONSTANTS.ROUTERS.STAFF,
     get component() {
       return (
         <Menu.Item key={this.id}>

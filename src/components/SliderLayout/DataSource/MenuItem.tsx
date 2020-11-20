@@ -53,8 +53,8 @@ export const MenuItem = [
     },
   },
   {
-    id: 'Customers',
-    contentMenu: 'Customers',
+    id: 'User',
+    contentMenu: 'User',
     iconMenu: <UserOutlined />,
     get component() {
       return (

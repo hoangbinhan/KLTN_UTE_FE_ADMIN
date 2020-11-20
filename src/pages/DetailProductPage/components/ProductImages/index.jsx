@@ -72,7 +72,7 @@ const ProductImages = ({ handleChangeImages, defaultImage }) => {
         onChange={handleChange}
         multiple={true}
       >
-        {state.fileList.length >= 1 ? null : uploadButton}
+        {state.fileList.length >= 6 ? null : uploadButton}
       </Upload>
       <Modal
         visible={state.previewVisible}
