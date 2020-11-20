@@ -22,45 +22,33 @@ const ProductsOrder = () => {
         (state) => state.Products.FetchDataProducts
     );
     const handleAddProduct = (e: any, record: any) => {
-        if(order.productsInvoice){
-            return
-        }else{
-            let temp: any[] = [...productsInvoice]
-            const item = { ...record, quantity: 1 }
-            const isAdded = temp.filter((item: any) => item._id === record._id).length
-            if (isAdded) {
-                temp[temp.findIndex(item => item._id === record._id)].quantity++
-            } else {
-                temp.push(item)
-            }
-            setProductsInvoice([...temp])
-            if (orderChange) {
-                orderChange({ productsInvoice: [...temp] })
-            }
+        let temp: any[] = [...productsInvoice]
+        const item = { ...record, quantity: 1 }
+        const isAdded = temp.filter((item: any) => item._id === record._id).length
+        if (isAdded) {
+            temp[temp.findIndex(item => item._id === record._id)].quantity++
+        } else {
+            temp.push(item)
+        }
+        setProductsInvoice([...temp])
+        if (orderChange) {
+            orderChange({ productsInvoice: [...temp] })
         }
     }
     const handleChangeQuantity = (value: any, record: any) => {
-        if(order.productsInvoice){
-            return
-        }else{
-            let temp: any[] = [...productsInvoice]
-            temp[temp.findIndex(item => item._id === record._id)].quantity = value
-            setProductsInvoice([...temp])
-            if (orderChange) {
-                orderChange({ productsInvoice: [...temp] })
-            }
+        let temp: any[] = [...productsInvoice]
+        temp[temp.findIndex(item => item._id === record._id)].quantity = value
+        setProductsInvoice([...temp])
+        if (orderChange) {
+            orderChange({ productsInvoice: [...temp] })
         }
     }
     const handleChangeDelete = (e: any, record: any) => {
-        if(order.productsInvoice){
-            return
-        }else{
-            const temp: any[] = [...productsInvoice]
-            const result = temp.filter((item: any) => item._id !== record._id)
-            setProductsInvoice([...result])
-            if (orderChange) {
-                orderChange({ productsInvoice: [...result] })
-            }
+        const temp: any[] = [...productsInvoice]
+        const result = temp.filter((item: any) => item._id !== record._id)
+        setProductsInvoice([...result])
+        if (orderChange) {
+            orderChange({ productsInvoice: [...result] })
         }
     }
     

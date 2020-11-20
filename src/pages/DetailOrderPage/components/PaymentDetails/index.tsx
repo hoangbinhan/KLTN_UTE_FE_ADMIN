@@ -23,51 +23,49 @@ const PaymentDetails: React.FC<Props> = () => {
     const { order, orderChange } = useContext(DetailOrderContext)
     const [form] = Form.useForm();
     const [district, setDistrict] = useState([])
-    const [ward, setWard] = useState([])
-    const [valueProvince, setvalueProvince] = useState()
+    const [ward, setWard] = useState([])    
+
     const handleOnChange = async () => {
         let value = await form.getFieldsValue()
         let temp = { ...value }
-        if (value.provinceCity) {
-            temp.provinceCity = await tree[value.provinceCity]?.name
+        if (orderChange) {
+            orderChange({ paymentDetail: temp })
         }
-        if (value.district && value.provinceCity) {
-            let result = await tree[parseInt(value.provinceCity)][`quan-huyen`][value.district]
-            result ? temp.district = result.name : temp.district = ''
-            // temp.district = tree[parseInt(value.provinceCity)][`quan-huyen`][value.district].name
-        }
-        if (value.ward && value.district) {
-            let district = await tree[parseInt(value.provinceCity)][`quan-huyen`][value.district]
-            if (district) {
-                let result = district[`xa-phuong`][value.ward]
-                result ? temp.ward = result.name : temp.ward = ''
-            }
-            // temp.ward = tree[parseInt(value.provinceCity)][`quan-huyen`][value.district][`xa-phuong`][value.ward].name
-        }
+    }
+    // FIX TO HERE
+
+    const handleProvinceOnChange = async (value: any, key: any) =>{
+        await setDistrict([])
+        await setWard([])
+        await form.setFieldsValue({district: undefined, ward:undefined})
+        await setDistrict(tree[(key.key)][`quan-huyen`])
+        let result = await form.getFieldsValue()
+        let temp = { ...result, provinceCity: value, district: undefined, ward: undefined }
         if (orderChange) {
             orderChange({ paymentDetail: temp })
         }
     }
 
-    const handleProvinceChange = async (value: any) => {
-        await setDistrict([])
+    const handleDistrictOnChange = async (value: any, key:any)=>{
         await setWard([])
-        form.setFieldsValue({ ...form.getFieldsValue(), district: undefined, ward: undefined })
-        if (tree[(value)][`quan-huyen`]) {
-            setDistrict(tree[(value)][`quan-huyen`])
-        }
-    }
-    const handleDistrictChange = async (value: any) => {
-        await setWard([])
-        form.setFieldsValue({ ...form.getFieldsValue(), ward: undefined })
-        if (district[value]) {
-            setWard(district[(value)][`xa-phuong`])
+        await form.setFieldsValue({ward:undefined})
+        await setWard(district[(key.key)][`xa-phuong`])
+        let result = await form.getFieldsValue()
+        let temp = { ...result, district: value, ward: undefined }
+        if (orderChange) {
+            orderChange({ paymentDetail: temp })
         }
     }
 
+    const handleWardOnChange = async (value: any, key: any)=>{
+        let result = await form.getFieldsValue()
+        let temp = { ...result, ward: value }
+        if (orderChange) {
+            orderChange({ paymentDetail: temp })
+        }
+    }
     useEffect(() => {
         if(!order.paymentDetail){
-
         }else{
             form.setFieldsValue(order.paymentDetail)
         }
@@ -99,18 +97,18 @@ const PaymentDetails: React.FC<Props> = () => {
                 </Select>
             </Form.Item>
             <Form.Item label='Province/City' name='provinceCity'>
-                <Select onSelect={handleOnChange} onChange={handleProvinceChange} placeholder='select province/city...' disabled={isDisable}>
-                    {Object.values(tree).map((item: any) => <Option key={item.code} value={item.code}>{item.name}</Option>)}
+                <Select onChange={handleProvinceOnChange} placeholder='select province/city...' disabled={isDisable} >
+                    {Object.values(tree).map((item: any) => <Option key={item.code} value={item.name}>{item.name}</Option>)}
                 </Select>
             </Form.Item>
             <Form.Item label='District' name='district'>
-                <Select onSelect={handleOnChange} onChange={handleDistrictChange} placeholder='select district...' disabled={isDisable}>
-                    {Object.values(district).map((item: any) => <Option key={item.code} value={item.code}>{item.name}</Option>)}
+                <Select onChange={handleDistrictOnChange} placeholder='select district...' disabled={isDisable}>
+                    {Object.values(district).map((item: any) => <Option key={item.code} value={item.name}>{item.name}</Option>)}
                 </Select>
             </Form.Item>
             <Form.Item label='Ward' name='ward'>
-                <Select onSelect={handleOnChange} placeholder='select ward...' disabled={isDisable}>
-                    {Object.values(ward).map((item: any) => <Option key={item.code} value={item.code}>{item.name}</Option>)}
+                <Select onChange={handleWardOnChange}  placeholder='select ward...' disabled={isDisable}>
+                    {Object.values(ward).map((item: any) => <Option key={item.code} value={item.name}>{item.name}</Option>)}
                 </Select>
             </Form.Item>
             <Form.Item label='Address' name='address'>

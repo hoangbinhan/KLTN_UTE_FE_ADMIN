@@ -29,43 +29,30 @@ const CustomerDetail: React.FC<Props> = () => {
     const dispatch = useDispatch()
     const [form] = Form.useForm();
     const handleOnChange = async () => {
-        if(order.customerDetail){
-            return
-        }else{
-            let value = await form.getFieldsValue()
-            if (orderChange) {
-                orderChange({ customerDetail: value })
-            }
+        let value = await form.getFieldsValue()
+        if (orderChange) {
+            orderChange({ customerDetail: value })
         }
     }
     const onSelectPhoneNumber = (data: any) => {
-        // if(order.customerDetail){
-        //     return
-        // }else{
-            let result = [...listCustomers].filter((item: any) => item.phoneNumber === data)
-            form.setFieldsValue(result[0])
-            if (orderChange) {
-                orderChange({ customerDetail: result[0] })
-            }
-        // }
-    }
-    const onSearchPhoneNumber = (searchText: string) => {
-        if(order.customerDetail){
-            return
-        }else{
-            if (!searchText) {
-                setOptions([])
-            } else {
-                let temp = [...listCustomers].filter((item: any) => item.phoneNumber.includes(searchText))
-                let result = []
-                for (let i = 0; i < temp.length; i++) {
-                    result.push({ value: temp[i].phoneNumber })
-                }
-                setOptions(result)
-            }
+        let result = [...listCustomers].filter((item: any) => item.phoneNumber === data)
+        form.setFieldsValue(result[0])
+        if (orderChange) {
+            orderChange({ customerDetail: result[0] })
         }
     }
-    
+    const onSearchPhoneNumber = (searchText: string) => {
+        if (!searchText) {
+            setOptions([])
+        } else {
+            let temp = [...listCustomers].filter((item: any) => item.phoneNumber.includes(searchText))
+            let result = []
+            for (let i = 0; i < temp.length; i++) {
+                result.push({ value: temp[i].phoneNumber })
+            }
+            setOptions(result)
+        }
+    }
     useEffect(() => {
         if(!order.customerDetail){
             dispatch(fetchDataCustomers())

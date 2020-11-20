@@ -47,6 +47,7 @@ export const DetailOrderProvider: React.FC<Props> = ({ children }) => {
             if (!productsInvoice || !customerDetail || !paymentDetail || !totalDetail) {
                 message.warning('Please fill full data!')
             } else {
+                console.log('value :>> ', value);
                 dispatch(addNewOrder({
                     data: value,
                     cbSuccess: () => {

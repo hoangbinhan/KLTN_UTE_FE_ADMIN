@@ -1,4 +1,5 @@
 import React from 'react'
+import {Tag} from 'antd'
 import {formatVND} from '@/utils'
 
 export const columnsOrderDetails = [
@@ -37,7 +38,7 @@ export const columnsOrderItems = [
     {
         title: 'Total Price',
         render: (_:any, record: any)=>(
-            <p>{parseFloat(record.price)*parseInt(record.quantity)}</p>
+            <Tag color="geekblue">{formatVND((parseFloat(record.price)*parseInt(record.quantity)).toString(), 'VND')}</Tag>
         )
     },
 ]
