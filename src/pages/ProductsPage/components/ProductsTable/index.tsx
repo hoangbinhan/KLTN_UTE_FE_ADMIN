@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { Table } from 'antd';
 import { useDispatch } from 'react-redux';
 //hooks
-import { useTypedSelector } from '@/hooks';
+import { useTypedSelector, useRouter } from '@/hooks';
 //actions
 import { fetchDataProducts } from '@/actions/Products/FetchDataProducts';
 //others
@@ -12,6 +12,7 @@ import { columns } from '../../DataSource/ProductTableColumn'
 
 
 const ProductsTable = () => {
+  const query = useRouter().query
   const dispatch = useDispatch();
   const { listProducts, isLoading } = useTypedSelector(
     (state) => state.Products.FetchDataProducts
@@ -23,8 +24,8 @@ const ProductsTable = () => {
     (state) => state.Products.DeleteProduct
   )
   useEffect(() => {
-    dispatch(fetchDataProducts());
-  }, [dispatch, updateSuccess, deleteSuccess]);
+    dispatch(fetchDataProducts({params: query}));
+  }, [dispatch, updateSuccess, deleteSuccess, query]);
   const data = listProducts?.map((item: any) => {
     return { ...item, key: item._id }
   })

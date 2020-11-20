@@ -4,24 +4,25 @@ import React from 'react'
 import Search from './Search'
 import Status from './Status'
 import Date from './Date'
+import Category from './Category'
 //others
 import './style.scss'
 
 interface Props{
     isSearch?: boolean;
-    isStatus?: {
-        options: String[]
-    },
-    isDate?: boolean
+    isStatus?: String[],
+    isDate?: boolean,
+    isCategory?: boolean
 }
 
 const FilterControl:React.FC<Props> = (props) => {
-    const {isSearch, isStatus, isDate} = props
+    const {isSearch, isStatus, isDate, isCategory} = props
     return (
         <div className='filter-control-wrapper'>
             {isSearch ? <Search/> : <></>}
-            {isStatus ? <Status options={isStatus.options}/> : <></>}
+            {isStatus ? <Status options={isStatus}/> : <></>}
             {isDate ? <Date/> : <></>}
+            {isCategory? <Category/> : <></>}
         </div>
     )
 }

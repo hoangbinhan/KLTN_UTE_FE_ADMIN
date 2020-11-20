@@ -15,6 +15,7 @@ export const fetchDataProducts = ({
     method: 'GET',
     cbSuccess,
     payload: data,
+    params:params,
     LOADING_ACTION: TYPES.FETCH_DATA_PRODUCTS_LOADING,
     SUCCESS_ACTION: TYPES.FETCH_DATA_PRODUCTS_SUCCESS,
     ERROR_ACTION: TYPES.FETCH_DATA_PRODUCTS_ERROR,

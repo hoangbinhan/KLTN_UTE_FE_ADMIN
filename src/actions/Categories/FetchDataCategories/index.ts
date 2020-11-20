@@ -14,6 +14,7 @@ export const fetchDataCategories = ({
     url: CONSTANTS.ENDPOINTS.CATEGORIES,
     method: 'GET',
     cbSuccess,
+    params: params,
     payload: data,
     LOADING_ACTION: TYPES.FETCH_DATA_CATEGORIES_LOADING,
     SUCCESS_ACTION: TYPES.FETCH_DATA_CATEGORIES_SUCCESS,

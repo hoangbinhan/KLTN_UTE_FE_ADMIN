@@ -3,7 +3,7 @@ import {REDUX_ACTION} from '@/types/common'
 
 const initialState = {
     isSuccess: false,
-    isLoading: true,
+    isLoading: false,
     isError: false,
     error: {}
 }

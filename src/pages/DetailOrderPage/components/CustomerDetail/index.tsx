@@ -7,7 +7,7 @@ import { fetchDataCustomers } from '@/actions/Customers/FetchDataCustomers'
 //context
 import { DetailOrderContext } from '@/context/DetailOrderContext'
 //hooks
-import { useTypedSelector } from '@/hooks'
+import { useRouter, useTypedSelector } from '@/hooks'
 //others
 import './style.scss'
 import { layoutForm } from '@/constants/layout'
@@ -20,6 +20,7 @@ interface Props {
 }
 
 const CustomerDetail: React.FC<Props> = () => {
+    const param = useRouter().query.id 
     const [isDisable, setIsDisable] = useState(false)
     const [options, setOptions] = useState<{ value: string }[]>([]);
     const { order, orderChange } = useContext(DetailOrderContext)
@@ -38,15 +39,15 @@ const CustomerDetail: React.FC<Props> = () => {
         }
     }
     const onSelectPhoneNumber = (data: any) => {
-        if(order.customerDetail){
-            return
-        }else{
+        // if(order.customerDetail){
+        //     return
+        // }else{
             let result = [...listCustomers].filter((item: any) => item.phoneNumber === data)
             form.setFieldsValue(result[0])
             if (orderChange) {
                 orderChange({ customerDetail: result[0] })
             }
-        }
+        // }
     }
     const onSearchPhoneNumber = (searchText: string) => {
         if(order.customerDetail){
@@ -70,9 +71,11 @@ const CustomerDetail: React.FC<Props> = () => {
             dispatch(fetchDataCustomers())
         }else{
             form.setFieldsValue(order.customerDetail)
+        }
+        if(param){
             setIsDisable(true)
         }
-    }, [dispatch, order.customerDetail, form])
+    }, [dispatch, order.customerDetail, form, param])
     return (
         //TODO: set context here
         <Form form={form} {...layoutForm} onChange={handleOnChange} >

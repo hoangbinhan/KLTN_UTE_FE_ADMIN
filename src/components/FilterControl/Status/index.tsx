@@ -18,7 +18,7 @@ const Status:React.FC<Props> = (props) => {
     const router = useRouter();
     const handleChangeSelect = (value:string)=>{
         let currentParam = { ...router.query};
-        if(value===''){
+        if(value==='ALL'){
           delete currentParam.status
         }else{
           currentParam = { ...router.query, status: value };
@@ -27,7 +27,7 @@ const Status:React.FC<Props> = (props) => {
     }
     return (
         <Select className='filter-control-status-wrapper' defaultValue={options[0].toString()} onChange={handleChangeSelect}>
-            {options.map((item:String)=><Option value={item.toString()}>{item}</Option>)}
+            {options.map((item:String)=><Option key={item.toString()} value={item.toString()}>{item}</Option>)}
         </Select>
     )
 }

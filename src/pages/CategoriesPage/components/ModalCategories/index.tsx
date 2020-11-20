@@ -11,6 +11,7 @@ import { updateCategory } from '@/actions/Categories/UpdateCategory'
 import './style.scss';
 //hooks
 
+
 type Props = {
   name: String;
   record?: any;
@@ -28,7 +29,7 @@ const ModalCategories: React.FC<Props> = (props) => {
         categoryName: record?.categoryName,
         sortOrder: record?.sortOrder,
         link: record?.link,
-        status: record?.status === 'ACTIVE' ? true : false
+        status: record?.status === 'ACTIVE' ? true : false,
       })
     }
   }, [form, record])
@@ -43,11 +44,11 @@ const ModalCategories: React.FC<Props> = (props) => {
   };
 
   const handleOk = (values: any) => {
-    let payload = { ...values }
-    if (payload.status === true) {
-      payload = { ...payload, status: 'ACTIVE' }
+    let payload = {}
+    if (values.status === true) {
+      payload = { ...values, status: 'ACTIVE' }
     } else {
-      payload = { ...payload, status: 'DISABLE' }
+      payload = { ...values, status: 'DISABLE' }
     }
     setConfirmLoading(true)
     if (!record) {
@@ -59,6 +60,10 @@ const ModalCategories: React.FC<Props> = (props) => {
             setVisible(false);
             setConfirmLoading(false)
             message.success('Add new category success')
+          },
+          cbError: ()=>{
+            message.error('ERROR')
+            setConfirmLoading(false)
           }
         })
       )
@@ -85,7 +90,7 @@ const ModalCategories: React.FC<Props> = (props) => {
 
   return (
     <>
-      <Button type='primary' onClick={showModal} style={{ marginRight: 15 }}>
+      <Button type='primary' onClick={showModal}>
         {name}
       </Button>
       <Modal
@@ -106,6 +111,7 @@ const ModalCategories: React.FC<Props> = (props) => {
               console.log('Validate Failed:', info);
             });
         }}
+        forceRender
       >
         <Form
           form={form}
@@ -157,12 +163,6 @@ const ModalCategories: React.FC<Props> = (props) => {
             label="Upload"
             valuePropName="fileList"
             getValueFromEvent={normFile}
-            rules={[
-              {
-                required: true,
-                message: 'Please input the link',
-              },
-            ]}
           >
             <Upload name="logo" listType="picture" action='https://www.mocky.io/v2/5cc8019d300000980a055e76' >
               <Button icon={<UploadOutlined />}>Click to upload</Button>
@@ -171,7 +171,7 @@ const ModalCategories: React.FC<Props> = (props) => {
           <Form.Item
             label='Status'
             name='status'
-            valuePropName="checked"
+            valuePropName='checked'
           >
             <Switch />
           </Form.Item>

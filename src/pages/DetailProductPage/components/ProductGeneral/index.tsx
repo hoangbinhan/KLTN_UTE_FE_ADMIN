@@ -92,9 +92,6 @@ const ProductGeneral = () => {
   useEffect(() => {
     if(detailProduct && paramProduct){
       form.setFieldsValue({...detailProduct})
-      if(detailProduct.image){
-        form.setFieldsValue({picture: detailProduct.image})
-      }
     }    
   }, [detailProduct, form, paramProduct])
   const listOptionCategory = listCategories?.map((item: any) => <Option value={item._id} key={item._id}>{item.categoryName}</Option>)
@@ -147,7 +144,7 @@ const ProductGeneral = () => {
       <Form.Item name='status' label='Status' valuePropName="checked">
         <Switch />
       </Form.Item>
-      <Form.Item name='picture' label='Picture' rules={[{ required: true }]}>
+      <Form.Item name='picture' label='Picture'>
         <ProductImages handleChangeImages={handleChangeImages} defaultImage={detailProduct? detailProduct?.image : {}}/>
       </Form.Item>
       <Form.Item {...tailLayout}>

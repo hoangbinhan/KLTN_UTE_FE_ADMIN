@@ -6,6 +6,7 @@ import './style.scss'
 import { layoutForm } from '@/constants/layout'
 //context
 import { DetailOrderContext } from '@/context/DetailOrderContext'
+import { useRouter } from '@/hooks';
 //json address
 const tree = require('@/addressVN/tree')
 
@@ -17,25 +18,26 @@ interface Props {
 }
 
 const PaymentDetails: React.FC<Props> = () => {
+    const param = useRouter().query.id 
     const [isDisable, setIsDisable] = useState(false)
     const { order, orderChange } = useContext(DetailOrderContext)
     const [form] = Form.useForm();
     const [district, setDistrict] = useState([])
     const [ward, setWard] = useState([])
-
+    const [valueProvince, setvalueProvince] = useState()
     const handleOnChange = async () => {
         let value = await form.getFieldsValue()
         let temp = { ...value }
         if (value.provinceCity) {
-            temp.provinceCity = tree[value.provinceCity]?.name
+            temp.provinceCity = await tree[value.provinceCity]?.name
         }
         if (value.district && value.provinceCity) {
-            let result = tree[parseInt(value.provinceCity)][`quan-huyen`][value.district]
+            let result = await tree[parseInt(value.provinceCity)][`quan-huyen`][value.district]
             result ? temp.district = result.name : temp.district = ''
             // temp.district = tree[parseInt(value.provinceCity)][`quan-huyen`][value.district].name
         }
         if (value.ward && value.district) {
-            let district = tree[parseInt(value.provinceCity)][`quan-huyen`][value.district]
+            let district = await tree[parseInt(value.provinceCity)][`quan-huyen`][value.district]
             if (district) {
                 let result = district[`xa-phuong`][value.ward]
                 result ? temp.ward = result.name : temp.ward = ''
@@ -68,9 +70,11 @@ const PaymentDetails: React.FC<Props> = () => {
 
         }else{
             form.setFieldsValue(order.paymentDetail)
+        }
+        if(param){
             setIsDisable(true)
         }
-    }, [form, order.paymentDetail])
+    }, [form, order.paymentDetail, param])
 
     return (
         <Form name='payment' form={form} {...layoutForm} onChange={handleOnChange}>

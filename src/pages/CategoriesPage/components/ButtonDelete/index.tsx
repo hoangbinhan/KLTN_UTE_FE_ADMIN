@@ -24,7 +24,7 @@ const ButtonDelete:React.FC<Props> = (props) => {
     }
     return (
         <Popconfirm title="Are you sure？" okText="Yes" cancelText="No" onConfirm={(value)=>confirmDelete(categoryId)}>
-          <Button danger>Delete</Button>
+          <Button style={{marginLeft: '1rem'}} danger>Delete</Button>
         </Popconfirm>
     )
 }

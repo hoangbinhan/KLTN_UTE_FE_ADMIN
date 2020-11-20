@@ -5,13 +5,14 @@ import CategoriesControl from '../CategoriesControl';
 import { useDispatch } from 'react-redux';
 //components
 //hooks
-import { useTypedSelector } from '@/hooks';
+import { useRouter, useTypedSelector } from '@/hooks';
 //actions
 import { fetchDataCategories } from '@/actions/Categories/FetchDataCategories';
 //other
 import { columns } from '../../DataSource/CategoriesColumn';
 
 const CategoriesTable = () => {
+  const query = useRouter().query
   const dispatch = useDispatch()
   const { listCategories, isLoading } = useTypedSelector(
     (state) => state.Categories.FetchDataCategories
@@ -29,13 +30,11 @@ const CategoriesTable = () => {
     (state) => state.Categories.AddChildrenCategory
   )
   useEffect(() => {
-    dispatch(fetchDataCategories())
-  }, [dispatch, isSuccess, updateSuccess, isAddChildrenSuccess, deleteSuccess])
-
+    dispatch(fetchDataCategories({params: query}))
+  }, [dispatch, isSuccess, updateSuccess, isAddChildrenSuccess, deleteSuccess, query])
   const data = listCategories.map((item: any) => {
     return { ...item, key: item._id }
-  })
-  
+  })  
   return (
     <>
       <CategoriesControl />
