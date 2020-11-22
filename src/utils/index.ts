@@ -5,7 +5,7 @@ import { message } from 'antd';
  * default http response callback error
  */
 export const defaultHttpResponseCbError = (url: string, err: any) => {
-  message.error(`{err}`);
+  message.error(`${err}`);
   // eslint-disable-next-line no-console
   console.log('URL：', url);
   // eslint-disable-next-line no-console
@@ -21,7 +21,7 @@ export const getBase64 = (file: any) => {
   });
 };
 
-export const getBase64Icon = (img: any, callback: any) => {
+export const getBase64Image = (img: any, callback: any) => {
   const reader = new FileReader();
   reader.addEventListener('load', () => callback(reader.result));
   reader.readAsDataURL(img);
@@ -41,4 +41,12 @@ export const beforeUpload = (file: any) => {
     message.error('Image must smaller than 2MB!');
   }
   return isJpgOrPng && isLt2M;
+}
+
+export const randomColor = () =>{
+  const listColor = [
+    '#ffa39e','#ff7875','#ffbb96','#ff9c6e','#ffc069','#a0d911','#faad14','#52c41a','#389e0d','#13c2c2','#08979c', '#1890ff', '#096dd9', '#597ef7', '#10239e','#722ed1', '#f759ab'
+  ]
+  return listColor[Math.floor(Math.random() * listColor.length)];
+
 }

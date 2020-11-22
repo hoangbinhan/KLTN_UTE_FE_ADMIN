@@ -34,10 +34,10 @@ export const DetailOrderProvider: React.FC<Props> = ({ children }) => {
     const provider = {
         order,
         orderChange: async (value: any) => {
-            if(value.orderID){
-                await setOrder({...order, ...value})
+            if (value.orderID) {
+                await setOrder({ ...order, ...value })
             }
-            else{
+            else {
                 let temp = await { [Object.keys(value)[0]]: Object.values(value)[0] }
                 await setOrder({ ...order, ...temp })
             }
@@ -47,7 +47,6 @@ export const DetailOrderProvider: React.FC<Props> = ({ children }) => {
             if (!productsInvoice || !customerDetail || !paymentDetail || !totalDetail) {
                 message.warning('Please fill full data!')
             } else {
-                console.log('value :>> ', value);
                 dispatch(addNewOrder({
                     data: value,
                     cbSuccess: () => {
