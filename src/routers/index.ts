@@ -13,6 +13,8 @@ import Orders from '@/pages/OrdersPage';
 import DetailOrderPage from '@/pages/DetailOrderPage';
 import CustomersPage from '@/pages/CustomersPage'
 import ShippingMethods from '@/pages/ShippingMethods'
+import StaffPage from '@/pages/StaffPage'
+import DetailStaffPage from '@/pages/DetailStaffPage'
 /**
  * define main pages routes
  */
@@ -89,7 +91,19 @@ const routers: ROUTERS = [
     pageName: CONSTANTS.PAGE_NAME.SHIPPING_METHODS,
     exact: true,
     component: ShippingMethods
-  }
+  },
+  {
+    path: CONSTANTS.ROUTERS.STAFF,
+    pageName: CONSTANTS.PAGE_NAME.STAFF,
+    exact: true,
+    component: StaffPage
+  },
+  {
+    path: `${CONSTANTS.ROUTERS.STAFF}/:id`,
+    pageName: CONSTANTS.PAGE_NAME.STAFF,
+    exact: true,
+    component: DetailStaffPage
+  },
 ];
 
 export default routers;

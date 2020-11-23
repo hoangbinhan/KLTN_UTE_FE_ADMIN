@@ -13,7 +13,7 @@ const ProductsFilter = () => {
   const options = ['ALL', 'ACTIVE', 'DISABLE']
   return (
     <div className='product-filter-wrapper'>
-      <FilterControl isSearch={true} isCategory={true} isStatus={options}/>
+      <FilterControl isSearch={true} isCategory={true} isStatus={options} isPrice={true}/>
       <Link
         to={CONSTANTS.ROUTERS.CREATE_PRODUCT}
       >

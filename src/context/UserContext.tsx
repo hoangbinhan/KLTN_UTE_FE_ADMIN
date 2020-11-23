@@ -16,7 +16,7 @@ export const UserProvider: React.FC<Props> = (props) => {
   // const token = localStorage.getItem("token") || "";
   const token = Cookie.get("token") || "";
   const router = useRouter();
-  if (token) {
+  if(token) {
     let infoToken: any = { username: '', role: "" };
     const tokenObj: any = jwtDecode(token);
     infoToken = {

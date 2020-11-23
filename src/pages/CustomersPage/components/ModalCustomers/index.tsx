@@ -88,7 +88,7 @@ const ModalCustomers: React.FC<Props> = (props) => {
       <Modal
         centered
         visible={visible}
-        title='Create a new collection'
+        title='Create a new Customer'
         okText='Submit'
         cancelText='Cancel'
         onCancel={handleCancel}

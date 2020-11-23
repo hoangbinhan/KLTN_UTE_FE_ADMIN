@@ -19,8 +19,8 @@ export const columns = [
   },
   {
     title: 'Category',
-    dataIndex: 'model',
-    render: (model: any) => model?.map((item: any) => <Tag color={randomColor()}>{item.categoryName}</Tag>)
+    dataIndex: 'category',
+    render: (category: any) => category?.map((item: any) => <Tag color={randomColor()}>{item}</Tag>)
   },
   {
     title: 'Price',

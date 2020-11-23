@@ -30,18 +30,18 @@ export const SubCatalog = [
       );
     },
   },
-  {
-    id: 'Manufacturers',
-    contentMenu: 'Manufacturers',
-    linkMenu: CONSTANTS.ROUTERS.MANUFACTURERS,
-    get component() {
-      return (
-        <Menu.Item key={this.id}>
-          <Link to={this.linkMenu}>{this.contentMenu}</Link>
-        </Menu.Item>
-      );
-    },
-  },
+  // {
+  //   id: 'Manufacturers',
+  //   contentMenu: 'Manufacturers',
+  //   linkMenu: CONSTANTS.ROUTERS.MANUFACTURERS,
+  //   get component() {
+  //     return (
+  //       <Menu.Item key={this.id}>
+  //         <Link to={this.linkMenu}>{this.contentMenu}</Link>
+  //       </Menu.Item>
+  //     );
+  //   },
+  // },
   {
     id: 'Reviews',
     contentMenu: 'Reviews',
@@ -81,42 +81,42 @@ export const SubSales = [
       );
     },
   },
-  {
-    id: 'Recurring Orders',
-    contentMenu: 'Recurring Orders',
-    linkMenu: CONSTANTS.ROUTERS.RECURRING_ORDERS,
-    get component() {
-      return (
-        <Menu.Item key={this.id}>
-          <Link to={this.linkMenu}>{this.contentMenu}</Link>
-        </Menu.Item>
-      );
-    },
-  },
-  {
-    id: 'Product Returns',
-    contentMenu: 'Product Returns',
-    linkMenu: CONSTANTS.ROUTERS.PRODUCT_RETURNS,
-    get component() {
-      return (
-        <Menu.Item key={this.id}>
-          <Link to={this.linkMenu}>{this.contentMenu}</Link>
-        </Menu.Item>
-      );
-    },
-  },
-  {
-    id: 'Gift Vouchers',
-    contentMenu: 'Gift Vouchers',
-    linkMenu: CONSTANTS.ROUTERS.GIFT_VOUCHERS,
-    get component() {
-      return (
-        <Menu.Item key={this.id}>
-          <Link to={this.linkMenu}>{this.contentMenu}</Link>
-        </Menu.Item>
-      );
-    },
-  },
+  // {
+  //   id: 'Recurring Orders',
+  //   contentMenu: 'Recurring Orders',
+  //   linkMenu: CONSTANTS.ROUTERS.RECURRING_ORDERS,
+  //   get component() {
+  //     return (
+  //       <Menu.Item key={this.id}>
+  //         <Link to={this.linkMenu}>{this.contentMenu}</Link>
+  //       </Menu.Item>
+  //     );
+  //   },
+  // },
+  // {
+  //   id: 'Product Returns',
+  //   contentMenu: 'Product Returns',
+  //   linkMenu: CONSTANTS.ROUTERS.PRODUCT_RETURNS,
+  //   get component() {
+  //     return (
+  //       <Menu.Item key={this.id}>
+  //         <Link to={this.linkMenu}>{this.contentMenu}</Link>
+  //       </Menu.Item>
+  //     );
+  //   },
+  // },
+  // {
+  //   id: 'Gift Vouchers',
+  //   contentMenu: 'Gift Vouchers',
+  //   linkMenu: CONSTANTS.ROUTERS.GIFT_VOUCHERS,
+  //   get component() {
+  //     return (
+  //       <Menu.Item key={this.id}>
+  //         <Link to={this.linkMenu}>{this.contentMenu}</Link>
+  //       </Menu.Item>
+  //     );
+  //   },
+  // },
   {
     id: 'Shipping Methods',
     contentMenu: 'Shipping Methods',

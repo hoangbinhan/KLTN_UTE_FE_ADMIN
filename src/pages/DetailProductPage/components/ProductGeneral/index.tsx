@@ -110,7 +110,7 @@ const ProductGeneral = () => {
       setDataEditor('')
     }
   }, [detailProduct, form, paramProduct])
-  const listOptionCategory = listCategories?.map((item: any) => <Option value={item._id} key={item._id}>{item.categoryName}</Option>)
+  const listOptionCategory = listCategories?.map((item: any) => <Option value={item.categoryName} key={item._id}>{item.categoryName}</Option>)
 
   return (
     <Form form={form} onFinish={createProduct} {...layout} >

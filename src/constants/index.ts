@@ -14,7 +14,8 @@ const CONSTANTS = {
     DETAIL_ORDER: 'Detail Order',
     CUSTOMERS: 'Customers',
     SHIPPING_METHODS: 'Shipping Methods',
-    LOGIN: 'Login'
+    LOGIN: 'Login',
+    STAFF: 'Staff'
   },
   ENDPOINTS,
   ROUTERS,
