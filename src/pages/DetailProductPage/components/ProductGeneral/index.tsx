@@ -103,7 +103,7 @@ const ProductGeneral = () => {
   //get data
   useEffect(() => {
     if (detailProduct && paramProduct) {
-      form.setFieldsValue({ ...detailProduct })
+      form.setFieldsValue({ ...detailProduct, status: detailProduct.status === 'ACTIVE' ? true : false })
       setDataEditor(detailProduct.description)
     }
     else {

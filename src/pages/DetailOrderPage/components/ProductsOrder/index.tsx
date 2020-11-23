@@ -1,20 +1,22 @@
 //libs
 import React, { useState, useContext, useEffect } from 'react'
 import { useDispatch } from 'react-redux';
-import { Table, Input } from 'antd';
+import { Table, Input, message } from 'antd';
+import queryString from "query-string";
 //other
 import { columnsProductInvoice, columnsProducts } from '../../DataSrouce/ProductsOrder'
 import './style.scss'
 //context
 import { DetailOrderContext } from '@/context/DetailOrderContext'
 //hooks
-import { useTypedSelector } from '@/hooks';
+import { useRouter, useTypedSelector } from '@/hooks';
 //actions
 import { fetchDataProducts } from '@/actions/Products/FetchDataProducts';
 
 const { Search } = Input;
 
 const ProductsOrder = () => {
+    const router = useRouter()
     const dispatch = useDispatch();
     const [productsInvoice, setProductsInvoice] = useState<Array<any>>([])
     const { order, orderChange } = useContext(DetailOrderContext)
@@ -22,17 +24,21 @@ const ProductsOrder = () => {
         (state) => state.Products.FetchDataProducts
     );
     const handleAddProduct = (e: any, record: any) => {
-        let temp: any[] = [...productsInvoice]
-        const item = { ...record, quantity: 1 }
-        const isAdded = temp.filter((item: any) => item._id === record._id).length
-        if (isAdded) {
-            temp[temp.findIndex(item => item._id === record._id)].quantity++
+        if (record?.status === 'DISABLE') {
+            message.warning('the product is out of stock')
         } else {
-            temp.push(item)
-        }
-        setProductsInvoice([...temp])
-        if (orderChange) {
-            orderChange({ productsInvoice: [...temp] })
+            let temp: any[] = [...productsInvoice]
+            const item = { ...record, quantity: 1 }
+            const isAdded = temp.filter((item: any) => item._id === record._id).length
+            if (isAdded) {
+                temp[temp.findIndex(item => item._id === record._id)].quantity++
+            } else {
+                temp.push(item)
+            }
+            setProductsInvoice([...temp])
+            if (orderChange) {
+                orderChange({ productsInvoice: [...temp] })
+            }
         }
     }
     const handleChangeQuantity = (value: any, record: any) => {
@@ -51,11 +57,12 @@ const ProductsOrder = () => {
             orderChange({ productsInvoice: [...result] })
         }
     }
-    
+
     useEffect(() => {
-        dispatch(fetchDataProducts());
-    }, [dispatch]);
-    const data = listProducts?.map((item: any) => {
+        dispatch(fetchDataProducts({ params: router.query }));
+    }, [dispatch, router.query]);
+
+    const data = listProducts?.data?.map((item: any) => {
         return { ...item, key: item._id }
     })
 
@@ -68,7 +75,19 @@ const ProductsOrder = () => {
                 onSearch={(value) => console.log(value)}
                 className='input-search'
             />
-            <Table columns={columnsProducts(handleAddProduct)} dataSource={data} loading={isLoading} />
+            <Table columns={columnsProducts(handleAddProduct)} dataSource={data} loading={isLoading} pagination={{
+                total: listProducts?.total,
+                pageSize: listProducts?.size,
+                current: listProducts?.page + 1,
+                showSizeChanger: true,
+                pageSizeOptions: ['2', "10", "20", "30", "50", "100"],
+                onChange: (page, pageSize) => {
+                    const currentParam = { ...router.query, page, size: pageSize };
+                    router.push(
+                        `${router.pathname}?${queryString.stringify(currentParam)}`
+                    );
+                }
+            }} />
         </div>
     )
 }

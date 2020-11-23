@@ -15,7 +15,6 @@ const ProductImages = ({ handleChangeImages, defaultImage }) => {
   const handleCancel = () => {
     setState({ ...state, previewVisible: false });
   };
-
   const handlePreview = async (file) => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);

@@ -1,7 +1,7 @@
 //libs
 import React from 'react'
-import { Space, InputNumber, Button, Image, Tag } from 'antd';
-import {formatVND} from '@/utils'
+import { Space, InputNumber, Button, Tag } from 'antd';
+import { formatVND, randomColor } from '@/utils'
 
 
 export const columnsProductInvoice = (handleChangeQuantity: Function, handleChangeDelete: Function) => [
@@ -9,37 +9,27 @@ export const columnsProductInvoice = (handleChangeQuantity: Function, handleChan
         title: 'Product Name',
         dataIndex: 'productName',
         key: 'productName',
-        width: '30%'
-    },
-    {
-        title: 'Model',
-        dataIndex: 'model',
-        key: 'model',
-        render: (item: any) => <p>{item[0]?.categoryName}</p>,
-        width: '15%'
     },
     {
         title: 'Quantity',
         dataIndex: 'quantity',
         key: 'quantity',
         render: ((quantity: number, record: any) => <InputNumber min={1} max={100} value={quantity} onChange={(value) => handleChangeQuantity(value, record)} />),
-        width: '15%'
     },
     {
         title: 'Unit Price',
         dataIndex: 'price',
         key: 'price',
-        width: '15%',
-        render: (price: string)=> formatVND(price, 'VND')
+        render: (price: string) => formatVND(price, 'VND')
     },
     {
         title: 'Total Price',
         dataIndex: 'totalPrice',
         key: 'totalPrice',
-        render: (_: any, record: any) => { 
+        render: (_: any, record: any) => {
             const result = parseInt(record.quantity) * parseFloat(record.price)
-            return formatVND(result.toString(),'VND')},
-        width: '15%'
+            return formatVND(result.toString(), 'VND')
+        },
     },
     {
         title: 'Action',
@@ -49,7 +39,6 @@ export const columnsProductInvoice = (handleChangeQuantity: Function, handleChan
                 <Button type='primary' ghost danger onClick={(e: any) => handleChangeDelete(e, record)}>Delete</Button>
             </Space>
         ),
-        width: '10%'
     },
 ];
 
@@ -59,23 +48,18 @@ export const columnsProducts = (handleAddProduct: Function) => [
         dataIndex: '_id',
     },
     {
-        title: 'Image',
-        dataIndex: 'image',
-        render: (item: any) => <Image width={50} src={item[0]?.imageUrl} />
-    },
-    {
         title: 'Product Name',
         dataIndex: 'productName',
     },
     {
-        title: 'Model',
-        dataIndex: 'model',
-        render: (item: any) => <p>{item[0]?.categoryName}</p>
+        title: 'Category',
+        dataIndex: 'category',
+        render: (category: any) => category?.map((item: any) => <Tag color={randomColor()}>{item}</Tag>)
     },
     {
         title: 'Price',
         dataIndex: 'price',
-        render: (price: string)=> formatVND(price, 'VND')
+        render: (price: string) => formatVND(price, 'VND')
     },
     {
         title: 'Quantity',
@@ -85,10 +69,10 @@ export const columnsProducts = (handleAddProduct: Function) => [
         title: 'Status',
         dataIndex: 'status',
         render: (text: string) => {
-            if (text === "true") {
-                return <Tag color='green'>ACTIVE</Tag>
+            if (text === "ACTIVE") {
+                return <Tag color='green'>{text}</Tag>
             } else {
-                return <Tag color='red'>DISABLE</Tag>
+                return <Tag color='red'>{text}</Tag>
             }
         }
     },
