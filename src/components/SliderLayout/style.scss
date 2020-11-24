@@ -41,3 +41,31 @@
 .site-layout .site-layout-background {
   background: #fff;
 }
+
+.header-dashboard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-control{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: auto;
+  cursor: pointer;
+  &-name{
+    margin:0 1rem;
+  }
+}
+.ant-popover-inner-content{
+  .item-user-control{
+    padding: .5rem 1.2rem;
+   cursor: pointer;
+   transition: all .3s;
+   &:hover{
+     background-color: #f3f3f3;
+   }
+  }
+  
+}

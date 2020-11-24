@@ -5,14 +5,12 @@ import { PageHeader } from 'antd';
 //others
 import './style.scss';
 
-const HeaderPage = () => {
-  return (
-    <PageHeader
-      className='site-page-header'
-      title='Title'
-      subTitle='This is a subtitle'
-    />
-  );
+interface Props {
+  title: string;
+}
+const HeaderPage: React.FC<Props> = (props) => {
+  const { title } = props;
+  return <PageHeader className='site-page-header' title={title} />;
 };
 
 export default HeaderPage;

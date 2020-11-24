@@ -1,6 +1,14 @@
-.widget-dash-board-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
+.widget-dash-board-wrapper{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+@media only screen and (max-width: 1200px){
+    .widget-dash-board-wrapper{
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
 }

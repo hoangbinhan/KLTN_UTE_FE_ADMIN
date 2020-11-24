@@ -1,5 +1,8 @@
+//libs
 import React from 'react';
 import { Line } from '@ant-design/charts';
+//others
+import './style.scss'
 
 const ProductsSaleChart = () => {
   const data = [
@@ -27,7 +30,9 @@ const ProductsSaleChart = () => {
       },
     },
   };
-  return <Line style={{ height: 400, width: 600 }} {...config} />;
+  return <div className='product-sale-chart-wrapper'><Line {...config} /></div>
+
+
 };
 
 export default ProductsSaleChart;

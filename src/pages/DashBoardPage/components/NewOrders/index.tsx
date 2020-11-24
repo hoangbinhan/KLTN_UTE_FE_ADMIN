@@ -1,6 +1,8 @@
 //libs
 import React from 'react';
 import { Table, Button } from 'antd';
+//others
+import './style.scss'
 
 const NewOrders = () => {
   const columns = [
