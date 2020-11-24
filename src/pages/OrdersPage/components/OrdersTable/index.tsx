@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 //components
 import OrdersFilter from '../OrdersFilter'
 //hooks
-import { useTypedSelector } from '@/hooks'
+import { useTypedSelector, useRouter } from '@/hooks'
 //action
 import {fetchDataOrders} from '@/actions/Order/FetchDataOrders'
 //others
@@ -13,15 +13,17 @@ import { columns } from '../../DataSource/OrdersTable'
 
 const OrdersTable = () => {
     const dispatch = useDispatch()
+    const router = useRouter()
     const {listOrders, isLoading} = useTypedSelector(
         (state)=>state.Order.FetchDataOrders
     )
     const {updateSuccess} = useTypedSelector(
         (state)=>state.Order.UpdateStatusOrder
-    )
+    )    
     useEffect(() => {
-        dispatch(fetchDataOrders())
-    }, [dispatch, updateSuccess])
+        dispatch(fetchDataOrders({params: router.query}))
+    }, [dispatch, updateSuccess, router.query])
+
     const data = listOrders?.map((item:any)=>{
         return {...item, key: item._id}
     })

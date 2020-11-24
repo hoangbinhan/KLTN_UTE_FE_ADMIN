@@ -28,7 +28,7 @@ export const columns = [
     {
         title: 'Customer',
         dataIndex: 'customerDetail',
-        render: (customerDetail: any, record: any) => <Tooltip placement="top" title={`${customerDetail[0]?.firstName} ${customerDetail[0]?.lastName}`}>{customerDetail[0]?.phoneNumber}</Tooltip> 
+        render: (customerDetail: any) => <Tooltip placement="top" title={`${customerDetail?.firstName} ${customerDetail?.lastName}`}>{customerDetail?.phoneNumber}</Tooltip> 
     },
     {
         title: 'Status',

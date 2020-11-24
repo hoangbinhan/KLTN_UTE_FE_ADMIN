@@ -41,10 +41,10 @@ const ProductImages = ({ handleChangeImages, defaultImage }) => {
     if(defaultImage?.length>0){
       const fileList = defaultImage.map((item)=>{
         return {
-          uid: item.uid,
-          name: item.uid,
+          uid: item.uid ? item.uid : '',
+          name: item.uid ? item.uid : '',
           status: 'done',
-          url: item.url
+          url: item.url ? item.url : ''
         }
       })
       setState({...state, fileList})

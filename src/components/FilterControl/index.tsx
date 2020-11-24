@@ -18,14 +18,14 @@ interface Props{
 }
 
 const FilterControl:React.FC<Props> = (props) => {
-    const {isSearch, isStatus, isDate, isCategory} = props
+    const {isSearch, isStatus, isDate, isCategory, isPrice} = props
     return (
         <div className='filter-control-wrapper'>
             {isSearch ? <Search/> : <></>}
             {isStatus ? <Status options={isStatus}/> : <></>}
             {isDate ? <Date/> : <></>}
             {isCategory? <Category/> : <></>}
-            {isCategory? <Price/> : <></>}
+            {isPrice? <Price/> : <></>}
         </div>
     )
 }
