@@ -25,18 +25,18 @@ const OrdersTable = () => {
         dispatch(fetchDataOrders({ params: router.query }))
     }, [dispatch, updateSuccess, router.query])
 
-    const data = listOrders?.map((item: any) => {
+    const data = listOrders?.data?.map((item: any) => {
         return { ...item, key: item._id }
     })
     return (
         <>
             <OrdersFilter />
             <Table columns={columns} dataSource={data} loading={isLoading} pagination={{
-                // total: listProducts?.total,
-                // pageSize: listProducts?.size,
-                // current: listProducts?.page + 1,
+                total: listOrders?.total,
+                pageSize: listOrders?.size,
+                current: listOrders?.page + 1,
                 showSizeChanger: true,
-                pageSizeOptions: ["10", "20", "30", "50", "100"],
+                pageSizeOptions: ['2',"10", "20", "30", "50", "100"],
                 onChange: (page, pageSize) => {
                     const currentParam = { ...router.query, page, size: pageSize };
                     router.push(
