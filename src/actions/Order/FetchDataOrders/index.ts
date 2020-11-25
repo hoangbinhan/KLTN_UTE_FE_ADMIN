@@ -14,6 +14,7 @@ export const fetchDataOrders = ({
     url: CONSTANTS.ENDPOINTS.ORDER,
     method: 'GET',
     cbSuccess,
+    params,
     payload: data,
     LOADING_ACTION: TYPES.FETCH_DATA_ORDERS_LOADING,
     SUCCESS_ACTION: TYPES.FETCH_DATA_ORDERS_SUCCESS,

@@ -1,34 +1,19 @@
 //libs
 import React from 'react'
-import { Select, Input, DatePicker, Button } from 'antd'
+import { Button } from 'antd'
 import { Link } from 'react-router-dom'
+//components
+import FilterControl from '@/components/FilterControl'
 //others
 import './style.scss'
 
-const { Search } = Input;
-const { Option } = Select
-const { RangePicker } = DatePicker
 
 
-const OrdersFilter: React.FC = (props) => {
-    const handleChange = (value: any) => {
-        console.log(`selected ${value}`);
-    }
+const OrdersFilter: React.FC = () => {
+    const options:string[] = ['ALL', 'PENDING', 'CONFIRM', 'SHIPPING', 'CANCELED', 'REFUNDED', 'DELIVERED']
     return (
         <div className='order-filter-wrapper'>
-            <div className="order-filter-control">
-                <Search
-                    placeholder='Search...'
-                    onSearch={(value) => console.log(value)}
-                    className='input-search'
-                />
-                <RangePicker className='range-picker' />
-                <Select defaultValue='all' style={{ width: 120 }} onChange={handleChange}>
-                    <Option value='all'>All</Option>
-                    <Option value='enable'>Enable</Option>
-                    <Option value='disable'>Disable</Option>
-                </Select>
-            </div>
+            <FilterControl isSearch={true} isStatus={options} isDate={true} isPrice={true}/>
             <Link to='/detail-order'>
                 <Button type='primary'>Add new</Button>
             </Link>

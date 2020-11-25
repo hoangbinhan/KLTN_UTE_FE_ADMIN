@@ -8,12 +8,17 @@ import { DetailOrderContext } from '@/context/DetailOrderContext'
 //others
 import { columnsOrderItems } from '../../DataSrouce/Total'
 import {formatVND} from '@/utils'
+import { useTypedSelector, useRouter } from '@/hooks'
 
 const { TextArea } = Input
 
 const Totals = () => {
+    const router = useRouter()
     const [isDisable, setIsDisable] = useState(false)
     const [note, setNote] = useState('')
+    const {isLoading} = useTypedSelector(
+        (state)=>state.Order.AddNewOrder
+    )
     const { order, orderChange, submitOrder } = useContext(DetailOrderContext)
     const unitOrder = order.productsInvoice?.reduce((a: any, b: any) => a + parseInt(b.quantity), 0)
     const subTotal = order.productsInvoice?.reduce((a: any, b: any) => a + (parseInt(b.quantity) * parseFloat(b.price)), 0)
@@ -36,10 +41,13 @@ const Totals = () => {
         }
     }
     useEffect(()=>{
-        if(order.totalDetail){
+        // if(order.totalDetail){
+        //     setIsDisable(true)
+        // }
+        if(router.query.id){
             setIsDisable(true)
         }
-    },[order.totalDetail])
+    },[router.query.id])
     return (
         <div className='total-wrapper'>
             <Descriptions layout='vertical' bordered>
@@ -91,8 +99,7 @@ const Totals = () => {
                 </Descriptions.Item>
             </Descriptions>
             {isDisable ? null : <div className="button-submit">
-                <Button style={{ marginRight: '1rem' }}>Reset</Button>
-                <Button type='primary' onClick={onsubmit} >Submit</Button>
+                <Button type='primary' onClick={onsubmit} loading={isLoading}>Submit</Button>
             </div>}
         </div>
     )

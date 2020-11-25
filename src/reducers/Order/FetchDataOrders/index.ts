@@ -23,7 +23,7 @@ export default function (
     case TYPES.FETCH_DATA_ORDERS_SUCCESS:
       return {
         ...state,
-        listOrders: payload.data.data,
+        listOrders: payload.data,
         isLoading: false,
         isError: false,
         error: {},
