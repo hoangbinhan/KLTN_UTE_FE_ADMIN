@@ -32,8 +32,6 @@ const PaymentDetails: React.FC<Props> = () => {
             orderChange({ paymentDetail: temp })
         }
     }
-    // FIX TO HERE
-
     const handleProvinceOnChange = async (value: any, key: any) =>{
         await setDistrict([])
         await setWard([])
@@ -45,7 +43,6 @@ const PaymentDetails: React.FC<Props> = () => {
             orderChange({ paymentDetail: temp })
         }
     }
-
     const handleDistrictOnChange = async (value: any, key:any)=>{
         await setWard([])
         await form.setFieldsValue({ward:undefined})
@@ -96,7 +93,7 @@ const PaymentDetails: React.FC<Props> = () => {
                     </Option>
                 </Select>
             </Form.Item>
-            <Form.Item label='Province/City' name='provinceCity'>
+            {/* <Form.Item label='Province/City' name='provinceCity'>
                 <Select onChange={handleProvinceOnChange} placeholder='select province/city...' disabled={isDisable} >
                     {Object.values(tree).map((item: any) => <Option key={item.code} value={item?.name}>{item?.name}</Option>)}
                 </Select>
@@ -110,7 +107,7 @@ const PaymentDetails: React.FC<Props> = () => {
                 <Select onChange={handleWardOnChange}  placeholder='select ward...' disabled={isDisable}>
                     {Object.values(ward).map((item: any) => <Option key={item.code} value={item?.name}>{item?.name}</Option>)}
                 </Select>
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item label='Address' name='address'>
                 <TextArea rows={4} placeholder='input the address...' disabled={isDisable}/>
             </Form.Item>
