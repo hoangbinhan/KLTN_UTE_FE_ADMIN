@@ -98,17 +98,17 @@ const PaymentDetails: React.FC<Props> = () => {
             </Form.Item>
             <Form.Item label='Province/City' name='provinceCity'>
                 <Select onChange={handleProvinceOnChange} placeholder='select province/city...' disabled={isDisable} >
-                    {Object.values(tree).map((item: any) => <Option key={item.code} value={item.name}>{item.name}</Option>)}
+                    {Object.values(tree).map((item: any) => <Option key={item.code} value={item?.name}>{item?.name}</Option>)}
                 </Select>
             </Form.Item>
             <Form.Item label='District' name='district'>
                 <Select onChange={handleDistrictOnChange} placeholder='select district...' disabled={isDisable}>
-                    {Object.values(district).map((item: any) => <Option key={item.code} value={item.name}>{item.name}</Option>)}
+                    {Object.values(district).map((item: any) => <Option key={item.code} value={item?.name}>{item?.name}</Option>)}
                 </Select>
             </Form.Item>
             <Form.Item label='Ward' name='ward'>
                 <Select onChange={handleWardOnChange}  placeholder='select ward...' disabled={isDisable}>
-                    {Object.values(ward).map((item: any) => <Option key={item.code} value={item.name}>{item.name}</Option>)}
+                    {Object.values(ward).map((item: any) => <Option key={item.code} value={item?.name}>{item?.name}</Option>)}
                 </Select>
             </Form.Item>
             <Form.Item label='Address' name='address'>

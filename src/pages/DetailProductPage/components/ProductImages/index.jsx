@@ -24,7 +24,7 @@ const ProductImages = ({ handleChangeImages, defaultImage }) => {
       previewImage: file.url || file.preview,
       previewVisible: true,
       previewTitle:
-        file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
+        file?.name || file?.url.substring(file.url.lastIndexOf('/') + 1),
     });
   };
   const handleChange = async ({fileList}) => {
