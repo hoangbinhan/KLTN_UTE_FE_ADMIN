@@ -2,47 +2,60 @@
 import React, { useEffect } from 'react';
 import { Table } from 'antd';
 import { useDispatch } from 'react-redux';
+import queryString from "query-string";
 //components
-import CategoriesControl from '../StaffPageControl';
+import StaffControl from '../StaffPageControl';
 //hooks
 import { useRouter, useTypedSelector } from '@/hooks';
 //actions
-import { fetchDataCategories } from '@/actions/Categories/FetchDataCategories';
+import { fetchDataStaff } from '@/actions/Staff/FetchDataStaff';
 //other
 import { columns } from '../../DataSource/StaffColumns';
+import './style.scss'
+//TODO: make search text
 
 const CategoriesTable = () => {
-//   const query = useRouter().query
-//   const dispatch = useDispatch()
-//   const { listCategories, isLoading } = useTypedSelector(
-//     (state) => state.Categories.FetchDataCategories
-//   )
-//   const { isSuccess } = useTypedSelector(
-//     (state) => state.Categories.AddNewCategory
-//   )
-//   const { updateSuccess } = useTypedSelector(
-//     (state) => state.Categories.UpdateCategory
-//   )
-//   const { deleteSuccess } = useTypedSelector(
-//     (state) => state.Categories.DeleteCategory
-//   )
-//   const { isAddChildrenSuccess } = useTypedSelector(
-//     (state) => state.Categories.AddChildrenCategory
-//   )
-//   useEffect(() => {
-//     dispatch(fetchDataCategories({params: query}))
-//   }, [dispatch, isSuccess, updateSuccess, isAddChildrenSuccess, deleteSuccess, query])
-//   const data = listCategories.map((item: any) => {
-//     return { ...item, key: item._id }
-//   })  
+  const router = useRouter()
+  const dispatch = useDispatch()
+  const { listStaff, isLoading } = useTypedSelector(
+    (state) => state.Staff.FetchDataStaff
+  )
+  const { addSuccess } = useTypedSelector(
+    (state) => state.Staff.AddNewStaff
+  )
+  const { updateSuccess } = useTypedSelector(
+    (state) => state.Staff.UpdateStaff
+  )
+  const { deleteSuccess } = useTypedSelector(
+    (state) => state.Staff.DeleteStaff
+  )
+  useEffect(() => {
+    dispatch(fetchDataStaff({ params: router.query }))
+  }, [dispatch, addSuccess, updateSuccess, deleteSuccess, router.query])
+  const data = listStaff?.data?.map((item: any) => {
+    return { ...item, key: item._id }
+  })
   return (
     <>
-      <CategoriesControl />
-      <Table
-        columns={columns}
-        dataSource={[]}
-        // loading={isLoading}
-        pagination={false}
+      <StaffControl />
+      <Table className='staff-table-wrapper' columns={columns} dataSource={data} loading={isLoading} pagination={{
+        total: listStaff?.total,
+        pageSize: listStaff?.size,
+        current: listStaff?.page + 1,
+        showSizeChanger: true,
+        pageSizeOptions: ["10", "20", "30", "50", "100"],
+        onChange: (page, pageSize) => {
+          const currentParam = { ...router.query, page, size: pageSize };
+          router.push(
+            `${router.pathname}?${queryString.stringify(currentParam)}`
+          );
+        },
+      }}
+        onRow={(record, rowIndex) => {
+          return {
+            onClick: event => { router.push(`${router.pathname}/${record._id}`) }, // click row
+          };
+        }}
       />
     </>
   );
