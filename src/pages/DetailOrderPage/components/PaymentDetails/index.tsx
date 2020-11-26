@@ -18,12 +18,12 @@ interface Props {
 }
 
 const PaymentDetails: React.FC<Props> = () => {
-    const param = useRouter().query.id 
+    const param = useRouter().query.id
     const [isDisable, setIsDisable] = useState(false)
     const { order, orderChange } = useContext(DetailOrderContext)
     const [form] = Form.useForm();
     const [district, setDistrict] = useState([])
-    const [ward, setWard] = useState([])    
+    const [ward, setWard] = useState([])
 
     const handleOnChange = async () => {
         let value = await form.getFieldsValue()
@@ -32,10 +32,12 @@ const PaymentDetails: React.FC<Props> = () => {
             orderChange({ paymentDetail: temp })
         }
     }
-    const handleProvinceOnChange = async (value: any, key: any) =>{
+    // FIX TO HERE
+
+    const handleProvinceOnChange = async (value: any, key: any) => {
         await setDistrict([])
         await setWard([])
-        await form.setFieldsValue({district: undefined, ward:undefined})
+        await form.setFieldsValue({ district: undefined, ward: undefined })
         await setDistrict(tree[(key.key)][`quan-huyen`])
         let result = await form.getFieldsValue()
         let temp = { ...result, provinceCity: value, district: undefined, ward: undefined }
@@ -43,9 +45,10 @@ const PaymentDetails: React.FC<Props> = () => {
             orderChange({ paymentDetail: temp })
         }
     }
-    const handleDistrictOnChange = async (value: any, key:any)=>{
+
+    const handleDistrictOnChange = async (value: any, key: any) => {
         await setWard([])
-        await form.setFieldsValue({ward:undefined})
+        await form.setFieldsValue({ ward: undefined })
         await setWard(district[(key.key)][`xa-phuong`])
         let result = await form.getFieldsValue()
         let temp = { ...result, district: value, ward: undefined }
@@ -54,7 +57,7 @@ const PaymentDetails: React.FC<Props> = () => {
         }
     }
 
-    const handleWardOnChange = async (value: any, key: any)=>{
+    const handleWardOnChange = async (value: any, key: any) => {
         let result = await form.getFieldsValue()
         let temp = { ...result, ward: value }
         if (orderChange) {
@@ -62,11 +65,11 @@ const PaymentDetails: React.FC<Props> = () => {
         }
     }
     useEffect(() => {
-        if(!order.paymentDetail){
-        }else{
+        if (!order.paymentDetail) {
+        } else {
             form.setFieldsValue(order.paymentDetail)
         }
-        if(param){
+        if (param) {
             setIsDisable(true)
         }
     }, [form, order.paymentDetail, param])
@@ -93,23 +96,23 @@ const PaymentDetails: React.FC<Props> = () => {
                     </Option>
                 </Select>
             </Form.Item>
-            {/* <Form.Item label='Province/City' name='provinceCity'>
+            <Form.Item label='Province/City' name='provinceCity'>
                 <Select onChange={handleProvinceOnChange} placeholder='select province/city...' disabled={isDisable} >
-                    {Object.values(tree).map((item: any) => <Option key={item.code} value={item?.name}>{item?.name}</Option>)}
+                    {Object.values(tree).map((item: any) => <Option key={item.code} value={item.name}>{item.name}</Option>)}
                 </Select>
             </Form.Item>
             <Form.Item label='District' name='district'>
                 <Select onChange={handleDistrictOnChange} placeholder='select district...' disabled={isDisable}>
-                    {Object.values(district).map((item: any) => <Option key={item.code} value={item?.name}>{item?.name}</Option>)}
+                    {Object.values(district).map((item: any) => <Option key={item.code} value={item.name}>{item.name}</Option>)}
                 </Select>
             </Form.Item>
             <Form.Item label='Ward' name='ward'>
-                <Select onChange={handleWardOnChange}  placeholder='select ward...' disabled={isDisable}>
-                    {Object.values(ward).map((item: any) => <Option key={item.code} value={item?.name}>{item?.name}</Option>)}
+                <Select onChange={handleWardOnChange} placeholder='select ward...' disabled={isDisable}>
+                    {Object.values(ward).map((item: any) => <Option key={item.code} value={item.name}>{item.name}</Option>)}
                 </Select>
-            </Form.Item> */}
+            </Form.Item>
             <Form.Item label='Address' name='address'>
-                <TextArea rows={4} placeholder='input the address...' disabled={isDisable}/>
+                <TextArea rows={4} placeholder='input the address...' disabled={isDisable} />
             </Form.Item>
         </Form>
     )
