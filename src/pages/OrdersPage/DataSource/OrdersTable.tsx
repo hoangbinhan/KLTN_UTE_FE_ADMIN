@@ -8,7 +8,7 @@ import {
     CheckCircleOutlined,
     CloseCircleOutlined,
     ClockCircleOutlined,
-    ExclamationCircleOutlined, 
+    ExclamationCircleOutlined,
     DeliveredProcedureOutlined
 } from '@ant-design/icons';
 //components
@@ -19,16 +19,9 @@ import { formatVND } from '@/utils'
 
 export const columns = [
     {
-        title: 'Order ID',
-        dataIndex: '_id',
-        render: (_id: string)=> <Link to={`${CONSTANTS.ROUTERS.DETAIL_ORDER}/${_id}`}>
-                        {_id}
-                    </Link>
-    },
-    {
         title: 'Customer',
         dataIndex: 'customerDetail',
-        render: (customerDetail: any) => <Tooltip placement="top" title={`${customerDetail?.firstName} ${customerDetail?.lastName}`}>{customerDetail?.phoneNumber}</Tooltip> 
+        render: (customerDetail: any) => <Tooltip placement="top" title={`${customerDetail?.firstName} ${customerDetail?.lastName}`}>{customerDetail?.phoneNumber}</Tooltip>
     },
     {
         title: 'Status',

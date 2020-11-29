@@ -1,22 +1,28 @@
 //libs
-import React from 'react'
-import { Avatar, Form, Input, Button, Switch } from 'antd';
+import React, { useEffect, useState } from 'react'
+import { Avatar, Form, Input, Button, Switch, message } from 'antd';
 import { UserOutlined, CloseOutlined, CheckOutlined } from '@ant-design/icons';
+import { useDispatch } from 'react-redux';
+//actions
+import { updateStaff } from '@/actions/Staff/UpdateStaff'
+//hooks
+import { useRouter, useTypedSelector } from '@/hooks';
 //others
 import './style.scss'
+import CONSTANTS from '@/constants'
 
-const {TextArea} = Input
+const { TextArea } = Input
 
 const formItemLayout = {
     labelCol: {
-      xs: { span: 24 },
-      sm: { span: 8 },
+        xs: { span: 24 },
+        sm: { span: 8 },
     },
     wrapperCol: {
-      xs: { span: 8 },
-      sm: { span: 8 },
+        xs: { span: 8 },
+        sm: { span: 8 },
     },
-  };
+};
 
 const tailFormItemLayout = {
     wrapperCol: {
@@ -32,35 +38,50 @@ const tailFormItemLayout = {
 }
 
 const Information = () => {
+    const router = useRouter()
+    const dispatch = useDispatch()
     const [form] = Form.useForm();
-    const onFinish = (values:any) => {
-        console.log('Received values of form: ', values);
+    const { detailStaff } = useTypedSelector(
+        (state) => state.Staff.FetchDetailStaff
+    )
+    const [confirmLoading, setConfirmLoading] = useState(false);
+
+    useEffect(() => {
+        if (detailStaff) {
+            form.setFieldsValue(detailStaff)
+        }
+    }, [detailStaff, form])
+
+    const onFinish = (values: any) => {
+        const payload = { ...values, id: detailStaff._id }
+        dispatch(updateStaff({
+            data: payload,
+            cbSuccess: () => {
+                form.resetFields();
+                setConfirmLoading(false)
+                message.success('Update Staff Information success')
+                router.push(CONSTANTS.ROUTERS.STAFF)
+            },
+            cbError: () => {
+                setConfirmLoading(false)
+                message.error('Update Staff Information Fail')
+            }
+        }))
     };
+
     return (
         <div className='information-wrapper'>
-            <Avatar icon={<UserOutlined/>} size={128} style={{marginBottom:'1rem'}}/>
+            <Avatar icon={<UserOutlined />} size={128} style={{ marginBottom: '1rem' }} />
             <Form form={form} onFinish={onFinish} {...formItemLayout}>
-                <Form.Item name='status' label='Status'>
+                <Form.Item name='status' label='Status' valuePropName="checked">
                     <Switch
-                    checkedChildren={<CheckOutlined />}
-                    unCheckedChildren={<CloseOutlined />}
-                    defaultChecked
+                        checkedChildren={<CheckOutlined />}
+                        unCheckedChildren={<CloseOutlined />}
+                        defaultChecked
                     />
                 </Form.Item>
                 <Form.Item
-                    name="employeeCode"
-                    label="Employee Code"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your Employee Code!',
-                        }
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
-                <Form.Item
-                    name="userName"
+                    name="username"
                     label="User Name"
                     rules={[
                         {
@@ -111,7 +132,7 @@ const Information = () => {
                     name="address"
                     label="Address"
                 >
-                    <TextArea rows={4}/>
+                    <TextArea rows={4} />
                 </Form.Item>
                 <Form.Item
                     name="email"
@@ -130,7 +151,7 @@ const Information = () => {
                     <Input />
                 </Form.Item>
                 <Form.Item {...tailFormItemLayout}>
-                    <Button type="primary" htmlType="submit">Submit</Button>
+                    <Button type="primary" htmlType="submit" loading={confirmLoading}>Submit</Button>
                 </Form.Item>
             </Form>
         </div>

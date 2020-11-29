@@ -5,10 +5,6 @@ import ActionShippingMethod from '../components/ActionShippingMethod'
 
 export const columns = [
     {
-        title: 'id',
-        dataIndex: '_id'
-    },
-    {
         title: 'Shipping Method',
         dataIndex: 'shippingMethod'
     },
@@ -19,10 +15,10 @@ export const columns = [
     {
         title: 'Status',
         dataIndex: 'status',
-        render: (text:string)=>{
-            if(text==='ACTIVE'){
+        render: (text: string) => {
+            if (text === 'ACTIVE') {
                 return <Tag color='green'>{text}</Tag>
-            }else{
+            } else {
                 return <Tag color='red'>{text}</Tag>
             }
         }
@@ -31,7 +27,7 @@ export const columns = [
         title: 'Action',
         dataIndex: 'action',
         render: (_: any, record: any) => (
-            <ActionShippingMethod record={record}/>
+            <ActionShippingMethod record={record} />
         )
     }
 ]

@@ -53,9 +53,14 @@ const CategoriesTable = () => {
       }}
         onRow={(record, rowIndex) => {
           return {
-            onClick: event => { router.push(`${router.pathname}/${record._id}`) }, // click row
-          };
+            onClick: event => { router.push(`${router.pathname}/${record._id}`) },
+            onMouseEnter: event => {
+              event.currentTarget.style.background = "rgba(8, 151, 156, 0.2)"
+            },
+            onMouseLeave: event => { event.currentTarget.style.background = 'white' }
+          }
         }}
+
       />
     </>
   );

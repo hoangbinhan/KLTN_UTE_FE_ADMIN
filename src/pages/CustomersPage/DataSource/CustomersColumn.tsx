@@ -6,10 +6,6 @@ import ActionCustomer from '../components/ActionCustomer'
 
 export const columns = [
   {
-    title: 'ID',
-    dataIndex: '_id',
-  },
-  {
     title: 'Phone Number',
     dataIndex: 'phoneNumber',
   },
