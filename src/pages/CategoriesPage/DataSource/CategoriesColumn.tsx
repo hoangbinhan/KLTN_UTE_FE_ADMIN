@@ -6,10 +6,6 @@ import ActionCategories from '../components/ActionCategories';
 
 export const columns = [
   {
-    title: 'ID',
-    dataIndex: '_id',
-  },
-  {
     title: 'Icon',
     dataIndex: 'imageUrl',
     render: (url: string) => <Image width={50} src={url} />

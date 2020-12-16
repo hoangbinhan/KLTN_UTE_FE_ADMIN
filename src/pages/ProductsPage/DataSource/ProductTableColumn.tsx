@@ -9,11 +9,6 @@ import { formatVND, randomColor } from '@/utils'
 
 export const columns = [
   {
-    title: 'ID',
-    dataIndex: '_id',
-  },
-
-  {
     title: 'Product Name',
     dataIndex: 'productName',
   },

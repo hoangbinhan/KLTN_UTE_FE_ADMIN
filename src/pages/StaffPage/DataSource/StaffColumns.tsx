@@ -21,10 +21,6 @@ export const columns = [
     dataIndex: 'username',
   },
   {
-    title: 'Employee Code',
-    dataIndex: '_id',
-  },
-  {
     title: 'Name',
     dataIndex: 'name',
     render: (_: any, record: any) => `${record.firstName} ${record.lastName}`
