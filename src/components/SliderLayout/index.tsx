@@ -15,7 +15,7 @@ import './style.scss';
 import { MenuItem } from './DataSource/MenuItem';
 import { renderListSubMenu } from '@/utils/Dashboard';
 //hooks
-import {useRouter} from '@/hooks/useRouter'
+import { useRouter } from '@/hooks/useRouter'
 
 const { Header, Sider, Content } = Layout;
 
@@ -25,7 +25,7 @@ const SliderLayout = ({ children }: { children: JSX.Element }) => {
   const toggle = () => {
     setCollapsed(!collapsed);
   };
-  const onLogout = async () =>{
+  const onLogout = async () => {
     await Cookie.remove('refresh_token')
     await Cookie.remove('token')
     await router.push('/login')
@@ -33,20 +33,21 @@ const SliderLayout = ({ children }: { children: JSX.Element }) => {
   const content = (
     <Menu>
       <Menu.Item>
-        <div className='item-user-control'><ExceptionOutlined style={{marginRight: '.3rem'}}/>Infomation</div>
+        <div className='item-user-control'><ExceptionOutlined style={{ marginRight: '.3rem' }} />Infomation</div>
       </Menu.Item>
       <Menu.Item>
-        <div className='item-user-control'><SettingOutlined style={{marginRight: '.3rem'}}/>Change Password</div>
+        <div className='item-user-control'><SettingOutlined style={{ marginRight: '.3rem' }} />Change Password</div>
       </Menu.Item>
       <Menu.Item>
-        <div className='item-user-control' onClick={onLogout}><LogoutOutlined style={{marginRight: '.3rem'}}/>Logout</div>
+        <div className='item-user-control' onClick={onLogout}><LogoutOutlined style={{ marginRight: '.3rem' }} />Logout</div>
       </Menu.Item>
     </Menu>
-  );  
+  );
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className='logo' />
+        <div className='logo'>
+        </div>
         <Menu theme='dark' mode='inline' defaultSelectedKeys={['1']}>
           {renderListSubMenu(MenuItem)}
         </Menu>

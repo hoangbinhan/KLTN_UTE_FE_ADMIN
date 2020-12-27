@@ -4,6 +4,7 @@ import React from 'react';
 import NewsFeed from './components/NewsFeed';
 import RecentTransaction from './components/RecentTransactions';
 import WidgetDashBoard from './components/WidgetDashBoard';
+
 //others
 import './style.scss'
 
