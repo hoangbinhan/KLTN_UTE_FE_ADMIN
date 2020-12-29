@@ -1,5 +1,6 @@
 //Libs
 import React from 'react';
+import { Card } from 'antd'
 import {
   HeartOutlined,
   PieChartOutlined,
@@ -8,54 +9,62 @@ import {
 } from '@ant-design/icons';
 
 //components
-import CardDashBoard from '../CardDashBoard';
 //others
 import './style.scss';
 
-const data = [
-  {
-    title: 'Products Sold',
-    description: '580',
-    icon: <ShoppingCartOutlined style={{ fontSize: 50, color: '#1e9ff2' }} />,
-    color: '#1e9ff2',
-  },
-  {
-    title: 'Profit',
-    description: '748',
-    icon: <PieChartOutlined style={{ fontSize: 50, color: '#ff9149' }} />,
-    color: '#ff9149',
-  },
-  {
-    title: 'New Customers',
-    description: '150',
-    icon: <UserAddOutlined style={{ fontSize: 50, color: '#28d094' }} />,
-    color: '#28d094',
-  },
-  {
-    title: 'Customer Satisfaction',
-    description: '99.89 %',
-    icon: <HeartOutlined style={{ fontSize: 50, color: '#1e9ff2' }} />,
-    color: '#1e9ff2',
-  },
-];
+interface Props {
+  data: any
+}
 
-const WidgetDashBoard = () => {
+const WidgetDashBoard: React.FC<Props> = ({ data }) => {
   return (
     <div className='widget-dash-board-wrapper'>
-      {data.map((item: any, index: number) => {
-        const { title, description, icon, color } = item;
-        return (
-          <CardDashBoard
-            key={index}
-            title={title}
-            description={description}
-            icon={icon}
-            color={color}
-          />
-        );
-      })}
-    </div>
+      <Card className='card-dash-board-wrapper' hoverable>
+        <div className='content'>
+          <div className='info'>
+            <div className='description' style={{ color: '#1e9ff2' }}>
+              {data?.orderComplete}
+            </div>
+            <div className='title'>Order Complete</div>
+          </div>
+          <ShoppingCartOutlined style={{ fontSize: 50, color: '#1e9ff2' }} />
+        </div>
+      </Card>
+      <Card className='card-dash-board-wrapper' hoverable>
+        <div className='content'>
+          <div className='info'>
+            <div className='description' style={{ color: '#ff9149' }}>
+              {data?.profit}
+            </div>
+            <div className='title'>Profit</div>
+          </div>
+          <PieChartOutlined style={{ fontSize: 50, color: '#ff9149' }} />
+        </div>
+      </Card>
+      <Card className='card-dash-board-wrapper' hoverable>
+        <div className='content'>
+          <div className='info'>
+            <div className='description' style={{ color: '#28d094' }}>
+              {data?.newCustomer}
+            </div>
+            <div className='title'>New Customers</div>
+          </div>
+          <UserAddOutlined style={{ fontSize: 50, color: '#28d094' }} />
+        </div>
+      </Card>
+      <Card className='card-dash-board-wrapper' hoverable>
+        <div className='content'>
+          <div className='info'>
+            <div className='description' style={{ color: '#1e9ff2' }}>
+              {data?.customerSatisfaction}
+            </div>
+            <div className='title'>Customer Satisfaction</div>
+          </div>
+          <HeartOutlined style={{ fontSize: 50, color: '#1e9ff2' }} />
+        </div>
+      </Card>
+    </div >
   );
 };
 
-export default WidgetDashBoard;
+export default React.memo(WidgetDashBoard);
