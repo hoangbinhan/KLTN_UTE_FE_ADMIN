@@ -1,38 +1,38 @@
 //libs
-import React from 'react';
-import { Table, Button } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Table } from 'antd';
+import axios from 'axios'
+import { baseUrl } from '@/configs/enviroments'
 //others
 import './style.scss'
 
-const NewOrders = () => {
-  const columns = [
-    {
-      title: 'Product',
-      dataIndex: 'product',
-    },
-    {
-      title: 'Customers',
-      dataIndex: 'customer',
-    },
-    {
-      title: 'Total',
-      dataIndex: 'toal',
-    },
-  ];
+const columns = [
+  {
+    title: 'STT',
+    dataIndex: 'key'
+  },
+  {
+    title: 'Name',
+    dataIndex: 'name'
+  },
+  {
+    title: 'Total',
+    dataIndex: 'total'
+  },
+]
 
-  let data = [];
-  for (let i = 0; i < 5; i++) {
-    data.push({
-      key: i,
-      Product: `iphone X`,
-      Customers: `John`,
-      address: `${i}`,
-    });
-  }
+const NewOrders = () => {
+  const [data, setData] = useState([] as any)
+  useEffect(() => {
+    axios.get(`${baseUrl}/api/dashboard/get-gold-customer`).then((res: any) => {
+      setData(res.data.data)
+    }).catch((err: any) => console.log(err.message))
+  }, [])
+
+
   return (
     <div className='new-orders-wrapper'>
-      <Button type='primary'>Reload</Button>
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={data} pagination={false} />
     </div>
   );
 };
