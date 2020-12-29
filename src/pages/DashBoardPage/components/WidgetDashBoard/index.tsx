@@ -1,5 +1,5 @@
 //Libs
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Card } from 'antd'
 import {
   HeartOutlined,
@@ -7,29 +7,23 @@ import {
   ShoppingCartOutlined,
   UserAddOutlined,
 } from '@ant-design/icons';
-import { io } from 'socket.io-client';
-import { baseUrl } from '@/configs/enviroments'
+
 //components
 //others
 import './style.scss';
 
-const WidgetDashBoard = () => {
-  const [data, setData] = useState([] as any)
-  useEffect(() => {
-    const socket = io(`${baseUrl}/api/dashboard`)
-    socket.on('getWidget', (data: any) => {
-      console.log(data);
+interface Props {
+  data: any
+}
 
-      setData(data)
-    })
-  }, [])
+const WidgetDashBoard: React.FC<Props> = ({ data }) => {
   return (
     <div className='widget-dash-board-wrapper'>
       <Card className='card-dash-board-wrapper' hoverable>
         <div className='content'>
           <div className='info'>
             <div className='description' style={{ color: '#1e9ff2' }}>
-              {data.orderComplete}
+              {data?.orderComplete}
             </div>
             <div className='title'>Order Complete</div>
           </div>
@@ -40,7 +34,7 @@ const WidgetDashBoard = () => {
         <div className='content'>
           <div className='info'>
             <div className='description' style={{ color: '#ff9149' }}>
-              {data.profit}
+              {data?.profit}
             </div>
             <div className='title'>Profit</div>
           </div>
@@ -51,7 +45,7 @@ const WidgetDashBoard = () => {
         <div className='content'>
           <div className='info'>
             <div className='description' style={{ color: '#28d094' }}>
-              {data.newCustomer}
+              {data?.newCustomer}
             </div>
             <div className='title'>New Customers</div>
           </div>
@@ -62,7 +56,7 @@ const WidgetDashBoard = () => {
         <div className='content'>
           <div className='info'>
             <div className='description' style={{ color: '#1e9ff2' }}>
-              {data.customerSatisfaction}
+              {data?.customerSatisfaction}
             </div>
             <div className='title'>Customer Satisfaction</div>
           </div>
@@ -73,4 +67,4 @@ const WidgetDashBoard = () => {
   );
 };
 
-export default WidgetDashBoard;
+export default React.memo(WidgetDashBoard);
