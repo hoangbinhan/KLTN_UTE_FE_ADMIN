@@ -31,10 +31,6 @@ export const columns = [
     }
   },
   {
-    title: 'Url',
-    dataIndex: 'link'
-  },
-  {
     title: 'Action',
     dataIndex: 'action',
     render: (_: any, record: any) => (
