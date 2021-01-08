@@ -40,6 +40,7 @@ const ProductGeneral = () => {
   const [form] = Form.useForm();
   const [isLoading, setIsLoading] = useState(false)
   const [dataEditor, setDataEditor] = useState('')
+  const [dataDetailOrder, setDataDetailOrder] = useState('')
   const paramProduct = router.query.id
   const handleChangeImages = (values: []) => {
     form.setFieldsValue({ picture: values })
@@ -105,9 +106,11 @@ const ProductGeneral = () => {
     if (detailProduct && paramProduct) {
       form.setFieldsValue({ ...detailProduct, status: detailProduct.status === 'ACTIVE' ? true : false })
       setDataEditor(detailProduct.description)
+      setDataDetailOrder(detailProduct.detailDescription)
     }
     else {
       setDataEditor('')
+      setDataDetailOrder('')
     }
   }, [detailProduct, form, paramProduct])
   const listOptionCategory = listCategories?.map((item: any) => <Option value={item.categoryName} key={item._id}>{item.categoryName}</Option>)
@@ -127,11 +130,10 @@ const ProductGeneral = () => {
       >
         <CKEditor
           editor={ClassicEditor}
-          data={dataEditor}
+          data={dataEditor || " "}
           onChange={(event: any, editor: any) => {
             form.setFieldsValue({ description: editor.getData() })
           }}
-          className='ck-editor__editable'
         />
       </Form.Item>
       <Form.Item name='quantity' label='Quantity' rules={[{ required: true }]}>
@@ -161,6 +163,18 @@ const ProductGeneral = () => {
       </Form.Item>
       <Form.Item name='picture' label='Picture'>
         <ProductImages handleChangeImages={handleChangeImages} defaultImage={detailProduct ? detailProduct?.image : {}} />
+      </Form.Item>
+      <Form.Item
+        name='detailDescription'
+        label='Detail Description'
+      >
+        <CKEditor
+          editor={ClassicEditor}
+          data={dataDetailOrder || " "}
+          onChange={(event: any, editorTwo: any) => {
+            form.setFieldsValue({ detailDescription: editorTwo.getData() })
+          }}
+        />
       </Form.Item>
       <Form.Item {...tailLayout}>
         <Button type='primary' htmlType='submit' loading={isLoading}>Submit</Button>

@@ -31,12 +31,12 @@ const OrdersTable = () => {
     return (
         <>
             <OrdersFilter />
-            <Table columns={columns} dataSource={data} loading={isLoading} pagination={{
+            <Table columns={columns()} dataSource={data} loading={isLoading} pagination={{
                 total: listOrders?.total,
                 pageSize: listOrders?.size,
                 current: listOrders?.page + 1,
                 showSizeChanger: true,
-                pageSizeOptions: ['2',"10", "20", "30", "50", "100"],
+                pageSizeOptions: ['2', "10", "20", "30", "50", "100"],
                 onChange: (page, pageSize) => {
                     const currentParam = { ...router.query, page, size: pageSize };
                     router.push(

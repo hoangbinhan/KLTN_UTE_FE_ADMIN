@@ -4,7 +4,7 @@ import { Space, InputNumber, Button, Tag } from 'antd';
 import { formatVND, randomColor } from '@/utils'
 
 
-export const columnsProductInvoice = (handleChangeQuantity: Function, handleChangeDelete: Function) => [
+export const columnsProductInvoice = (handleChangeQuantity: Function, handleChangeDelete: Function, paramOrder: String) => [
     {
         title: 'Product Name',
         dataIndex: 'productName',
@@ -34,12 +34,17 @@ export const columnsProductInvoice = (handleChangeQuantity: Function, handleChan
     {
         title: 'Action',
         key: 'action',
-        render: (text: string, record: any) => (
-            <Space size="middle">
-                <Button type='primary' ghost danger onClick={(e: any) => handleChangeDelete(e, record)}>Delete</Button>
-            </Space>
-        ),
-    },
+        render: (text: string, record: any) => {
+            if (paramOrder) {
+                return <></>
+            }
+            return (
+                <Space size="middle" >
+                    <Button type='primary' ghost danger onClick={(e: any) => handleChangeDelete(e, record)}>Delete</Button>
+                </Space >
+            )
+        }
+    }
 ];
 
 export const columnsProducts = (handleAddProduct: Function) => [

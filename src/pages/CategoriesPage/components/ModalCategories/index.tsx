@@ -24,7 +24,7 @@ const ModalCategories: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
   const [confirmLoading, setConfirmLoading] = useState(false);
   useEffect(() => {
-    if(record){
+    if (record) {
       form.setFieldsValue({
         categoryName: record?.categoryName,
         sortOrder: record?.sortOrder,
@@ -61,7 +61,7 @@ const ModalCategories: React.FC<Props> = (props) => {
             setConfirmLoading(false)
             message.success('Add new category success')
           },
-          cbError: ()=>{
+          cbError: () => {
             message.error('ERROR')
             setConfirmLoading(false)
           }
@@ -146,7 +146,7 @@ const ModalCategories: React.FC<Props> = (props) => {
           >
             <Input type='number' />
           </Form.Item>
-          <Form.Item
+          {/* <Form.Item
             name='link'
             label='Url'
             rules={[
@@ -157,7 +157,7 @@ const ModalCategories: React.FC<Props> = (props) => {
             ]}
           >
             <Input />
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item
             name="upload"
             label="Upload"
