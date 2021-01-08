@@ -42,30 +42,30 @@ export const SubCatalog = [
   //     );
   //   },
   // },
-  {
-    id: 'Reviews',
-    contentMenu: 'Reviews',
-    linkMenu: CONSTANTS.ROUTERS.REVIEWS,
-    get component() {
-      return (
-        <Menu.Item key={this.id}>
-          <Link to={this.linkMenu}>{this.contentMenu}</Link>
-        </Menu.Item>
-      );
-    },
-  },
-  {
-    id: 'Information',
-    contentMenu: 'Information',
-    linkMenu: CONSTANTS.ROUTERS.INFORMATION,
-    get component() {
-      return (
-        <Menu.Item key={this.id}>
-          <Link to={this.linkMenu}>{this.contentMenu}</Link>
-        </Menu.Item>
-      );
-    },
-  },
+  // {
+  //   id: 'Reviews',
+  //   contentMenu: 'Reviews',
+  //   linkMenu: CONSTANTS.ROUTERS.REVIEWS,
+  //   get component() {
+  //     return (
+  //       <Menu.Item key={this.id}>
+  //         <Link to={this.linkMenu}>{this.contentMenu}</Link>
+  //       </Menu.Item>
+  //     );
+  //   },
+  // },
+  // {
+  //   id: 'Information',
+  //   contentMenu: 'Information',
+  //   linkMenu: CONSTANTS.ROUTERS.INFORMATION,
+  //   get component() {
+  //     return (
+  //       <Menu.Item key={this.id}>
+  //         <Link to={this.linkMenu}>{this.contentMenu}</Link>
+  //       </Menu.Item>
+  //     );
+  //   },
+  // },
 ];
 
 export const SubSales = [

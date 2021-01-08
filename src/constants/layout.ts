@@ -1,9 +1,10 @@
 export const layoutForm = {
     labelCol: {
-      span: 2,
-      offset: 4
+      span: 4,
+      offset: 2
     },
     wrapperCol: {
+      offset: 1,
       span: 12,
     }
   }
